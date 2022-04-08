@@ -67,7 +67,7 @@ namespace LNUSchedule.PersistenceLayer.Repositories
             return GetValueWithInclude(includeProperties).Where(selector).ToList();
         }
 
-        
+
         public IEnumerable<TEntity> SelectAllWithInclude(
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
