@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace LNUSchedule.PersistenceLayer.Repositories
 {
@@ -7,12 +8,22 @@ namespace LNUSchedule.PersistenceLayer.Repositories
         private readonly DbContext _dataBaseContext;
 
         
-        private readonly DbSet<TEntity> _entities;
+        private readonly DbSet<TEntity> _entitiesDataSet;
         
+
+        private IQueryable<TEntity> GetValueWithInclude(
+            params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> querriedEntities = _entitiesDataSet.AsNoTracking();
+            return includeProperties
+                .Aggregate(querriedEntities, (current, includeProperty) 
+                => current.Include(includeProperty));
+        }
+
 
         public void Add(TEntity entity)
         {
-            _entities.Add(entity);
+            _entitiesDataSet.Add(entity);
             _dataBaseContext.SaveChanges();
         }
 
@@ -26,33 +37,48 @@ namespace LNUSchedule.PersistenceLayer.Repositories
 
         public void Delete(TEntity entity)
         {
-            _entities.Remove(entity);
+            _entitiesDataSet.Remove(entity);
             _dataBaseContext.SaveChanges();
         }
 
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _entities.AsNoTracking().ToList();
+            return _entitiesDataSet.AsNoTracking().ToList();
         }
 
 
         public TEntity? Select(Func<TEntity, bool> selector)
         {
-            return _entities.FirstOrDefault(selector);
+            return _entitiesDataSet.FirstOrDefault(selector);
         }
 
 
         public IEnumerable<TEntity> SelectAll(Func<TEntity, bool> selector)
         {
-            return _entities.AsNoTracking().Where(selector);
+            return _entitiesDataSet.AsNoTracking().Where(selector);
+        }
+
+
+        public IEnumerable<TEntity> SelectWithInclude(
+            Func<TEntity, bool> selector,
+            params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return GetValueWithInclude(includeProperties).Where(selector).ToList();
+        }
+
+        
+        public IEnumerable<TEntity> SelectAllWithInclude(
+            params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return GetValueWithInclude(includeProperties).ToList();
         }
 
 
         public Repository(DbContext context)
         {
             _dataBaseContext = context;
-            _entities = context.Set<TEntity>();
+            _entitiesDataSet = context.Set<TEntity>();
         }
     }
 }
