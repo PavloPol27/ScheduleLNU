@@ -2,7 +2,7 @@
 
 namespace LNUSchedule.PersistenceLayer.Models
 {
-    public class Theme
+    public class Theme : IEntity
     {
         [Key]
         public string Title { get; set; } = string.Empty;
