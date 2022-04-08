@@ -42,7 +42,7 @@ namespace LNUSchedule.PersistenceLayer.Repositories
         }
 
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> Select()
         {
             return _entitiesDataSet.AsNoTracking().ToList();
         }

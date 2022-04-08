@@ -1,6 +1,4 @@
-﻿using LNUSchedule.PersistenceLayer.Models;
-
-namespace LNUSchedule.PersistenceLayer.Repositories
+﻿namespace LNUSchedule.PersistenceLayer.Repositories
 {
     public interface IRepository<TEntity>  where TEntity : class
     {
@@ -16,7 +14,7 @@ namespace LNUSchedule.PersistenceLayer.Repositories
         TEntity? Select(Func<TEntity, bool> selector);
         
 
-        IEnumerable<TEntity> GetAll();
+        IEnumerable<TEntity> Select();
 
 
         IEnumerable<TEntity> SelectAll(Func<TEntity, bool> selector);
