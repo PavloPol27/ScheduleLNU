@@ -2,7 +2,7 @@
 
 namespace LNUSchedule.PersistenceLayer.Repositories
 {
-    public interface IRepository<TEntity>  where TEntity : IEntity
+    public interface IRepository<TEntity>  where TEntity : class
     {
         void Add(TEntity entity);
 
@@ -13,12 +13,12 @@ namespace LNUSchedule.PersistenceLayer.Repositories
         void Delete(TEntity entity);
 
 
-        TEntity Select(Predicate<TEntity> selector);
+        TEntity? Select(Func<TEntity, bool> selector);
         
 
         IEnumerable<TEntity> GetAll();
 
 
-        IEnumerable<TEntity> SelectAll(Predicate<TEntity> selector);
+        IEnumerable<TEntity> SelectAll(Func<TEntity, bool> selector);
     }
 }
