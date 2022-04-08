@@ -27,14 +27,15 @@ namespace WebAPI
 
             ConfigureDbServices(services);
             services.AddScoped<IStudentService, StudentService>();
-
+            services.AddRazorPages();
             services.AddHttpClient();
         }
 
         private void ConfigureDbServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IRepository<Student>, Repository<Student>>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
