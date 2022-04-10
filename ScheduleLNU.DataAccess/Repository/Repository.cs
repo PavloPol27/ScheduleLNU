@@ -33,7 +33,7 @@ namespace ScheduleLNU.DataAccess.Repository
 
         public void Update(TEntity entity)
         {
-            _dataBaseContext.Entry(entity).State = EntityState.Modified;
+            _dataBaseContext.Attach(entity).State = EntityState.Modified;
             _dataBaseContext.SaveChanges();
         }
 
@@ -51,13 +51,13 @@ namespace ScheduleLNU.DataAccess.Repository
         }
 
 
-        public TEntity Select(Func<TEntity, bool> selector)
+        public TEntity Select(Expression<Func<TEntity, bool>> selector)
         {
             return _entitiesDataSet.FirstOrDefault(selector);
         }
 
 
-        public IEnumerable<TEntity> SelectAll(Func<TEntity, bool> selector)
+        public IEnumerable<TEntity> SelectAll(Expression<Func<TEntity, bool>> selector)
         {
             return _entitiesDataSet.AsNoTracking().Where(selector);
         }

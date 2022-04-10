@@ -4,6 +4,9 @@ namespace ScheduleLNU.DataAccess.Entities
 {
     public class Schedule
     {
+        public int Id { get; set; }
+
+
         public string Title { get; set; } = string.Empty;
 
 

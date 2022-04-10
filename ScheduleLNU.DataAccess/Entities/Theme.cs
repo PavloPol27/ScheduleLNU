@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ScheduleLNU.DataAccess.Entities
+﻿namespace ScheduleLNU.DataAccess.Entities
 {
     public class Theme
     {
-        [Key]
+        public uint Id { get; set; }
+
+        
         public string Title { get; set; } = string.Empty;
 
 
@@ -17,6 +17,6 @@ namespace ScheduleLNU.DataAccess.Entities
         public string Font { get; set; } = string.Empty;
 
         
-        public int FontSize { get; set; } = 14;
+        public int FontSize { get; set; } = 16;
     }
 }

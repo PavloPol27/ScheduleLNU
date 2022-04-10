@@ -6,12 +6,14 @@ namespace ScheduleLNU.DataAccess.Entities
 {
     public class Event
     {
-        [Key]
+        public uint Id { get; set; }
+
+        
         public string Title { get; set; } = string.Empty;
 
 
         [MaxLength(100)]
-        public string Descryption { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
 
         public string Place { get; set; } = string.Empty;

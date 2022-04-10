@@ -1,7 +1,12 @@
+using System.Collections.Generic;
+
 namespace ScheduleLNU.DataAccess.Entities
 {
     public class Student
     {
+        public uint Id { get; set; }
+
+
         public string EmailAddress { get; set; } = string.Empty;
 
         
@@ -15,5 +20,8 @@ namespace ScheduleLNU.DataAccess.Entities
 
 
         public Theme SelectedTheme { get; set; }
+
+        
+        public List<Theme> Themes { get; set; }
     }
 }
