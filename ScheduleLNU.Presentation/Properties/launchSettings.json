@@ -11,6 +11,13 @@
     "Start": {
       "commandName": "IISExpress",
       "ErrorString": "Invalid property identifier character: <. Path 'profiles['IIS Express']', line 18, position 0."
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }
