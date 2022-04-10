@@ -1,16 +1,8 @@
-<<<<<<< HEAD:Domain/DataContext.cs
-﻿using Domain.Models;
-using Domain.Repository;
+using ScheduleLNU.DataAccess.Entities;
+using ScheduleLNU.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain
-=======
-﻿using DataAccess.Entities;
-using DataAccess.Repository;
-using Microsoft.EntityFrameworkCore;
-
-namespace DataAccess
->>>>>>> create_layered_architecture:ScheduleLNU.DataAccess/DataContext.cs
+namespace ScheduleLNU.DataAccess
 {
     public class DataContext : DbContext
     {

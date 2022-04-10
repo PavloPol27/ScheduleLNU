@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Domain/Models/Student.cs
-﻿namespace Domain.Models
-=======
-﻿namespace DataAccess.Entities
->>>>>>> create_layered_architecture:ScheduleLNU.DataAccess/Entities/Student.cs
+namespace ScheduleLNU.DataAccess.Entities
 {
     public class Student
     {

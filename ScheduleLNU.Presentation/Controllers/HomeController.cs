@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Presentation.Controllers
+namespace ScheduleLNU.Presentation.Controllers
 {
     public class HomeController : Controller
     {

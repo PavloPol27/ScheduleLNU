@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-<<<<<<< HEAD:Domain/Models/Event.cs
-namespace Domain.Models
-=======
-namespace DataAccess.Entities
->>>>>>> create_layered_architecture:ScheduleLNU.DataAccess/Entities/Event.cs
+namespace ScheduleLNU.DataAccess.Entities
 {
     public class Event
     {

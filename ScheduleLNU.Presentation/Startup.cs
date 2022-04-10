@@ -1,24 +1,15 @@
-using Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< HEAD:WebAPI/Startup.cs
-using Application.Services;
-using Application.Services.Interfaces;
-using Domain.Repository;
+using ScheduleLNU.BusinessLogic.Services;
+using ScheduleLNU.BusinessLogic.Services.Interfaces;
+using ScheduleLNU.DataAccess;
+using ScheduleLNU.DataAccess.Repository;
 
-namespace WebAPI
-=======
-using BusinessLogic.Services;
-using BusinessLogic.Services.Interfaces;
-using DataAccess;
-using DataAccess.Repository;
-
-namespace Presentation
->>>>>>> create_layered_architecture:ScheduleLNU.Presentation/Startup.cs
+namespace ScheduleLNU.Presentation
 {
     public class Startup
     {
@@ -30,20 +21,6 @@ namespace Presentation
 
         public IConfiguration Configuration { get; }
 
-<<<<<<< HEAD:WebAPI/Startup.cs
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllers();
-
-            ConfigureDbServices(services);
-            services.AddScoped<IStudentService, StudentService>();
-            services.AddRazorPages();
-            services.AddHttpClient();
-        }
-
-
-=======
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -52,8 +29,6 @@ namespace Presentation
             services.AddMvc();
             services.AddHttpClient();
         }
-
->>>>>>> create_layered_architecture:ScheduleLNU.Presentation/Startup.cs
         private void ConfigureDbServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
@@ -61,22 +36,12 @@ namespace Presentation
            
         }
 
-<<<<<<< HEAD:WebAPI/Startup.cs
-
-=======
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
->>>>>>> create_layered_architecture:ScheduleLNU.Presentation/Startup.cs
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-<<<<<<< HEAD:WebAPI/Startup.cs
-            
-=======
-           
->>>>>>> create_layered_architecture:ScheduleLNU.Presentation/Startup.cs
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

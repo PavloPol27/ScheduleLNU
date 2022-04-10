@@ -1,6 +1,6 @@
-﻿using BusinessLogic.Services.Interfaces;
+﻿using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
-namespace BusinessLogic.Services
+namespace ScheduleLNU.BusinessLogic.Services
 {
     public class StudentService : IStudentService
     {

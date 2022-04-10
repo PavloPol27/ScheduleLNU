@@ -1,14 +1,9 @@
-using Application.Services;
+using ScheduleLNU.BusinessLogic.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-<<<<<<< HEAD:WebAPI/Program.cs
-
-namespace WebAPI
-=======
-namespace Presentation
->>>>>>> create_layered_architecture:ScheduleLNU.Presentation/Program.cs
+namespace ScheduleLNU.Presentation
 {
     public class Program
     {

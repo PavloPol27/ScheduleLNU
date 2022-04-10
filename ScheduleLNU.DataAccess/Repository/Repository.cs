@@ -4,11 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-<<<<<<< HEAD:Domain/Repository/Repository.cs
-namespace Domain.Repository
-=======
-namespace DataAccess.Repository
->>>>>>> create_layered_architecture:ScheduleLNU.DataAccess/Repository/Repository.cs
+namespace ScheduleLNU.DataAccess.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {

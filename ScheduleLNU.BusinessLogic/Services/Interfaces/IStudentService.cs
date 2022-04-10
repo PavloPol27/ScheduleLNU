@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Services.Interfaces
+﻿namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
     public interface IStudentService
     {
