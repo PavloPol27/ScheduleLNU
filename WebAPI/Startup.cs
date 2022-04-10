@@ -18,7 +18,9 @@ namespace WebAPI
             Configuration = configuration;
         }
 
+
         public IConfiguration Configuration { get; }
+
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -30,6 +32,7 @@ namespace WebAPI
             services.AddHttpClient();
         }
 
+
         private void ConfigureDbServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
@@ -37,7 +40,7 @@ namespace WebAPI
            
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
