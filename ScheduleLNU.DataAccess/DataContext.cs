@@ -1,8 +1,8 @@
-﻿using Domain.Models;
-using Domain.Repository;
+﻿using DataAccess.Entities;
+using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain
+namespace DataAccess
 {
     public class DataContext : DbContext
     {

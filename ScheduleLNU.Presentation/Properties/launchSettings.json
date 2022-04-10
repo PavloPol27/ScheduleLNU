@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebAPI": {
+    "Presentation": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

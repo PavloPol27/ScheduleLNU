@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Domain.Models
+namespace DataAccess.Entities
 {
     public class Schedule
     {

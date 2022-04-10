@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Domain.Repository
+namespace DataAccess.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {

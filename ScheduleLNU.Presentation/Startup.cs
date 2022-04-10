@@ -1,16 +1,15 @@
-using Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Application.Services;
-using Application.Services.Interfaces;
-using Domain.Repository;
-using Domain.Models;
+using BusinessLogic.Services;
+using BusinessLogic.Services.Interfaces;
+using DataAccess;
+using DataAccess.Repository;
 
-namespace WebAPI
+namespace Presentation
 {
     public class Startup
     {

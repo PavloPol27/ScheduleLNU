@@ -1,4 +1,4 @@
-﻿namespace Domain.Models
+﻿namespace DataAccess.Entities
 {
     public class Student
     {

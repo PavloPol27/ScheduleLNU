@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Interfaces
+﻿namespace BusinessLogic.Services.Interfaces
 {
     public interface IStudentService
     {
