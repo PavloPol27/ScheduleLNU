@@ -1,6 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+<<<<<<< HEAD:Domain/Models/Theme.cs
 namespace Domain.Models
+=======
+namespace DataAccess.Entities
+>>>>>>> create_layered_architecture:ScheduleLNU.DataAccess/Entities/Theme.cs
 {
     public class Theme
     {

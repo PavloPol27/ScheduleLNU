@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+<<<<<<< HEAD:Domain/Repository/IRepository.cs
 namespace Domain.Repository
+=======
+namespace DataAccess.Repository
+>>>>>>> create_layered_architecture:ScheduleLNU.DataAccess/Repository/IRepository.cs
 {
     public interface IRepository<TEntity>  where TEntity : class
     {
