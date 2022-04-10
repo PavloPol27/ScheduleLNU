@@ -22,11 +22,10 @@ namespace Presentation
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
 
             ConfigureDbServices(services);
             services.AddScoped<IStudentService, StudentService>();
-            services.AddRazorPages();
+            services.AddMvc();
             services.AddHttpClient();
         }
 
