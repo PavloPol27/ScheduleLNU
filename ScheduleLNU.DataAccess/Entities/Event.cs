@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace ScheduleLNU.DataAccess.Entities
 {
@@ -12,7 +11,6 @@ namespace ScheduleLNU.DataAccess.Entities
         public string Title { get; set; } = string.Empty;
 
 
-        [MaxLength(100)]
         public string Description { get; set; } = string.Empty;
 
 
@@ -28,6 +26,6 @@ namespace ScheduleLNU.DataAccess.Entities
         public Theme Theme { get; set; }
 
 
-        public List<string> Links { get; set; } = new List<string>();
+        public List<Link> Links { get; set; }
     }
 }
