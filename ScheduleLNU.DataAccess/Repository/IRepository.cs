@@ -6,7 +6,7 @@ namespace ScheduleLNU.DataAccess.Repository
 {
     public interface IRepository<TEntity>  where TEntity : class
     {
-        void Add(TEntity entity);
+        void Insert(TEntity entity);
 
 
         void Update(TEntity entity);
@@ -18,9 +18,19 @@ namespace ScheduleLNU.DataAccess.Repository
         TEntity Select(Expression<Func<TEntity, bool>> selector);
         
 
-        IEnumerable<TEntity> Select();
+        IEnumerable<TEntity> SelectAll();
 
 
         IEnumerable<TEntity> SelectAll(Expression<Func<TEntity, bool>> selector);
+
+
+        IEnumerable<TEntity> SelectAllWithInclude(
+            Expression<Func<TEntity, bool>> selector,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
+
+        IEnumerable<TEntity> SelectAllWithInclude(
+           params Expression<Func<TEntity, object>>[] includeProperties);
+
     }
 }

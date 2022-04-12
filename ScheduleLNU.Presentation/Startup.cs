@@ -21,19 +21,20 @@ namespace ScheduleLNU.Presentation
 
         public IConfiguration Configuration { get; }
 
+
         public void ConfigureServices(IServiceCollection services)
         {
-
             ConfigureDbServices(services);
             services.AddScoped<IStudentService, StudentService>();
             services.AddMvc();
             services.AddHttpClient();
         }
+
+
         private void ConfigureDbServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-           
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));  
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -42,6 +43,7 @@ namespace ScheduleLNU.Presentation
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -24,7 +24,7 @@ namespace ScheduleLNU.DataAccess.Repository
         }
 
 
-        public void Add(TEntity entity)
+        public void Insert(TEntity entity)
         {
             _entitiesDataSet.Add(entity);
             _dataBaseContext.SaveChanges();
@@ -45,7 +45,7 @@ namespace ScheduleLNU.DataAccess.Repository
         }
 
 
-        public IEnumerable<TEntity> Select()
+        public IEnumerable<TEntity> SelectAll()
         {
             return _entitiesDataSet.AsNoTracking().ToList();
         }
@@ -62,15 +62,15 @@ namespace ScheduleLNU.DataAccess.Repository
             return _entitiesDataSet.AsNoTracking().Where(selector);
         }
 
-
-        public IEnumerable<TEntity> SelectWithInclude(
-            Func<TEntity, bool> selector,
+        // add to interfacre
+        public IEnumerable<TEntity> SelectAllWithInclude(
+            Expression<Func<TEntity, bool>> selector,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            return GetValueWithInclude(includeProperties).Where(selector).ToList();
+            return GetValueWithInclude(includeProperties).Where(selector);
         }
 
-
+        // add to interfacre
         public IEnumerable<TEntity> SelectAllWithInclude(
             params Expression<Func<TEntity, object>>[] includeProperties)
         {

@@ -17,13 +17,21 @@ namespace ScheduleLNU.DataAccess
 
         public Repository<Theme> Themes { get; set; }
 
+        
+        public Repository<EventStyle> EventsStyles { get; set; }
+
+
+        public Repository<Link> Links { get; set; }
+
 
         public DataContext(DbContextOptions options) : base(options)
         {
             Events = new Repository<Event>(this);
             Students = new Repository<Student>(this);
             Themes = new Repository<Theme>(this);
+            EventsStyles = new Repository<EventStyle>(this);
             Schedules = new Repository<Schedule>(this);
+            Links = new Repository<Link>(this);
         }
     }
 }

@@ -4,15 +4,15 @@ namespace ScheduleLNU.DataAccess.Entities
 {
     public class Schedule
     {
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
 
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; }
 
 
         public Student Student { get; set; }
 
 
-        public List<Event> Events { get; set; } = new List<Event>();
+        public List<Event> Events { get; set; }
     }
 }
