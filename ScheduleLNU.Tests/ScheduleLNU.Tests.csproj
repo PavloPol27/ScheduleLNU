@@ -25,10 +25,4 @@
     <ProjectReference Include="..\ScheduleLNU.Presentation\ScheduleLNU.Presentation.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="BusinessLogic\" />
-    <Folder Include="DataAccess\" />
-    <Folder Include="Presentation\" />
-  </ItemGroup>
-
 </Project>
