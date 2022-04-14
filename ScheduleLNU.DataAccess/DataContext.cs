@@ -6,32 +6,32 @@ namespace ScheduleLNU.DataAccess
 {
     public class DataContext : DbContext
     {
-        public Repository<Event> Events { get; set; }
+        public DbSet<Event> Events { get; set; }
 
 
-        public Repository<Schedule> Schedules { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
 
 
-        public Repository<Student> Students { get; set; }
+        public DbSet<Student> Students { get; set; }
 
 
-        public Repository<Theme> Themes { get; set; }
+        public DbSet<Theme> Themes { get; set; }
 
         
-        public Repository<EventStyle> EventsStyles { get; set; }
+        public DbSet<EventStyle> EventsStyles { get; set; }
 
 
-        public Repository<Link> Links { get; set; }
+        public DbSet<Link> Links { get; set; }
 
 
         public DataContext(DbContextOptions options) : base(options)
         {
-            Events = new Repository<Event>(this);
-            Students = new Repository<Student>(this);
-            Themes = new Repository<Theme>(this);
-            EventsStyles = new Repository<EventStyle>(this);
-            Schedules = new Repository<Schedule>(this);
-            Links = new Repository<Link>(this);
+            Database.EnsureCreated();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

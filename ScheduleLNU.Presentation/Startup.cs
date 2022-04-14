@@ -33,7 +33,8 @@ namespace ScheduleLNU.Presentation
 
         private void ConfigureDbServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            
+            services.AddDbContext<DataContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DatabaseConnection")));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));  
         }
 

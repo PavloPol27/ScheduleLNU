@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31605.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleLNU.Presentation", "ScheduleLNU.Presentation\ScheduleLNU.Presentation.csproj", "{D4871593-9720-48F7-B146-DE3EA52BE7DB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleLNU.DataAccess", "ScheduleLNU.DataAccess\ScheduleLNU.DataAccess.csproj", "{C3B27A21-C4B7-4028-B1EF-16A8935C74D3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleLNU.BusinessLogic", "ScheduleLNU.BusinessLogic\ScheduleLNU.BusinessLogic.csproj", "{CCC7B7DB-9C8D-4A24-91C2-FB5D82141920}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleLNU.Tests", "ScheduleLNU.Tests\ScheduleLNU.Tests.csproj", "{FB9F5578-3C5E-4CF3-A9A8-450F810E58DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleLNU.Tests", "ScheduleLNU.Tests\ScheduleLNU.Tests.csproj", "{FB9F5578-3C5E-4CF3-A9A8-450F810E58DD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleLNU.Presentation", "ScheduleLNU.Presentation\ScheduleLNU.Presentation.csproj", "{8D600B58-79BF-4113-8DAC-40663C476457}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4871593-9720-48F7-B146-DE3EA52BE7DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4871593-9720-48F7-B146-DE3EA52BE7DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4871593-9720-48F7-B146-DE3EA52BE7DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4871593-9720-48F7-B146-DE3EA52BE7DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C3B27A21-C4B7-4028-B1EF-16A8935C74D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C3B27A21-C4B7-4028-B1EF-16A8935C74D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3B27A21-C4B7-4028-B1EF-16A8935C74D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{FB9F5578-3C5E-4CF3-A9A8-450F810E58DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB9F5578-3C5E-4CF3-A9A8-450F810E58DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB9F5578-3C5E-4CF3-A9A8-450F810E58DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D600B58-79BF-4113-8DAC-40663C476457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D600B58-79BF-4113-8DAC-40663C476457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D600B58-79BF-4113-8DAC-40663C476457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D600B58-79BF-4113-8DAC-40663C476457}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
