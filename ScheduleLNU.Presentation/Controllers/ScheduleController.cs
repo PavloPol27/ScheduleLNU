@@ -9,7 +9,7 @@ namespace ScheduleLNU.Presentation.Controllers
     [Route("schedules/")]
     public class ScheduleController : Controller
     {
-        private IScheduleService scheduleService;
+        private readonly IScheduleService scheduleService;
 
         public ScheduleController(IScheduleService scheduleService)
         {

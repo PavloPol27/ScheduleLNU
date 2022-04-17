@@ -18,7 +18,7 @@ csharp_style_expression_bodied_local_functions = false:silent
 dotnet_diagnostic.SA1200.severity=silent
 dotnet_diagnostic.SA1633.severity=silent
 dotnet_diagnostic.SA1600.severity=silent
-dotnet_diagnostic.SA0001.severity=silent
+dotnet_diagnostic.SA0001.severity=none
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
