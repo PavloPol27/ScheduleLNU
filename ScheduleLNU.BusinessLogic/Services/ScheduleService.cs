@@ -1,11 +1,10 @@
-﻿using ScheduleLNU.BusinessLogic.DTOs;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
-using ScheduleLNU.DataAccess;
 using ScheduleLNU.DataAccess.Entities;
 using ScheduleLNU.DataAccess.Repository;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace ScheduleLNU.BusinessLogic.Services
 {

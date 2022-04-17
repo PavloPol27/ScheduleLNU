@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ScheduleLNU.DataAccess.Repository
 {
@@ -15,41 +15,41 @@ namespace ScheduleLNU.DataAccess.Repository
 
         public Repository(DbContext context)
         {
-            this.dataBaseContext = context;
-            this.entitiesDataSet = context.Set<TEntity>();
+            dataBaseContext = context;
+            entitiesDataSet = context.Set<TEntity>();
         }
 
         public async Task InsertAsync(TEntity entity)
         {
-            this.entitiesDataSet.Add(entity);
-            await this.dataBaseContext.SaveChangesAsync();
+            entitiesDataSet.Add(entity);
+            await dataBaseContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(TEntity entity)
         {
-            this.dataBaseContext.Attach(entity).State = EntityState.Modified;
-            await this.dataBaseContext.SaveChangesAsync();
+            dataBaseContext.Attach(entity).State = EntityState.Modified;
+            await dataBaseContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(TEntity entity)
         {
-            this.entitiesDataSet.Remove(entity);
-            await this.dataBaseContext.SaveChangesAsync();
+            entitiesDataSet.Remove(entity);
+            await dataBaseContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TEntity>> SelectAllAsync()
         {
-            return await this.entitiesDataSet.AsNoTracking().ToListAsync();
+            return await entitiesDataSet.AsNoTracking().ToListAsync();
         }
 
         public async Task<TEntity> SelectAsync(Expression<Func<TEntity, bool>> selector)
         {
-            return await this.entitiesDataSet.FirstOrDefaultAsync(selector);
+            return await entitiesDataSet.FirstOrDefaultAsync(selector);
         }
 
         public async Task<IEnumerable<TEntity>> SelectAllAsync(Expression<Func<TEntity, bool>> selector)
         {
-            return await this.entitiesDataSet.AsNoTracking().Where(selector).ToListAsync();
+            return await entitiesDataSet.AsNoTracking().Where(selector).ToListAsync();
         }
 
         // add to interfacre
@@ -57,19 +57,19 @@ namespace ScheduleLNU.DataAccess.Repository
             Expression<Func<TEntity, bool>> selector,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            return await this.GetValueWithInclude(includeProperties).Where(selector).ToListAsync();
+            return await GetValueWithInclude(includeProperties).Where(selector).ToListAsync();
         }
 
         public async Task<IEnumerable<TEntity>> SelectAllWithIncludeAsync(
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            return await this.GetValueWithInclude(includeProperties).ToListAsync();
+            return await GetValueWithInclude(includeProperties).ToListAsync();
         }
 
         private IQueryable<TEntity> GetValueWithInclude(
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            IQueryable<TEntity> querriedEntities = this.entitiesDataSet.AsNoTracking();
+            IQueryable<TEntity> querriedEntities = entitiesDataSet.AsNoTracking();
 
             return includeProperties.Aggregate(querriedEntities, (current, includeProperty)
                 => current.Include(includeProperty));

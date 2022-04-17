@@ -1,6 +1,6 @@
-﻿using ScheduleLNU.BusinessLogic.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ScheduleLNU.BusinessLogic.DTOs;
 
 namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ScheduleLNU.DataAccess.Repository
 {
-    public interface IRepository<TEntity>  where TEntity : class
+    public interface IRepository<TEntity> where TEntity : class
     {
         Task InsertAsync(TEntity entity);
 
@@ -25,6 +25,5 @@ namespace ScheduleLNU.DataAccess.Repository
 
         Task<IEnumerable<TEntity>> SelectAllWithIncludeAsync(
            params Expression<Func<TEntity, object>>[] includeProperties);
-
     }
 }

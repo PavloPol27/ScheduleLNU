@@ -1,6 +1,6 @@
-using ScheduleLNU.BusinessLogic.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using ScheduleLNU.BusinessLogic.Extensions;
 using Serilog;
 
 namespace ScheduleLNU.Presentation

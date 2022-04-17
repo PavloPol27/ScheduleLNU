@@ -4,7 +4,6 @@
     {
         public uint Id { get; set; }
 
-
         public string Address { get; set; }
     }
 }

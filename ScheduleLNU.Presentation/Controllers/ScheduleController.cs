@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ScheduleLNU.BusinessLogic.DTOs;
-using ScheduleLNU.BusinessLogic.Services;
-using ScheduleLNU.BusinessLogic.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using ScheduleLNU.BusinessLogic.DTOs;
+using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.Presentation.Controllers
 {
@@ -30,6 +27,7 @@ namespace ScheduleLNU.Presentation.Controllers
             {
                 result += res.Title + "\n";
             }
+
             return View("Schedules", result);
         }
     }
