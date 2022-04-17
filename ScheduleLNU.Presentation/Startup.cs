@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
+using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Services;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
-using ScheduleLNU.DataAccess;
-using ScheduleLNU.DataAccess.Repository;
 
 namespace ScheduleLNU.Presentation
 {
@@ -18,24 +16,14 @@ namespace ScheduleLNU.Presentation
             Configuration = configuration;
         }
 
-
         public IConfiguration Configuration { get; }
-
 
         public void ConfigureServices(IServiceCollection services)
         {
-            ConfigureDbServices(services);
+            services.SetupDbConfiguration(Configuration["ConnectionString"]);
             services.AddScoped<IStudentService, StudentService>();
             services.AddMvc();
             services.AddHttpClient();
-        }
-
-
-        private void ConfigureDbServices(IServiceCollection services)
-        {
-            
-            services.AddDbContext<DataContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DatabaseConnection")));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));  
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
