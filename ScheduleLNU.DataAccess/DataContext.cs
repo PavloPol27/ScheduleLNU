@@ -8,21 +8,15 @@ namespace ScheduleLNU.DataAccess
     {
         public DbSet<Event> Events { get; set; }
 
-
         public DbSet<Schedule> Schedules { get; set; }
-
 
         public DbSet<Student> Students { get; set; }
 
-
         public DbSet<Theme> Themes { get; set; }
-
         
         public DbSet<EventStyle> EventsStyles { get; set; }
 
-
         public DbSet<Link> Links { get; set; }
-
 
         public DataContext(DbContextOptions options) : base(options)
         {

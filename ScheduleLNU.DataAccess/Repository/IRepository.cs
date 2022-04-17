@@ -1,35 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace ScheduleLNU.DataAccess.Repository
 {
     public interface IRepository<TEntity>  where TEntity : class
     {
-        void Insert(TEntity entity);
+        Task InsertAsync(TEntity entity);
 
+        Task UpdateAsync(TEntity entity);
 
-        void Update(TEntity entity);
+        Task DeleteAsync(TEntity entity);
 
+        Task<TEntity> SelectAsync(Expression<Func<TEntity, bool>> selector);
 
-        void Delete(TEntity entity);
+        Task<IEnumerable<TEntity>> SelectAllAsync();
 
+        Task<IEnumerable<TEntity>> SelectAllAsync(Expression<Func<TEntity, bool>> selector);
 
-        TEntity Select(Expression<Func<TEntity, bool>> selector);
-        
-
-        IEnumerable<TEntity> SelectAll();
-
-
-        IEnumerable<TEntity> SelectAll(Expression<Func<TEntity, bool>> selector);
-
-
-        IEnumerable<TEntity> SelectAllWithInclude(
+        Task<IEnumerable<TEntity>> SelectAllWithIncludeAsync(
             Expression<Func<TEntity, bool>> selector,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-
-        IEnumerable<TEntity> SelectAllWithInclude(
+        Task<IEnumerable<TEntity>> SelectAllWithIncludeAsync(
            params Expression<Func<TEntity, object>>[] includeProperties);
 
     }
