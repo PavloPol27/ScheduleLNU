@@ -20,8 +20,9 @@ namespace ScheduleLNU.Presentation
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.SetupDbConfiguration(Configuration["ConnectionString"]);
+            services.AddDbConfiguration(Configuration["ConnectionString"]);
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IScheduleService, ScheduleService>();
             services.AddMvc();
             services.AddHttpClient();
         }

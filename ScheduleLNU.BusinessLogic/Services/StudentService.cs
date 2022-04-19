@@ -5,11 +5,11 @@ namespace ScheduleLNU.BusinessLogic.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly DataContext _context;
+        private readonly DataContext context;
 
         public StudentService(DataContext context)
         {
-            _context = context;
+            this.context = context;
         }
     }
 }
