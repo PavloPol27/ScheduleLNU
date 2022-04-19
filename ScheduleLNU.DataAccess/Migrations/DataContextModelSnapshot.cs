@@ -16,15 +16,15 @@ namespace ScheduleLNU.DataAccess.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.15")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Event", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
                         .HasMaxLength(4096)
@@ -36,14 +36,14 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("Place")
                         .HasColumnType("text");
 
-                    b.Property<long?>("ScheduleId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("ScheduleId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<long?>("StyleId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("StyleId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
@@ -59,10 +59,10 @@ namespace ScheduleLNU.DataAccess.Migrations
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.EventStyle", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("BackColor")
                         .HasColumnType("text");
@@ -70,26 +70,31 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("ForeColor")
                         .HasColumnType("text");
 
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("EventsStyles");
                 });
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Link", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
-                    b.Property<long?>("EventId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("EventId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -100,13 +105,13 @@ namespace ScheduleLNU.DataAccess.Migrations
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Schedule", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long?>("StudentId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
@@ -120,10 +125,10 @@ namespace ScheduleLNU.DataAccess.Migrations
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Student", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("EmailAddress")
                         .HasColumnType("text");
@@ -137,8 +142,8 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
-                    b.Property<long?>("SelectedThemeId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("SelectedThemeId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -149,10 +154,10 @@ namespace ScheduleLNU.DataAccess.Migrations
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Theme", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("BackColor")
                         .HasColumnType("text");
@@ -166,8 +171,8 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("ForeColor")
                         .HasColumnType("text");
 
-                    b.Property<long?>("StudentId")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
@@ -190,6 +195,13 @@ namespace ScheduleLNU.DataAccess.Migrations
                         .HasForeignKey("StyleId");
 
                     b.Navigation("Style");
+                });
+
+            modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.EventStyle", b =>
+                {
+                    b.HasOne("ScheduleLNU.DataAccess.Entities.Student", null)
+                        .WithMany("EventStyles")
+                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Link", b =>
@@ -236,6 +248,8 @@ namespace ScheduleLNU.DataAccess.Migrations
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Student", b =>
                 {
+                    b.Navigation("EventStyles");
+
                     b.Navigation("Themes");
                 });
 #pragma warning restore 612, 618

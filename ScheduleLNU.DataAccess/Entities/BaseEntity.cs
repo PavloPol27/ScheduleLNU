@@ -1,7 +1,12 @@
-﻿namespace ScheduleLNU.DataAccess.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ScheduleLNU.DataAccess.Entities
 {
     public class BaseEntity
     {
-        public uint Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public int Id { get; set; }
     }
 }

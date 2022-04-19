@@ -11,27 +11,42 @@ namespace ScheduleLNU.BusinessLogic.Services
 {
     public class StylizationService : IStylizationService
     {
-        private readonly Repository<Student> studentRepository;
+        private readonly IRepository<Student> studentRepository;
 
-        private ILogger<StylizationService> logger;
+        private readonly ILogger<StylizationService> logger;
 
-        public StylizationService(ILogger<StylizationService> injectedLogger,
-            Repository<Student> injectedStudentRepository)
+        public StylizationService(IRepository<Student> injectedStudentRepository, ILogger<StylizationService> injectedLogger)
         {
-            logger = injectedLogger;
             studentRepository = injectedStudentRepository;
+            logger = injectedLogger;
         }
 
-        public async Task<IEnumerable<EventStyle>> GetAllEventStylesAsync(uint studentID)
+        public async Task<IEnumerable<EventStyle>> GetAllEventStylesAsync(int studentID)
         {
-            throw new NotImplementedException();
+            return (await studentRepository
+                .SelectAllByIdWithIncludeAsync(studentID, s => s.EventStyles))
+                .SelectMany(s => s.EventStyles);
         }
 
-        public async Task<IEnumerable<Theme>> GetAllThemesAsync(uint studentID)
+        public async Task<IEnumerable<Theme>> GetAllThemesAsync(int studentID)
         {
-            return (IEnumerable<Theme>)(await studentRepository
+            return (await studentRepository
                     .SelectAllByIdWithIncludeAsync(studentID, s => s.Themes))
-                    .Select(s => s.Themes);
+                    .SelectMany(s => s.Themes);
+        }
+
+        public async Task Insert(int studentId, Theme theme)
+        {
+            try
+            {
+                var student = (await studentRepository.SelectAllByIdWithIncludeAsync(studentId, p => p.Themes)).FirstOrDefault();
+                student.Themes.Add(theme);
+                await studentRepository.UpdateAsync(student);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+            }
         }
     }
 }

@@ -1,13 +1,15 @@
-﻿using ScheduleLNU.DataAccess.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
     public interface IStylizationService
     {
-        public Task<IEnumerable<EventStyle>> GetAllEventStylesAsync(uint studentID);
+        public Task<IEnumerable<EventStyle>> GetAllEventStylesAsync(int studentID);
 
-        public Task<IEnumerable<Theme>> GetAllThemesAsync(uint studentID);
+        public Task<IEnumerable<Theme>> GetAllThemesAsync(int studentID);
+
+        Task Insert(int studentId, Theme theme);
     }
 }

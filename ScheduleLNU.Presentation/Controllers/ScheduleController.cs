@@ -18,7 +18,7 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAsync(uint id)
+        public async Task<IActionResult> GetAsync(int id)
         {
             string result = "";
             IEnumerable<ScheduleDto> resList = await this.scheduleService.GetSchedulesAsync(id);

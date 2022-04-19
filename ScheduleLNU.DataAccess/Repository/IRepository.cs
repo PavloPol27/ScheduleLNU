@@ -20,13 +20,13 @@ namespace ScheduleLNU.DataAccess.Repository
 
         Task<IEnumerable<TEntity>> SelectAllAsync(Expression<Func<TEntity, bool>> selector);
 
-        Task<IEnumerable<TEntity>> SelectAllByIdAsync(uint id);
+        Task<IEnumerable<TEntity>> SelectAllByIdAsync(int id);
 
         Task<IEnumerable<TEntity>> SelectAllWithIncludeAsync(
             Expression<Func<TEntity, bool>> selector,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        Task<IEnumerable<TEntity>> SelectAllByIdWithIncludeAsync(uint id,
+        Task<IEnumerable<TEntity>> SelectAllByIdWithIncludeAsync(int id,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
         Task<IEnumerable<TEntity>> SelectAllWithIncludeAsync(
