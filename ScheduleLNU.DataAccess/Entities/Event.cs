@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ScheduleLNU.DataAccess.Entities
 {
-    public class Event
+    public class Event : BaseEntity
     {
-        public uint Id { get; set; }
-
         public string Title { get; set; }
 
         [MaxLength(4096)]

@@ -1,9 +1,7 @@
 ﻿namespace ScheduleLNU.DataAccess.Entities
 {
-    public class Link
+    public class Link : BaseEntity
     {
-        public uint Id { get; set; }
-
         public string Address { get; set; }
     }
 }

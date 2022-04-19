@@ -2,10 +2,8 @@
 
 namespace ScheduleLNU.DataAccess.Entities
 {
-    public class Schedule
+    public class Schedule : BaseEntity
     {
-        public uint Id { get; set; }
-
         public string Title { get; set; }
 
         public Student Student { get; set; }

@@ -2,10 +2,8 @@ using System.Collections.Generic;
 
 namespace ScheduleLNU.DataAccess.Entities
 {
-    public class Student
+    public class Student : BaseEntity
     {
-        public uint Id { get; set; }
-
         public string EmailAddress { get; set; }
 
         public string PhoneNumber { get; set; }
@@ -17,5 +15,7 @@ namespace ScheduleLNU.DataAccess.Entities
         public Theme SelectedTheme { get; set; }
 
         public List<Theme> Themes { get; set; }
+
+        public List<EventStyle> EventStyles { get; set; }
     }
 }

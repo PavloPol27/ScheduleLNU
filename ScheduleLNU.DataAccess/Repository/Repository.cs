@@ -4,10 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.DataAccess.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly DbContext dataBaseContext;
 
@@ -44,7 +45,7 @@ namespace ScheduleLNU.DataAccess.Repository
 
         public async Task<TEntity> SelectAsync(Expression<Func<TEntity, bool>> selector)
         {
-            return await entitiesDataSet.FirstOrDefaultAsync(selector);
+            return await entitiesDataSet.AsNoTracking().FirstOrDefaultAsync(selector);
         }
 
         public async Task<IEnumerable<TEntity>> SelectAllAsync(Expression<Func<TEntity, bool>> selector)
@@ -52,7 +53,11 @@ namespace ScheduleLNU.DataAccess.Repository
             return await entitiesDataSet.AsNoTracking().Where(selector).ToListAsync();
         }
 
-        // add to interfacre
+        public async Task<IEnumerable<TEntity>> SelectAllByIdAsync(int id)
+        {
+            return await SelectAllAsync(e => e.Id == id);
+        }
+
         public async Task<IEnumerable<TEntity>> SelectAllWithIncludeAsync(
             Expression<Func<TEntity, bool>> selector,
             params Expression<Func<TEntity, object>>[] includeProperties)
@@ -64,6 +69,12 @@ namespace ScheduleLNU.DataAccess.Repository
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return await GetValueWithInclude(includeProperties).ToListAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> SelectAllByIdWithIncludeAsync(int id,
+            params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return await SelectAllWithIncludeAsync(e => e.Id == id, includeProperties);
         }
 
         private IQueryable<TEntity> GetValueWithInclude(

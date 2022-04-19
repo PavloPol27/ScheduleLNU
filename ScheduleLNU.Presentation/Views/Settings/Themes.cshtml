@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ScheduleLNU.DataAccess.Entities.Theme>
+
+@{
+    ViewData["Title"] = "Themes";
+}
+<style>
+    .visually-hidden{
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        border: 0;
+        padding: 0;
+        white-space: nowrap;
+        clip-path: inset(100%);
+        clip: rect(0 0 0 0);
+        overflow: hidden;
+    }
+</style>
+<div class="col-6">
+    @foreach (var item in Model)
+    {
+        <input type="radio" id="@item.Id" name="selected_theme" value="@item.Id">
+        <label for="@item.Id">@item.Title</label><br>
+    }
+
+</div>
+<div class="col-6 visually-hidden" id="inline-form">
+    <form method="post">
+        <label for="title">Title</label>
+        <input type="text" name="title"><br /> 
+        <label for="foreColor">ForeColor</label>
+        <input type="color" name="foreColor"><br />
+        <label for="backColor">BackColor</label>
+        <input type="color" name="backColor"><br />
+        <label for="font">Font</label>
+        <input type="text" name="font"><br />
+        <label for="font">Font size</label>
+        <input type="number" name="size"><br />
+        <input type="submit"/>
+    </form>
+</div>
+<div>
+    <button name="addThemeButton" onclick="removeClass()">Add theme</button>
+</div>
+<script>
+    function show(){
+        let addNewFormDiv = document.getElementById("inline-form");
+        addNewFormDiv.hidden = !addNewFormDiv.hidden;
+    }
+    function removeClass(){
+        let addNewFormDiv = document.getElementById("inline-form");
+        if (addNewFormDiv.classList.contains("visually-hidden")){
+            addNewFormDiv.classList.remove("visually-hidden")
+        }else{
+            addNewFormDiv.classList.add("visually-hidden")
+        }
+    }
+
+</script>
+
+
