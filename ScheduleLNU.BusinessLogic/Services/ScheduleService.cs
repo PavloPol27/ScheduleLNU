@@ -19,7 +19,7 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         public async Task<IEnumerable<ScheduleDto>> GetSchedulesAsync(int studentId)
         {
-            return (await this.scheduleRepository
+            return (await scheduleRepository
                 .SelectAllAsync(x => x.Student.Id == studentId))
                 .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title });
         }

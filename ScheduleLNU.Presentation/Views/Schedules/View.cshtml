@@ -1,0 +1,30 @@
+﻿<head>
+    <title>Schedules</title>
+    <link  type="text/css" rel="stylesheet" href="~/css/schedules/view.css" />
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+</head>
+<div class="container">
+    <ul class="items">
+        <form class="button-item">
+            <button class="add-button">
+                Add Schedule
+            </button>
+        </form>
+        @foreach (var item in @Model)
+        {
+            <li>
+                <a href="/" class="item">
+                    <div class="item-title">
+                        @Html.DisplayName(item.Title)
+                    </div>
+                    <form class="item-actions">
+                        <button class="action-button">EDIT</button>
+                        <button class="action-button">DELETE</button>
+                    </form>
+                </a>
+                
+                
+            </li>
+        }
+    </ul>
+</div>

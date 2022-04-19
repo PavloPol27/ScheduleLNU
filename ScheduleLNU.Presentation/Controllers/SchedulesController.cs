@@ -6,29 +6,21 @@ using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.Presentation.Controllers
 {
-    [Route("schedules/")]
-    public class ScheduleController : Controller
+    [Route("schedules")]
+    public class SchedulesController : Controller
     {
         private readonly IScheduleService scheduleService;
 
-        public ScheduleController(IScheduleService scheduleService)
+        public SchedulesController(IScheduleService scheduleService)
         {
             this.scheduleService = scheduleService;
         }
 
-        [HttpGet]
-        [Route("")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> View(int id)
         {
-            string result = "";
             IEnumerable<ScheduleDto> resList = await this.scheduleService.GetSchedulesAsync(id);
 
-            foreach (var res in resList)
-            {
-                result += res.Title + "\n";
-            }
-
-            return View("Schedules", result);
+            return View(resList);
         }
     }
 }
