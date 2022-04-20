@@ -1,30 +1,46 @@
-﻿<head>
-    <title>Schedules</title>
-    <link  type="text/css" rel="stylesheet" href="~/css/schedules/view.css" />
-    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+﻿@model IEnumerable<ScheduleLNU.BusinessLogic.DTOs.ScheduleDto>
+<form method="post" a></form>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Schedules</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/articles_list.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
 </head>
-<div class="container">
-    <ul class="items">
-        <form class="button-item">
-            <button class="add-button">
-                Add Schedule
-            </button>
-        </form>
-        @foreach (var item in @Model)
-        {
-            <li>
-                <a href="/" class="item">
-                    <div class="item-title">
-                        @Html.DisplayName(item.Title)
-                    </div>
-                    <form class="item-actions">
-                        <button class="action-button">EDIT</button>
-                        <button class="action-button">DELETE</button>
+    <body>
+    <div class="container">
+        <ul class="items">
+            <form class="button-item">
+                <button class="add-button">
+                    Add Schedule
+                </button>
+            </form>
+
+            @foreach (var item in @Model)
+            {
+                <li>
+                    <a href="/" class="item">
+                        <div class="item-title">
+                            @Html.DisplayName(item.Title)
+                        </div>
+
+                    </a>
+                    <form method="post" asp-action="DeleteSchedule" asp-controller="Schedules"
+                          asp-route-studentId="228" asp-route-scheduleId="@item.Id">
+                        <button A dat class="action-button">EDIT</button>
+                        <button type="submit" class="action-button">DELETE</button>
                     </form>
-                </a>
-                
-                
-            </li>
-        }
-    </ul>
-</div>
+                </li>
+            }
+        </ul>
+    </div>
+</body>
+</html>
