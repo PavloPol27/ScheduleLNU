@@ -11,14 +11,14 @@ namespace ScheduleLNU.BusinessLogic.Extensions
     {
         public static void AddDbConfiguration(this IServiceCollection services, string connectionString)
         {
-            services.AddTransient<DbContext, DataContext>();
+            services.AddScoped<DbContext, DataContext>();
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(connectionString));
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
 
-        public static IServiceCollection AddStylizationService(this IServiceCollection services)
+        public static IServiceCollection AddSettings(this IServiceCollection services)
         {
-            return services.AddTransient<IStylizationService, StylizationService>();
+            return services.AddScoped<ITemeStyleService, StylizationService>();
         }
     }
 }
