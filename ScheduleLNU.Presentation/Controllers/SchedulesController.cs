@@ -22,5 +22,12 @@ namespace ScheduleLNU.Presentation.Controllers
 
             return View(resList);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteSchedule(int studentId, int scheduleId)
+        {
+            bool deleteResult = await this.scheduleService.DeleteScheduleAsync(studentId, scheduleId);
+            return RedirectToAction("View", new { id = 228 });;
+        }
     }
 }
