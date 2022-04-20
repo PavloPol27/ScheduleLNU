@@ -11,15 +11,15 @@ a {
 
 .container {
     position: absolute;
-    left: 30%;
-    width: 40%;
+    left: 25%;
+    width: 50%;
     box-shadow: .5rem .5rem 1rem rgba(0, 0, 0, 0.6);
     background: #ffffff;
     margin: 0;
     padding: 100px 0 40px 0;
     color: #000000;
-    font-family: Georgia, serif;
-    font-size: 1.5rem;
+    font-family: input-mono-narrow, monospace;
+    font-size: 1.5vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,8 +35,53 @@ a {
 
 .button-item {
     height: 50px;
-    margin: 5px 0 5px 0;
+    margin: 5px 0 25px 0;
     padding: 0;
+}
+
+
+.add-button {
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
+    border: 2px solid #0073cf;
+    color: #000;
+    background-color: #fff;
+}
+
+.add-button:hover {
+    border: 1px solid #000;
+    color: #fff;
+    background-color: #0073cf;
+}
+
+.add-button span {
+    display: block;
+    position: relative;
+}
+
+.add-button > span {
+    overflow: hidden;
+}
+
+.add-button:hover > span > span {
+    animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
+}
+
+@keyframes MoveUpInitial {
+    to {
+        transform: translate3d(0,-105%,0);
+    }
+}
+
+@keyframes MoveUpEnd {
+    from {
+        transform: translate3d(0,100%,0);
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+    }
 }
 
 .item {
@@ -49,19 +94,50 @@ a {
     justify-content: space-between;
 }
 
-    .item:hover {
-        border: 2px solid #73C2FB;
-    }
+.item:hover {
+    border: 2px solid #0047ab;
+    border-radius: 10px;
+}
 
 .item-title {
-    margin: 0 0 0 5px;
+    margin: 0 0 0 15px;
     padding: 0;
+    overflow: hidden;
 }
 
 .item-actions {
-    margin: 0 5px 0 0;
+    margin: 0 10px 0 0;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.action-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 100%;
+    background: #fff;
+    padding: 0;
+}
+
+#edit-button {
+    border: 1px solid #198754;
+    color: #198754;
+    margin-right: 28px;
+}
+
+#edit-button:hover {
+    background: #198754;
+    color: #fff;
+}
+
+#delete-button {
+    border: 1px solid #ff0800;
+    color: #ff0800;
+}
+
+#delete-button:hover {
+    background: #ff0800;
+    color: #fff;
 }
