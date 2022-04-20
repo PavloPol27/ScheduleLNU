@@ -6,6 +6,8 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
     public interface IScheduleService
     {
-       Task<IEnumerable<ScheduleDto>> GetSchedulesAsync(int studentId);
+        Task<IEnumerable<ScheduleDto>> GetSchedulesAsync(int studentId);
+
+        Task<bool> Edit(ScheduleDto scheduleDto);
     }
 }

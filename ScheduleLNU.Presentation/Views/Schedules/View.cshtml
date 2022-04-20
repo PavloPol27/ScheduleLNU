@@ -1,6 +1,6 @@
 ﻿<head>
     <title>Schedules</title>
-    <link  type="text/css" rel="stylesheet" href="~/css/schedules/view.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/schedules/view.css" />
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
 </head>
 <div class="container">
@@ -12,19 +12,20 @@
         </form>
         @foreach (var item in @Model)
         {
-            <li>
-                <a href="/" class="item">
-                    <div class="item-title">
-                        @Html.DisplayName(item.Title)
-                    </div>
-                    <form class="item-actions">
-                        <button class="action-button">EDIT</button>
-                        <button class="action-button">DELETE</button>
-                    </form>
-                </a>
-                
-                
-            </li>
+    <li>
+         <a href="/" class="item">
+            <div class="item-title">
+                @Html.DisplayName(item.Title)
+            </div>
+         </a>
+
+         <form class="item-actions">
+            <button id="edit-button" class="action-button" type="button">EDIT</button>
+            <button id="delete-button" class="action-button" type="button">DELETE</button>
+         </form>
+
+    </li>
         }
     </ul>
 </div>
+<script src="~/js/site.js"></script>

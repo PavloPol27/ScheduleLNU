@@ -23,5 +23,19 @@ namespace ScheduleLNU.BusinessLogic.Services
                 .SelectAllAsync(x => x.Student.Id == studentId))
                 .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title });
         }
+
+        public async Task<bool> Edit(ScheduleDto scheduleDto)
+        {
+            try
+            {
+                await scheduleRepository.UpdateAsync(
+                    new Schedule { Id = scheduleDto.Id, Title = scheduleDto.Title });
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
