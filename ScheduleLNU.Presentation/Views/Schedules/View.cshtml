@@ -5,11 +5,23 @@
 </head>
 <div class="container">
     <ul class="items">
-        <form class="button-item">
-            <button class="add-button">
-                Add Schedule
-            </button>
-        </form>
+		<button class="add-button" onclick="showForm()">
+			Add Schedule
+		</button>
+        using
+		<form method="post" id="add-schedule-form" style="display: none;" >
+			<div asp-validation-summary="All"></div>
+
+			<div class="form-row">
+				<div class="title-field">
+					<label asp-for="Title">Schedule Title</label>
+					<input type="text" asp-for="Title" placeholder="Enter Title">
+					<span asp-validation-for="Title" class=" alert-danger"></span>
+				</div>
+			</div>
+			<button type="submit" onclick="hideForm()">Save</button>
+			<button onclick="hideForm()">Cancel</button>
+		</form>
         @foreach (var item in @Model)
         {
             <li>
@@ -28,3 +40,11 @@
         }
     </ul>
 </div>
+<script type="text/javascript">
+    function showForm() {
+		document.getElementById('add-schedule-form').style.display = 'block';
+    }
+	function hideForm() {
+		document.getElementById('add-schedule-form').style.display = 'none';
+	}
+</script>

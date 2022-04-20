@@ -22,5 +22,18 @@ namespace ScheduleLNU.Presentation.Controllers
 
             return View(resList);
         }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> AddSchedule(string title)
+        {
+            if (ModelState.IsValid)
+            {
+                await this.scheduleService.AddSchedulesAsync(27, title);
+                return RedirectToAction("View");
+            }
+
+            return new StatusCodeResult(400);
+        }
     }
 }
