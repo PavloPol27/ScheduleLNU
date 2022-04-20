@@ -14,10 +14,10 @@ namespace ScheduleLNU.Presentation.Controllers
     {
         private readonly ILogger<SettingsController> logger;
 
-        private readonly ITemeStyleService stylizationService;
+        private readonly IThemeStyleService stylizationService;
 
         public SettingsController(ILogger<SettingsController> injectedLogger,
-            ITemeStyleService injectedStylizationService)
+            IThemeStyleService injectedStylizationService)
         {
             logger = injectedLogger;
             stylizationService = injectedStylizationService;

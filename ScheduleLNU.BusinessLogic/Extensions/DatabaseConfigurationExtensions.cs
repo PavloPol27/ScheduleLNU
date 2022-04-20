@@ -18,7 +18,7 @@ namespace ScheduleLNU.BusinessLogic.Extensions
 
         public static IServiceCollection AddSettings(this IServiceCollection services)
         {
-            return services.AddScoped<ITemeStyleService, StylizationService>();
+            return services.AddScoped<IThemeStyleService, StylizationService>();
         }
     }
 }

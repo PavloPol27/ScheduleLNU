@@ -5,7 +5,7 @@ using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
-    public interface ITemeStyleService
+    public interface IThemeStyleService
     {
         public Task<IEnumerable<ThemeDTO>> GetAllThemesAsync(int studentID);
 
