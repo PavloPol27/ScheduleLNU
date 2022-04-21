@@ -2,3 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+document.getElementById("edit-button").onclick = function ()
+{
+    console.log("I don't work yet");
+};

@@ -21,14 +21,14 @@ namespace ScheduleLNU.BusinessLogic.Services
             this.studentRepository = studentRepository;
         }
 
-        public async Task<IEnumerable<ScheduleDto>> GetSchedulesAsync(int studentId)
+        public async Task<IEnumerable<ScheduleDto>> GetAllAsync(int studentId)
         {
             return (await scheduleRepository
                 .SelectAllAsync(x => x.Student.Id == studentId))
                 .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title });
         }
 
-        public async Task<bool> DeleteScheduleAsync(int studentId, int scheduleId)
+        public async Task<bool> DeleteAsync(int studentId, int scheduleId)
         {
             try
             {
@@ -44,11 +44,25 @@ namespace ScheduleLNU.BusinessLogic.Services
             }
         }
 
-        public async Task<bool> AddSchedulesAsync(int studentId, string scheduleTitle)
+        public async Task<bool> AddAsync(int studentId, string scheduleTitle)
         {
             try
             {
                 await scheduleRepository.InsertAsync(new Schedule { Title = scheduleTitle, StudentId = studentId });
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle)
+        {
+            try
+            {
+                await scheduleRepository.UpdateAsync(
+                    new Schedule { Id = scheduleId, Title = scheduleTitle, StudentId = studentId });
                 return true;
             }
             catch
