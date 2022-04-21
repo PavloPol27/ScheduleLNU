@@ -38,16 +38,24 @@ namespace ScheduleLNU.BusinessLogic.Services
                 await scheduleRepository.DeleteAsync(schedule);
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
         }
 
-        public async Task AddSchedulesAsync(int studentId, string title)
+        public async Task<bool> AddSchedulesAsync(int studentId, string scheduleTitle)
         {
-            var student = await studentRepository.SelectAsync(s => s.Id == studentId);
-            await this.scheduleRepository.InsertAsync(new Schedule { Title = title, Student = student });
+            try
+            {
+                Student student = await studentRepository.SelectAsync(s => s.Id == studentId);
+                await scheduleRepository.InsertAsync(new Schedule { Title = scheduleTitle, Student = student });
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

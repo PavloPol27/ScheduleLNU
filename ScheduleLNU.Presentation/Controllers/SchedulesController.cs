@@ -16,9 +16,10 @@ namespace ScheduleLNU.Presentation.Controllers
             this.scheduleService = scheduleService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> View(int id)
         {
-            IEnumerable<ScheduleDto> resList = await this.scheduleService.GetSchedulesAsync(id);
+            IEnumerable<ScheduleDto> resList = await scheduleService.GetSchedulesAsync(id);
 
             return View(resList);
         }
@@ -26,21 +27,26 @@ namespace ScheduleLNU.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteSchedule(int studentId, int scheduleId)
         {
-            bool deleteResult = await this.scheduleService.DeleteScheduleAsync(studentId, scheduleId);
-            return RedirectToAction("View", new { id = 228 });;
+            bool deleteResult = await scheduleService.DeleteScheduleAsync(studentId, scheduleId);
+            if (deleteResult)
+            {
+                return RedirectToAction("View", new { id = studentId });
+            }
+
+            return new StatusCodeResult(400);
         }
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> AddSchedule(string title)
+        public async Task<IActionResult> AddSchedule(int studentId, string scheduleTitle)
         {
-            if (ModelState.IsValid)
+            bool addResult = await scheduleService.AddSchedulesAsync(studentId, scheduleTitle);
+            if (ModelState.IsValid && addResult)
             {
-                await this.scheduleService.AddSchedulesAsync(27, title);
-                return RedirectToAction("View");
+                return RedirectToAction("View", new { id = studentId });
             }
 
-            return new StatusCodeResult(400);
+            return new StatusCodeResult(500);
         }
     }
 }

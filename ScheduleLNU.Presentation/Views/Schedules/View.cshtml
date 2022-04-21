@@ -16,8 +16,13 @@
 <body>
     <div class="container">
         <ul class="items">
-            <form class="button-item">
-                <button class="add-button">
+            <form class="button-item"
+                  method="post" 
+                  asp-action="AddSchedule" 
+                  asp-controller="Schedules"
+                  asp-route-studentId="228" 
+                  asp-route-scheduleTitle="ScheduleTitle">
+                <button class="add-button" type="submit">
                     <span>
                         <span>
                              Add Schedule
