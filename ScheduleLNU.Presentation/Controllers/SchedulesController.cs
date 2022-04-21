@@ -25,7 +25,7 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteSchedule(int studentId, int scheduleId)
+        public async Task<IActionResult> Delete(int studentId, int scheduleId)
         {
             bool deleteResult = await scheduleService.DeleteAsync(studentId, scheduleId);
             if (deleteResult)
@@ -38,7 +38,7 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> AddSchedule(int studentId, string scheduleTitle)
+        public async Task<IActionResult> Add(int studentId, string scheduleTitle)
         {
             bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
             if (ModelState.IsValid && addResult)
@@ -49,15 +49,14 @@ namespace ScheduleLNU.Presentation.Controllers
             return new StatusCodeResult(500);
         }
 
-        [HttpPatch]
-        [Route("")]
+        [Route("edit")]
         public async Task<IActionResult> Edit(int studentId, int scheduleId, string title)
         {
             bool editResult = await scheduleService.EditAsync(studentId, scheduleId, title);
 
             if (editResult && ModelState.IsValid)
             {
-                return RedirectToAction("View");
+                return RedirectToAction("View", new { id = studentId });
             }
 
             return new StatusCodeResult(500);

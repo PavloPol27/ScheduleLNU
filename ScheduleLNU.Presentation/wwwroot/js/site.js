@@ -3,7 +3,4 @@
 
 // Write your JavaScript code.
 
-document.getElementById("edit-button").onclick = function ()
-{
-    console.log("I don't work yet");
-};
+
