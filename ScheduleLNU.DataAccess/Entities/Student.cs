@@ -17,5 +17,7 @@ namespace ScheduleLNU.DataAccess.Entities
         public List<Theme> Themes { get; set; }
 
         public List<EventStyle> EventStyles { get; set; }
+
+        public List<Schedule> Schedules { get; set; }
     }
 }

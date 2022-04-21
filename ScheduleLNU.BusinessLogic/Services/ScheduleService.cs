@@ -48,11 +48,10 @@ namespace ScheduleLNU.BusinessLogic.Services
         {
             try
             {
-                Student student = await studentRepository.SelectAsync(s => s.Id == studentId);
-                await scheduleRepository.InsertAsync(new Schedule { Title = scheduleTitle, Student = student });
+                await scheduleRepository.InsertAsync(new Schedule { Title = scheduleTitle, StudentId = studentId });
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
