@@ -29,5 +29,18 @@ namespace ScheduleLNU.Presentation.Controllers
             bool deleteResult = await this.scheduleService.DeleteScheduleAsync(studentId, scheduleId);
             return RedirectToAction("View", new { id = 228 });;
         }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> AddSchedule(string title)
+        {
+            if (ModelState.IsValid)
+            {
+                await this.scheduleService.AddSchedulesAsync(27, title);
+                return RedirectToAction("View");
+            }
+
+            return new StatusCodeResult(400);
+        }
     }
 }
