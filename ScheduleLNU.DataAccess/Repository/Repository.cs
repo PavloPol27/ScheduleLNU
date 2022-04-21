@@ -53,28 +53,15 @@ namespace ScheduleLNU.DataAccess.Repository
             return await entitiesDataSet.AsNoTracking().Where(selector).ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> SelectAllByIdAsync(int id)
-        {
-            return await SelectAllAsync(e => e.Id == id);
-        }
-
-        public async Task<IEnumerable<TEntity>> SelectAllWithIncludeAsync(
-            Expression<Func<TEntity, bool>> selector,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            return await GetValueWithInclude(includeProperties).Where(selector).ToListAsync();
-        }
-
         public async Task<IEnumerable<TEntity>> SelectAllWithIncludeAsync(
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return await GetValueWithInclude(includeProperties).ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> SelectAllByIdWithIncludeAsync(int id,
-            params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> SelectWithIncludeAsync(Expression<Func<TEntity, bool>> selector, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            return await SelectAllWithIncludeAsync(e => e.Id == id, includeProperties);
+            return await GetValueWithInclude(includeProperties).FirstOrDefaultAsync(selector);
         }
 
         private IQueryable<TEntity> GetValueWithInclude(
