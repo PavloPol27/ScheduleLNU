@@ -10,15 +10,13 @@ using ScheduleLNU.DataAccess.Repository;
 
 namespace ScheduleLNU.BusinessLogic.Services
 {
-    public class ScheduleService : IScheduleService
+    public class ScheduleService : IScheduleService // to base generic CRUD class (?)
     {
         private readonly IRepository<Schedule> scheduleRepository;
-        private readonly IRepository<Student> studentRepository;
 
-        public ScheduleService(IRepository<Schedule> scheduleRepository, IRepository<Student> studentRepository)
+        public ScheduleService(IRepository<Schedule> scheduleRepository)
         {
             this.scheduleRepository = scheduleRepository;
-            this.studentRepository = studentRepository;
         }
 
         public async Task<IEnumerable<ScheduleDto>> GetAllAsync(int studentId)
@@ -30,6 +28,7 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         public async Task<bool> DeleteAsync(int studentId, int scheduleId)
         {
+            // Replace to one global exception filter;
             try
             {
                 Schedule schedule = (await scheduleRepository.SelectAllWithIncludeAsync((schedule) =>

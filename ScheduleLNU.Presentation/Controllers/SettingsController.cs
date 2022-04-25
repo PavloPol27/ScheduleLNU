@@ -10,6 +10,13 @@ using ScheduleLNU.DataAccess.Entities;
 namespace ScheduleLNU.Presentation.Controllers
 {
     [Route("settings/")]
+
+    /*
+     * TODO: split this controller to areas;
+     *      1. Add theme settings controller
+     *      2. Add events settings controller
+     *      3. Add user data settings controller
+     */
     public class SettingsController : Controller
     {
         private readonly ILogger<SettingsController> logger;
@@ -31,11 +38,15 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [HttpGet]
+
+        // TODO: remove onclick with aspnet tag helpers
         [Route("themes")]
         public async Task<IActionResult> Themes()
         {
             logger.LogInformation("Student oppened themes setting page");
             var allThemes = Enumerable.Empty<ThemeDTO>();
+
+            // TODO: replace try catch into one filter place
             try
             {
                 allThemes = await stylizationService.GetAllThemesAsync(1);
@@ -51,13 +62,14 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [HttpPost]
         [Route("themes")]
-        public async Task<IActionResult> Themes(string title, string foreColor, string backColor, string font, int fontSize)
+
+        public async Task<IActionResult> Themes(Theme theme)
         {
             logger.LogInformation("Student add new theme {Title} {ForeColor} {BackColor} {Font} {FontSize}",
-                title, foreColor, backColor, font, fontSize);
+                theme.Title, theme.ForeColor, theme.BackColor, theme.Font, theme.FontSize);
             try
             {
-                await stylizationService.Insert(1, new Theme() { Title = title, ForeColor = foreColor, BackColor = backColor, Font = font, FontSize = fontSize });
+                await stylizationService.Insert(1, theme);
                 logger.LogInformation("New theme wass successfully added");
             }
             catch (Exception e)
