@@ -25,15 +25,18 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [HttpPost]
+        [Route("delete")]
         public async Task<IActionResult> Delete(int studentId, int scheduleId)
         {
             bool deleteResult = await scheduleService.DeleteAsync(studentId, scheduleId);
-            if (deleteResult)
-            {
-                return RedirectToAction("View", new { id = studentId });
-            }
+            return deleteResult ? StatusCode(204) : StatusCode(400);
+        }
 
-            return new StatusCodeResult(400);
+        [HttpGet]
+        [Route("delete")]
+        public IActionResult DeletePopup(ScheduleDto scheduleDto)
+        {
+            return PartialView("_DeletePopUpPartial", scheduleDto);
         }
 
         [HttpPost]
