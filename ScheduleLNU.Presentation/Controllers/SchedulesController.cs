@@ -41,8 +41,9 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> Add(int studentId, string scheduleTitle)
+        public async Task<IActionResult> Add(string scheduleTitle)
         {
+            var studentId = 228;
             bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
@@ -50,6 +51,13 @@ namespace ScheduleLNU.Presentation.Controllers
             }
 
             return new StatusCodeResult(500);
+        }
+
+        [HttpGet]
+        [Route("add")]
+        public IActionResult AddPopup()
+        {
+            return PartialView("_AddPopUpPartial", new ScheduleDto());
         }
 
         [Route("edit")]

@@ -19,49 +19,44 @@
 </head>
 <body>
     <div id="placeholderElement" style="position:absolute"></div>
-<div class="my-container">
-    <ul class="items">
-        <form class="button-item"
-              method="post"
-              asp-action="Add"
-              asp-controller="Schedules"
-              asp-route-studentId="228"
-              asp-route-scheduleTitle="ScheduleTitle">
-            <button class="add-button" type="submit">
+    <div class="my-container">
+        <ul class="items">
+            <button type="button" id="add-button"
+                    class="add-button"
+                    data-toggle="ajax-modal"
+                    data-target="addModalCenter"
+                    data-url="@Url.Action("AddPopup", "Schedules")">
                 <span>
-                    <span>
-                        Add Schedule
-                    </span>
+                    Add Schedule
                 </span>
             </button>
-        </form>
-        @foreach (var item in @Model)
-        {
-            <li>
-                <div class="item">
-                    <div class="item-title">
-                        @Html.DisplayName(item.Title)
-                    </div>
-                    <div class="item-actions">
-                        <form>
-                            <button id="edit-button"
+            @foreach (var item in @Model)
+            {
+                <li>
+                    <div class="item">
+                        <div class="item-title">
+                            @Html.DisplayName(item.Title)
+                        </div>
+                        <div class="item-actions">
+                            <form>
+                                <button id="edit-button"
+                                        class="action-button"
+                                        type="button"
+                                        onclick="makeScheduleTitleEditable(this)">
+                                    <i id="edit-icon" class="bi bi-pen"></i>
+                                </button>
+                            </form>
+                            <button type="button" id="delete-button"
                                     class="action-button"
-                                    type="button"
-                                    onclick="makeScheduleTitleEditable(this)">
-                                <i id="edit-icon" class="bi bi-pen"></i>
+                                    data-toggle="ajax-modal" data-target="deleteModalCenter"
+                                    data-url="@Url.Action("DeletePopup", "Schedules", item)">
+                                <i id="trash-icon" class="bi bi-trash"></i>
                             </button>
-                        </form>
-                        <button type="button" id="delete-button"
-                                class="action-button"
-                                data-toggle="ajax-modal" data-target="deleteModalCenter"
-                                data-url="@Url.Action("DeletePopup", "Schedules", item)">
-                            <i id="trash-icon" class="bi bi-trash"></i>
-                        </button>
+                        </div>
                     </div>
-                </div>
-            </li>
-        }
-    </ul>
-</div>
+                </li>
+            }
+        </ul>
+    </div>
 </body>
 </html>
