@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 using ScheduleLNU.DataAccess.Entities;
@@ -10,7 +8,7 @@ using ScheduleLNU.DataAccess.Repository;
 
 namespace ScheduleLNU.BusinessLogic.Services
 {
-    public class ScheduleService : IScheduleService // to base generic CRUD class (?)
+    public class ScheduleService : IScheduleService
     {
         private readonly IRepository<Schedule> scheduleRepository;
 
@@ -28,7 +26,6 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         public async Task<bool> DeleteAsync(int studentId, int scheduleId)
         {
-            // TODO: Replace to one global exception filter;
             try
             {
                 Schedule schedule = (await scheduleRepository.SelectAllAsync((schedule) =>
