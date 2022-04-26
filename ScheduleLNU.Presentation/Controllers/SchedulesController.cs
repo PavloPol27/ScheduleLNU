@@ -67,16 +67,21 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [Route("edit")]
-        public async Task<IActionResult> Edit(int studentId, int scheduleId, string title)
+        public async Task<IActionResult> Edit(int scheduleId, string title)
         {
-            bool editResult = await scheduleService.EditAsync(studentId, scheduleId, title);
+            var studentId = 228;
+            await scheduleService.EditAsync(studentId, scheduleId, title);
+            logger.LogInformation("Student changed schedule {scheduleId} title to {sheduleTitle}",
+                scheduleId, title);
+            return StatusCode(200);
+        }
 
-            if (editResult && ModelState.IsValid)
-            {
-                return RedirectToAction("View", new { studentId = studentId });
-            }
-
-            return new StatusCodeResult(500);
+        [HttpGet]
+        [Route("edit")]
+        public IActionResult EditPopup(ScheduleDto scheduleDto)
+        {
+            logger.LogInformation("Student opened edit schedule popup");
+            return PartialView("_EditPopUpPartial", scheduleDto);
         }
     }
 }

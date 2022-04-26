@@ -19,8 +19,10 @@
 </head>
 <body>
     <div id="placeholderElement" style="position:absolute"></div>
-    <div class="my-container">
-        <ul class="items">
+<div class="my-container">
+    <h1 id="main-label">Schedules</h1>
+    <ul class="items">
+        <li>
             <button type="button" id="add-button"
                     class="add-button"
                     data-toggle="ajax-modal"
@@ -30,28 +32,28 @@
                     Add Schedule
                 </span>
             </button>
-            @foreach (var item in @Model)
-            {
-                <li>
-                    <div class="item">
-                        <div class="item-title">
-                            @Html.DisplayName(item.Title)
-                        </div>
-                        <div class="item-actions">
-                            <form>
-                                <button id="edit-button"
-                                        class="action-button"
-                                        type="button"
-                                        onclick="makeScheduleTitleEditable(this)">
-                                    <i id="edit-icon" class="bi bi-pen"></i>
-                                </button>
-                            </form>
-                            <button type="button" id="delete-button"
+        </li>
+        @foreach (var item in @Model)
+        {
+            <li>
+                <div class="item">
+                    <div class="item-title">
+                        @Html.DisplayName(item.Title)
+                    </div>
+                    <div class="item-actions">
+                        <form>
+                            <button type="button" id="edit-button"
                                     class="action-button"
-                                    data-toggle="ajax-modal" data-target="deleteModalCenter"
-                                    data-url="@Url.Action("DeletePopup", "Schedules", item)">
-                                <i id="trash-icon" class="bi bi-trash"></i>
+                                    data-toggle="ajax-modal" data-target="editModalCenter"
+                                    data-url="@Url.Action("EditPopup", "Schedules", item)">
+                                <i id="edit-icon" class="bi bi-pen"></i>
+                             <button type="button" id="delete-button"
+                                  class="action-button"
+                                  data-toggle="ajax-modal" data-target="deleteModalCenter"
+                                  data-url="@Url.Action("DeletePopup", "Schedules", item)">
+                              <i id="trash-icon" class="bi bi-trash"></i>
                             </button>
+                           </form>
                         </div>
                     </div>
                 </li>
