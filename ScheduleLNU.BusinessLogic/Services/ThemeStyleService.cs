@@ -25,7 +25,7 @@ namespace ScheduleLNU.BusinessLogic.Services
         public async Task<IEnumerable<ThemeDTO>> GetAllThemesAsync(int studentId)
         {
             var studentRecord = await studentRepository
-                .SelectWithIncludeAsync(s => s.Id == studentId, s => s.Themes, s => s.SelectedTheme);
+                .SelectAsync(s => s.Id == studentId, s => s.Themes, s => s.SelectedTheme);
             return studentRecord.Themes
                 .Select(t => new ThemeDTO()
                 {
@@ -37,7 +37,7 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         public async Task<Theme> ViewTheme(int studentId, int themeID)
         {
-            var studentRecord = await studentRepository.SelectWithIncludeAsync(s => s.Id == studentId, s => s.Themes);
+            var studentRecord = await studentRepository.SelectAsync(s => s.Id == studentId, s => s.Themes);
             var theme = studentRecord.Themes.FirstOrDefault(t => t.Id == themeID);
 
             if (theme is null)
@@ -55,7 +55,7 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         public async Task Insert(int studentId, Theme theme)
         {
-            var studentRecord = await studentRepository.SelectWithIncludeAsync(s => s.Id == studentId, s => s.Themes);
+            var studentRecord = await studentRepository.SelectAsync(s => s.Id == studentId, s => s.Themes);
             studentRecord.Themes.Add(theme);
             await studentRepository.UpdateAsync(studentRecord);
         }
