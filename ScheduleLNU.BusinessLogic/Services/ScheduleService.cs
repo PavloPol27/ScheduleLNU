@@ -28,7 +28,7 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         public async Task<bool> DeleteAsync(int studentId, int scheduleId)
         {
-            // Replace to one global exception filter;
+            // TODO: Replace to one global exception filter;
             try
             {
                 Schedule schedule = (await scheduleRepository.SelectAllWithIncludeAsync((schedule) =>
