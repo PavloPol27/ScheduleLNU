@@ -1,10 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<div class="text-center">
-    <h1 class="display-4 head1">Welcome to home page!</h1>
-    <pre class="house">
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-4 head1">Welcome to home page!</h1>
+        <pre class="house">
           ) )        /\
          =====      /  \
         _|___|_____/ __ \____________
@@ -21,4 +27,16 @@
         (, , ,, ,/________\,,,, ,, ,)
        ','', ,' /__________\,,',',',;;
     </pre>
-</div>
+
+
+        <p>Go to schedules:</p>
+        <form method="get"
+              asp-action="View"
+              asp-controller="Schedules">
+            <span>Input student id: </span>
+            <input type="text" id="stIdInput" name="studentId" value="228">
+            <button type="submit">Schedules</button>
+        </form>
+    </div>
+</body>
+</html>

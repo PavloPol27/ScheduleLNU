@@ -17,23 +17,26 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> View(int studentID)
+        public async Task<IActionResult> View(int studentId)
         {
-            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentID);
+            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentId);
 
             return View(resList);
         }
 
         [HttpPost]
+        [Route("delete")]
         public async Task<IActionResult> Delete(int studentId, int scheduleId)
         {
             bool deleteResult = await scheduleService.DeleteAsync(studentId, scheduleId);
-            if (deleteResult)
-            {
-                return RedirectToAction("View", new { id = studentId });
-            }
+            return deleteResult ? StatusCode(204) : StatusCode(400);
+        }
 
-            return new StatusCodeResult(400);
+        [HttpGet]
+        [Route("delete")]
+        public IActionResult DeletePopup(ScheduleDto scheduleDto)
+        {
+            return PartialView("_DeletePopUpPartial", scheduleDto);
         }
 
         [HttpPost]
@@ -43,7 +46,7 @@ namespace ScheduleLNU.Presentation.Controllers
             bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
-                return RedirectToAction("View", new { id = studentId });
+                return RedirectToAction("View", new { studentId = studentId });
             }
 
             return new StatusCodeResult(500);
@@ -56,7 +59,7 @@ namespace ScheduleLNU.Presentation.Controllers
 
             if (editResult && ModelState.IsValid)
             {
-                return RedirectToAction("View", new { id = studentId });
+                return RedirectToAction("View", new { studentId = studentId });
             }
 
             return new StatusCodeResult(500);

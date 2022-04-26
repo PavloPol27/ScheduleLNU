@@ -23,7 +23,51 @@ namespace ScheduleLNU.BusinessLogic.Services
         {
             return (await scheduleRepository
                 .SelectAllAsync(x => x.Student.Id == studentId))
-                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title });
+                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId});
+        }
+
+        public async Task<bool> DeleteAsync(int studentId, int scheduleId)
+        {
+            // TODO: Replace to one global exception filter;
+            try
+            {
+                Schedule schedule = (await scheduleRepository.SelectAllWithIncludeAsync((schedule) =>
+                schedule.Id == scheduleId && schedule.Student.Id == studentId,
+                (entity) => entity.Student)).FirstOrDefault();
+                await scheduleRepository.DeleteAsync(schedule);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> AddAsync(int studentId, string scheduleTitle)
+        {
+            try
+            {
+                await scheduleRepository.InsertAsync(new Schedule { Title = scheduleTitle, StudentId = studentId });
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle)
+        {
+            try
+            {
+                await scheduleRepository.UpdateAsync(
+                    new Schedule { Id = scheduleId, Title = scheduleTitle, StudentId = studentId });
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task<bool> DeleteAsync(int studentId, int scheduleId)
