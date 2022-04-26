@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
@@ -10,17 +11,19 @@ namespace ScheduleLNU.Presentation.Controllers
     public class SchedulesController : Controller
     {
         private readonly IScheduleService scheduleService;
+        private readonly ILogger<SchedulesController> logger;
 
-        public SchedulesController(IScheduleService scheduleService)
+        public SchedulesController(ILogger<SchedulesController> logger,
+            IScheduleService scheduleService)
         {
+            this.logger = logger;
             this.scheduleService = scheduleService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> View(int studentId)
+        public async Task<IActionResult> View(int id)
         {
-            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentId);
-
+            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(id);
             return View(resList);
         }
 
@@ -41,15 +44,26 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> Add(int studentId, string scheduleTitle)
+        public async Task<IActionResult> Add(string scheduleTitle)
         {
+            var studentId = 228;
             bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
+            logger.LogInformation("Student added schedule {sheduleTitle} to the list of schedules",
+                scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
                 return RedirectToAction("View", new { studentId = studentId });
             }
 
             return new StatusCodeResult(500);
+        }
+
+        [HttpGet]
+        [Route("add")]
+        public IActionResult AddPopup()
+        {
+            logger.LogInformation("Student opened add schedule popup");
+            return PartialView("_AddPopUpPartial", new ScheduleDto());
         }
 
         [Route("edit")]

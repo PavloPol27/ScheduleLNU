@@ -23,11 +23,11 @@ function cancelScheduleTitleEditable(textBox) {
     };
 }
 
-// Delete PopUp
+// Add/Delete PopUp
 $(function () {
     var placeholderElement = $('#placeholderElement');
 
-    // Delete button press
+    // Add/Delete button press
     $('button[data-toggle="ajax-modal"]').click(function (event) {
         var url = $(this).data('url');
         $.get(url).done(function (data) {
@@ -37,13 +37,25 @@ $(function () {
         });
     });
 
-    // Proceed with delete
-    placeholderElement.on('click', '[data-save="modal"]',
-        function(event) {
-            var url = $(this).data('url');
-            $.post(url).done(function(response) {
+     //Proceed with add/delete
+    placeholderElement.on('click', '#deleteSchedule',
+    function(event) {
+        var url = $(this).data('url');
+        $.post(url).done(function(response) {
+            placeholderElement.find('.modal').modal('hide');
+            location.reload(true);
+        });
+    });
+
+    placeholderElement.on('click', '#addSchedule',
+        function (event) {
+            var form = $(this).parents('.modal').find('form');
+            var action_url = form.attr('action');
+            var send_data = form.serialize();
+            $.post(action_url, send_data).done(function (response) {
                 placeholderElement.find('.modal').modal('hide');
                 location.reload(true);
             });
         });
 });
+
