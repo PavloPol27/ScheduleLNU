@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ScheduleLNU.DataAccess.Migrations
 {
-    public partial class onKeyTypeChanged : Migration
+    public partial class OnKeyTypeChanged : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

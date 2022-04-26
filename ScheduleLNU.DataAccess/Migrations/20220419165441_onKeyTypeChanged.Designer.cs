@@ -10,8 +10,8 @@ using ScheduleLNU.DataAccess;
 namespace ScheduleLNU.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220419165441_onKeyTypeChanged")]
-    partial class onKeyTypeChanged
+    [Migration("20220419165441_OnKeyTypeChanged")]
+    partial class OnKeyTypeChanged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

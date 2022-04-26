@@ -9,6 +9,10 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
     {
         public Task<IEnumerable<ThemeDTO>> GetAllThemesAsync(int studentID);
 
-        Task Insert(int studentId, Theme theme);
+        Task Insert(int studentID, Theme theme);
+
+        Task Edit(int studentID, Theme theme);
+
+        Task<Theme> ViewTheme(int studentID, int themeId);
     }
 }
