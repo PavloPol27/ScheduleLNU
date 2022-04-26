@@ -1,4 +1,6 @@
-﻿namespace ScheduleLNU.DataAccess.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ScheduleLNU.DataAccess.Entities
 {
     public class EventStyle : BaseEntity
     {
@@ -7,5 +9,10 @@
         public string ForeColor { get; set; }
 
         public string BackColor { get; set; }
+
+        [ForeignKey("Student")]
+        public int StudentId { get; set; }
+
+        public Student Student { get; set; }
     }
 }
