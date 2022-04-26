@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Services;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
+using Serilog;
 
 namespace ScheduleLNU.Presentation
 {
@@ -24,8 +25,8 @@ namespace ScheduleLNU.Presentation
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<IEventStyleService, EventStyleService>();
-            services.AddSettings();
-            services.AddMvc().AddRazorRuntimeCompilation();
+            services.AddSettingServices();
+            services.AddMvc();
             services.AddHttpClient();
         }
 
@@ -36,6 +37,7 @@ namespace ScheduleLNU.Presentation
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseExceptionHandling(Log.Logger);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

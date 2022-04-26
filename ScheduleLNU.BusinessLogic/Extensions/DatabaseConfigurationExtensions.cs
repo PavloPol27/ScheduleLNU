@@ -15,10 +15,5 @@ namespace ScheduleLNU.BusinessLogic.Extensions
             services.AddDbContext<DataContext>(opt => opt.UseNpgsql(connectionString));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
-
-        public static IServiceCollection AddSettings(this IServiceCollection services)
-        {
-            return services.AddScoped<IThemeStyleService, StylizationService>();
-        }
     }
 }

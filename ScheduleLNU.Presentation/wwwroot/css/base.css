@@ -1,20 +1,12 @@
-﻿html {
-    background-color:lightcyan;
+﻿.item-actions {
+    margin: 5% 10px 0 0 !important;
 }
 
-body {
-    background-color: lightgray;
+.action-button {
+    padding: 7% !important;
 }
 
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 4px;
-    white-space: nowrap;
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
+.navigation {
+    display: flex;
+    justify-content: space-between;
 }

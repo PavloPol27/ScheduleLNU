@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ScheduleLNU.DataAccess;
@@ -9,9 +10,10 @@ using ScheduleLNU.DataAccess;
 namespace ScheduleLNU.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220426111256_AddThemeConstraints")]
+    partial class AddThemeConstraints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +72,7 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("ForeColor")
                         .HasColumnType("text");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")
@@ -201,13 +203,9 @@ namespace ScheduleLNU.DataAccess.Migrations
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.EventStyle", b =>
                 {
-                    b.HasOne("ScheduleLNU.DataAccess.Entities.Student", "Student")
+                    b.HasOne("ScheduleLNU.DataAccess.Entities.Student", null)
                         .WithMany("EventStyles")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
+                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Link", b =>
