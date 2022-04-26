@@ -46,7 +46,7 @@ namespace ScheduleLNU.Presentation.Controllers
             bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
-                return RedirectToAction("View", new { studentId = studentId });
+                return RedirectToAction("View", new { studentId });
             }
 
             return new StatusCodeResult(500);
@@ -59,7 +59,7 @@ namespace ScheduleLNU.Presentation.Controllers
 
             if (editResult && ModelState.IsValid)
             {
-                return RedirectToAction("View", new { studentId = studentId });
+                return RedirectToAction("View", new { studentId });
             }
 
             return new StatusCodeResult(500);

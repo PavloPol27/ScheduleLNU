@@ -55,7 +55,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         }
 
         [HttpPost]
-        [Route("[area]/themes")]
+        [Route("[area]/add-theme")]
         public async Task<IActionResult> AddTheme(int studentId, Theme theme)
         {
             logger.LogInformation("Student add new theme {Title} {ForeColor} {BackColor} {Font} {FontSize}",
@@ -69,7 +69,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         }
 
         [HttpPost]
-        [Route("[area]/editTheme")]
+        [Route("[area]/edit-theme")]
         public async Task<IActionResult> EditTheme(int studentId, Theme theme)
         {
             logger.LogInformation("Student add new theme {Title} {ForeColor} {BackColor} {Font} {FontSize}",
