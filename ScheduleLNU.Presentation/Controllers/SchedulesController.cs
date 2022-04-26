@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
@@ -10,9 +11,12 @@ namespace ScheduleLNU.Presentation.Controllers
     public class SchedulesController : Controller
     {
         private readonly IScheduleService scheduleService;
+        private readonly ILogger<SchedulesController> logger;
 
-        public SchedulesController(IScheduleService scheduleService)
+        public SchedulesController(ILogger<SchedulesController> logger,
+            IScheduleService scheduleService)
         {
+            this.logger = logger;
             this.scheduleService = scheduleService;
         }
 
@@ -45,6 +49,8 @@ namespace ScheduleLNU.Presentation.Controllers
         {
             var studentId = 228;
             bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
+            logger.LogInformation("Student added schedule {sheduleTitle} to the list of schedules",
+                scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
                 return RedirectToAction("View", new { id = studentId });
@@ -57,6 +63,7 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("add")]
         public IActionResult AddPopup()
         {
+            logger.LogInformation("Student opened add schedule popup");
             return PartialView("_AddPopUpPartial", new ScheduleDto());
         }
 
