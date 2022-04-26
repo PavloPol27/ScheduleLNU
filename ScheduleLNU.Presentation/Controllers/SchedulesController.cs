@@ -24,7 +24,6 @@ namespace ScheduleLNU.Presentation.Controllers
         public async Task<IActionResult> View(int id)
         {
             IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(id);
-
             return View(resList);
         }
 
@@ -53,7 +52,7 @@ namespace ScheduleLNU.Presentation.Controllers
                 scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
-                return RedirectToAction("View", new { id = studentId });
+                return RedirectToAction("View", new { studentId = studentId });
             }
 
             return new StatusCodeResult(500);
@@ -74,7 +73,7 @@ namespace ScheduleLNU.Presentation.Controllers
 
             if (editResult && ModelState.IsValid)
             {
-                return RedirectToAction("View", new { id = studentId });
+                return RedirectToAction("View", new { studentId = studentId });
             }
 
             return new StatusCodeResult(500);
