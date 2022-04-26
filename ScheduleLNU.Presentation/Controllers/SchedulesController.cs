@@ -21,10 +21,9 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> View(int studentId)
+        public async Task<IActionResult> View(int id)
         {
-            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentId);
-
+            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(id);
             return View(resList);
         }
 
@@ -45,9 +44,12 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> Add(int studentId, string title)
+        public async Task<IActionResult> Add(string scheduleTitle)
         {
-            bool addResult = await scheduleService.AddAsync(studentId, title);
+            var studentId = 228;
+            bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
+            logger.LogInformation("Student added schedule {sheduleTitle} to the list of schedules",
+                scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
                 return RedirectToAction("View", new { studentId = studentId });
@@ -56,7 +58,14 @@ namespace ScheduleLNU.Presentation.Controllers
             return new StatusCodeResult(500);
         }
 
-        [HttpPost]
+        [HttpGet]
+        [Route("add")]
+        public IActionResult AddPopup()
+        {
+            logger.LogInformation("Student opened add schedule popup");
+            return PartialView("_AddPopUpPartial", new ScheduleDto());
+        }
+
         [Route("edit")]
         public async Task<IActionResult> Edit(int scheduleId, string title)
         {
