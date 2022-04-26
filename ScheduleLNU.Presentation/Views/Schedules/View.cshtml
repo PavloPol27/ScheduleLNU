@@ -47,10 +47,10 @@
                     </div>
                     <div class="item-actions">
                         <form>
-                            <button id="edit-button"
+                            <button type="button" id="edit-button"
                                     class="action-button"
-                                    type="button"
-                                    onclick="makeScheduleTitleEditable(this)">
+                                    data-toggle="ajax-modal" data-target="editModalCenter"
+                                    data-url="@Url.Action("EditPopup", "Schedules", item)">
                                 <i id="edit-icon" class="bi bi-pen"></i>
                             </button>
                         </form>
