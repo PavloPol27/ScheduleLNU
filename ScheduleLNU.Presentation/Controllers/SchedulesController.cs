@@ -21,9 +21,9 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> View(int id)
+        public async Task<IActionResult> View(int studentId)
         {
-            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(id);
+            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentId);
             return View(resList);
         }
 
