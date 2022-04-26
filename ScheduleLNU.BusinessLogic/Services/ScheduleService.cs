@@ -23,7 +23,7 @@ namespace ScheduleLNU.BusinessLogic.Services
         {
             return (await scheduleRepository
                 .SelectAllAsync(x => x.Student.Id == studentId))
-                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId});
+                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId });
         }
 
         public async Task<bool> DeleteAsync(int studentId, int scheduleId)
@@ -31,7 +31,7 @@ namespace ScheduleLNU.BusinessLogic.Services
             // TODO: Replace to one global exception filter;
             try
             {
-                Schedule schedule = (await scheduleRepository.SelectAllWithIncludeAsync((schedule) =>
+                Schedule schedule = (await scheduleRepository.SelectAllAsync((schedule) =>
                 schedule.Id == scheduleId && schedule.Student.Id == studentId,
                 (entity) => entity.Student)).FirstOrDefault();
                 await scheduleRepository.DeleteAsync(schedule);
