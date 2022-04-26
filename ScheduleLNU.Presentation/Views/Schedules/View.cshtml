@@ -21,20 +21,22 @@
     <div id="placeholderElement" style="position:absolute"></div>
 <div class="my-container">
     <ul class="items">
-        <form class="button-item"
-              method="post"
-              asp-action="Add"
-              asp-controller="Schedules"
-              asp-route-studentId="228"
-              asp-route-scheduleTitle="ScheduleTitle">
-            <button class="add-button" type="submit">
-                <span>
+        <li>
+            <form class="button-item"
+                  method="post"
+                  asp-action="Add"
+                  asp-controller="Schedules"
+                  asp-route-studentId="228"
+                  asp-route-scheduleTitle="ScheduleTitle">
+                <button class="add-button" type="submit">
                     <span>
-                        Add Schedule
+                        <span>
+                            Add Schedule
+                        </span>
                     </span>
-                </span>
-            </button>
-        </form>
+                </button>
+            </form>
+        </li>
         @foreach (var item in @Model)
         {
             <li>

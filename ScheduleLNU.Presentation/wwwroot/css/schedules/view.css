@@ -9,6 +9,16 @@ a {
     text-decoration: none;
 }
 
+button:active {
+    outline: none;
+    border: none;
+}
+
+button:focus {
+    outline: none;
+    border: none;
+}
+
 .my-container {
     position: absolute;
     left: 25%;
