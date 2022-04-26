@@ -1,6 +1,6 @@
-using ScheduleLNU.BusinessLogic.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using ScheduleLNU.BusinessLogic.Extensions;
 using Serilog;
 
 namespace ScheduleLNU.Presentation
@@ -20,6 +20,7 @@ namespace ScheduleLNU.Presentation
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

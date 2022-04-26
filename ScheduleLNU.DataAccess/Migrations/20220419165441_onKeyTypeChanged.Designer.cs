@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ScheduleLNU.DataAccess;
@@ -9,9 +10,10 @@ using ScheduleLNU.DataAccess;
 namespace ScheduleLNU.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220419165441_OnKeyTypeChanged")]
+    partial class OnKeyTypeChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,7 +112,7 @@ namespace ScheduleLNU.DataAccess.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")
@@ -175,9 +177,7 @@ namespace ScheduleLNU.DataAccess.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -216,10 +216,8 @@ namespace ScheduleLNU.DataAccess.Migrations
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Schedule", b =>
                 {
                     b.HasOne("ScheduleLNU.DataAccess.Entities.Student", "Student")
-                        .WithMany("Schedules")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Student");
                 });
@@ -253,8 +251,6 @@ namespace ScheduleLNU.DataAccess.Migrations
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Student", b =>
                 {
                     b.Navigation("EventStyles");
-
-                    b.Navigation("Schedules");
 
                     b.Navigation("Themes");
                 });

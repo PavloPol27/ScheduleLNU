@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Services;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
+using Serilog;
 
 namespace ScheduleLNU.Presentation
 {
@@ -20,8 +21,10 @@ namespace ScheduleLNU.Presentation
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.SetupDbConfiguration(Configuration["ConnectionString"]);
+            services.AddDbConfiguration(Configuration["ConnectionString"]);
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddSettingServices();
             services.AddMvc();
             services.AddHttpClient();
         }
@@ -33,6 +36,7 @@ namespace ScheduleLNU.Presentation
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseExceptionHandling(Log.Logger);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -43,10 +47,12 @@ namespace ScheduleLNU.Presentation
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                endpoints.MapAreaControllerRoute(
+                    name: "SettingsArea",
+                    areaName: "settings",
+                    pattern: "settings/{controller=Configuration}/{action=Configuration}");
+
+                endpoints.MapControllers();
             });
         }
     }

@@ -4,21 +4,25 @@ using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.Presentation.Controllers
 {
+    [Route("")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IStudentService _studentService;
+        private readonly ILogger<HomeController> logger;
+        private readonly IStudentService studentService;
+
         public HomeController(ILogger<HomeController> logger, IStudentService studentService)
         {
-            _logger = logger;
-            _studentService = studentService;
+            this.logger = logger;
+            this.studentService = studentService;
         }
 
+        [Route("")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("Privacy")]
         public IActionResult Privacy()
         {
             return View();

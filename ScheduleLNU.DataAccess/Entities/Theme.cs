@@ -1,22 +1,19 @@
-﻿namespace ScheduleLNU.DataAccess.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ScheduleLNU.DataAccess.Entities
 {
-    public class Theme
+    public class Theme : BaseEntity
     {
-        public uint Id { get; set; }
+        [Required]
+        [MaxLength(255)]
+        public string Title { get; set; } = "New theme";
 
-        
-        public string Title { get; set; }
+        public string ForeColor { get; set; } = $"#000000";
 
+        public string BackColor { get; set; } = $"#FFFFFF";
 
-        public string ForeColor { get; set; }
+        public string Font { get; set; } = "Arial";
 
-
-        public string BackColor { get; set; }
-
-      
-        public string Font { get; set; }
-
-        
-        public int FontSize { get; set; }
+        public int FontSize { get; set; } = 16;
     }
 }
