@@ -19,7 +19,7 @@ function makeInput(e) {
 function cancelScheduleTitleEditable(textBox) {
     return function () {
         textBox.parentNode.innerHTML = textBox.value;
-        window.location.href = 'schedules/edit?studentId=228&scheduleId=331&title=' + textBox.value;
+        window.location.href = 'schedules/edit?studentId=228&scheduleId=331&scheduleTitle=' + textBox.value;
     };
 }
 
