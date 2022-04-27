@@ -29,9 +29,18 @@ namespace ScheduleLNU.BusinessLogic.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle)
+        public async Task<bool> EditAsync(EventStyleDto eventStyle)
         {
-            throw new NotImplementedException();
+            await eventStyleRepository.UpdateAsync(
+                new EventStyle
+                {
+                    Id = eventStyle.Id,
+                    Title = eventStyle.Title,
+                    ForeColor = eventStyle.ForeColor,
+                    BackColor = eventStyle.BackColor,
+                    StudentId = eventStyle.StudentId
+                });
+            return true;
         }
 
         public async Task<IEnumerable<EventStyleDto>> GetAllAsync(int studentId)
@@ -47,5 +56,20 @@ namespace ScheduleLNU.BusinessLogic.Services
                     StudentId = studentId
                 });
         }
+
+        public async Task<EventStyleDto> GetAsync(int studentId, int eventStyleId)
+        {
+            var eventStyle = await eventStyleRepository
+                .SelectAsync(x => x.StudentId == studentId && x.Id == eventStyleId);
+            return new EventStyleDto
+            {
+                Id = eventStyleId,
+                Title = eventStyle.Title,
+                BackColor = eventStyle.BackColor,
+                ForeColor = eventStyle.ForeColor,
+                StudentId = studentId
+            };
+        }
+
     }
 }

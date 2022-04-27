@@ -9,7 +9,7 @@ using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 {
-    [Area("Settings")]
+    [Area("settings")]
     [Route("[area]/event-styles")]
     public class EventStyleSettingsController : Controller
     {
@@ -35,6 +35,34 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             logger.LogInformation("Student viwed all event styles {Lenght}", eventStyles.Count());
 
             return View(eventStyles);
+        }
+
+        [HttpGet]
+        [Route("edit")]
+        public async Task<IActionResult> EventStyleEdit(int styleId)
+        {
+            var studentId = 228;
+            var eventStyle = await eventStyleService.GetAsync(studentId, styleId);
+
+            logger.LogInformation("Student tries to edit event style {styleId}", styleId);
+            return View("EventStyleEdit", eventStyle);
+        }
+
+        [HttpPost]
+        [Route("edit-style")]
+        public async Task<IActionResult> EditStyle(EventStyleDto eventStyleDto)
+        {
+            await eventStyleService.EditAsync(eventStyleDto);
+            if (ModelState.IsValid)
+            {
+                logger.LogInformation("Student updated event style {eventStyleId}: title - {eventStyleTitle}," +
+                    "fore color - {eventStyleForeColor} and back color - {eventStyleBackColor} to the list of event styles",
+                    eventStyleDto.Id, eventStyleDto.Title, eventStyleDto.ForeColor, eventStyleDto.BackColor);
+                return RedirectToAction("EventStyles", new { studentId = eventStyleDto.StudentId });
+            }
+
+            logger.LogInformation("Student failed to edit event style");
+            return new StatusCodeResult(500);
         }
     }
 }
