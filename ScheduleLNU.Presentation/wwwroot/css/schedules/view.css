@@ -16,11 +16,6 @@ button:active {
     border: none;
 }
 
-button:focus {
-    outline: none;
-    border: none;
-}
-
 .my-container {
     position: absolute;
     left: 25%;
@@ -69,6 +64,7 @@ h1 {
 .add-button {
     font-weight: 600;
     padding: 1rem 1.5rem;
+    margin-bottom: 30px;
     overflow: hidden;
     border: 2px solid #0073cf;
     color: #000;
@@ -76,7 +72,7 @@ h1 {
 }
 
 .add-button:hover {
-    border: 1px solid #000;
+    border: 2px solid #000;
     color: #fff;
     background-color: #0073cf;
 }

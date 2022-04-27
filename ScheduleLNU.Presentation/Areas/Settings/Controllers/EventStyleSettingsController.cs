@@ -36,5 +36,32 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 
             return View(eventStyles);
         }
+
+        [HttpGet]
+        [Route("event-style-preview")]
+        public IActionResult EventStylePreview(int studentId)
+        {
+            logger.LogInformation("Student {studentID} creates new event style", studentId);
+
+            return View(new EventStyleDto());
+        }
+
+        [HttpPost]
+        [Route("add-style")]
+        public async Task<IActionResult> AddStyle(EventStyleDto eventStyleDto)
+        {
+            eventStyleDto.StudentId = 228;
+            await eventStyleService.AddAsync(eventStyleDto);
+            if (ModelState.IsValid)
+            {
+                logger.LogInformation("Student added new event style with a title - {eventStyleTitle}," +
+                    "fore color - {eventStyleForeColor} and back color - {eventStyleBackColor}" +
+                    " to the list of event styles", eventStyleDto.Title, eventStyleDto.ForeColor, eventStyleDto.BackColor);
+                return RedirectToAction("EventStyles", new { studentId = eventStyleDto.StudentId });
+            }
+
+            logger.LogInformation("Student failed to add new event style");
+            return new StatusCodeResult(500);
+        }
     }
 }

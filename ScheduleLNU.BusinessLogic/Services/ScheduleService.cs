@@ -22,7 +22,8 @@ namespace ScheduleLNU.BusinessLogic.Services
         {
             return (await scheduleRepository
                 .SelectAllAsync(x => x.Student.Id == studentId))
-                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId });
+                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId})
+                .OrderBy(x => x.Id);
         }
 
         public async Task<bool> DeleteAsync(int studentId, int scheduleId)
@@ -56,16 +57,9 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         public async Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle)
         {
-            try
-            {
-                await scheduleRepository.UpdateAsync(
-                    new Schedule { Id = scheduleId, Title = scheduleTitle, StudentId = studentId });
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            await scheduleRepository.UpdateAsync(
+                new Schedule { Id = scheduleId, Title = scheduleTitle, StudentId = studentId });
+            return true;
         }
     }
 }
