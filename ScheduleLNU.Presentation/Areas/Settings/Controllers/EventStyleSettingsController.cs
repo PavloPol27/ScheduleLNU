@@ -70,7 +70,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             logger.LogInformation("Student failed to edit event style");
             return new StatusCodeResult(500);
         }
-        
+
         [HttpGet]
         [Route("event-style-preview")]
         public IActionResult EventStylePreview(int studentId)
