@@ -77,7 +77,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         {
             logger.LogInformation("Student {studentID} creates new event style", studentId);
 
-            return View(new EventStyleDto());
+            return View("EventStylePreview", new EventStyleDto());
         }
 
         [HttpPost]
