@@ -13,6 +13,6 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 
         Task AddAsync(EventStyleDto eventStyleDto);
 
-        Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle);
+        Task<bool> EditAsync(EventStyleDto eventStyle);
     }
 }

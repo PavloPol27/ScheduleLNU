@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <form method="post" a></form>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
 <html lang="en">
 <head>
     <title>Event Styles</title>
@@ -44,12 +45,19 @@
                             @Html.DisplayName(item.Title)
                         </div>
                         <div class="item-actions">
-                            <form>
-                                <button id="edit-button"
-                                        class="action-button"
-                                        type="button">
+                            <form class="button-item">
+                                <a id="edit-button"
+                                   class="action-button"
+                                   asp-action="EventStyleEdit"
+                                   asp-area="settings"
+                                   asp-controller="EventStyleSettings"
+                                   asp-route-styleId="@item.Id"
+                                   asp-route-studentId="@item.StudentId"
+                                   asp-route-foreColor="@item.ForeColor"
+                                   asp-route-backColor="@item.BackColor"
+                                   asp-route-title="@item.Title">
                                     <i id="edit-icon" class="bi bi-pen"></i>
-                                </button>
+                                </a>
                             </form>
                             <button type="button" id="delete-button"
                                     class="action-button">
