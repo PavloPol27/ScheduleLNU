@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ScheduleLNU.BusinessLogic.DTOs.ScheduleDto>
+
 <!DOCTYPE html>
-<form method="post" a></form>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <html lang="en">
 <head>
@@ -23,15 +23,17 @@
     <h1 id="main-label">Schedules</h1>
     <ul class="items">
         <li>
-            <button type="button" id="add-button"
-                    class="add-button"
-                    data-toggle="ajax-modal"
-                    data-target="addModalCenter"
-                    data-url="@Url.Action("AddPopup", "Schedules")">
-                <span>
-                    Add Schedule
-                </span>
-            </button>
+            <form>
+                <button type="button" id="add-button"
+                        class="add-button"
+                        data-toggle="ajax-modal"
+                        data-target="addModalCenter"
+                        data-url="@Url.Action("AddPopup", "Schedules")">
+                            <span>
+                                Add Schedule
+                            </span>
+                    </button>
+            </form>
         </li>
         @foreach (var item in @Model)
         {
@@ -47,18 +49,21 @@
                                     data-toggle="ajax-modal" data-target="editModalCenter"
                                     data-url="@Url.Action("EditPopup", "Schedules", item)">
                                 <i id="edit-icon" class="bi bi-pen"></i>
-                             <button type="button" id="delete-button"
-                                  class="action-button"
-                                  data-toggle="ajax-modal" data-target="deleteModalCenter"
-                                  data-url="@Url.Action("DeletePopup", "Schedules", item)">
-                              <i id="trash-icon" class="bi bi-trash"></i>
                             </button>
+                        
+
+                        <button type="button" id="delete-button"
+                                class="action-button"
+                                data-toggle="ajax-modal" data-target="deleteModalCenter"
+                                data-url="@Url.Action("DeletePopup", "Schedules", item)">
+                            <i id="trash-icon" class="bi bi-trash"></i>
+                        </button>
                            </form>
-                        </div>
                     </div>
-                </li>
-            }
-        </ul>
-    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
 </body>
 </html>

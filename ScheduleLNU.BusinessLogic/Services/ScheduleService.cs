@@ -22,7 +22,7 @@ namespace ScheduleLNU.BusinessLogic.Services
         {
             return (await scheduleRepository
                 .SelectAllAsync(x => x.Student.Id == studentId))
-                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId})
+                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId })
                 .OrderBy(x => x.Id);
         }
 

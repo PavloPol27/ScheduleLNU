@@ -15,13 +15,13 @@ $(function () {
 
      //Proceed with add/delete
     placeholderElement.on('click', '#deleteSchedule',
-    function(event) {
-        var url = $(this).data('url');
-        $.post(url).done(function(response) {
-            placeholderElement.find('.modal').modal('hide');
-            location.reload(true);
+        function(event) {
+            var url = $(this).data('url');
+            $.post(url).done(function(response) {
+                placeholderElement.find('.modal').modal('hide');
+                location.reload(true);
+            });
         });
-    });
 
     placeholderElement.on('click', '#addSchedule',
         function (event) {

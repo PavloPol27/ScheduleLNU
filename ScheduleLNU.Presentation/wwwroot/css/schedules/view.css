@@ -147,6 +147,7 @@ h1 {
     border: 1px solid #198754;
     color: #198754;
     margin-right: 28px;
+    margin-left: 10px;
 }
 
 #edit-button:hover {
