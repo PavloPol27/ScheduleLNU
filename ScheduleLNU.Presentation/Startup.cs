@@ -25,7 +25,7 @@ namespace ScheduleLNU.Presentation
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddSettingServices();
-            services.AddMvc();
+            services.AddMvc().AddRazorRuntimeCompilation();
             services.AddHttpClient();
         }
 

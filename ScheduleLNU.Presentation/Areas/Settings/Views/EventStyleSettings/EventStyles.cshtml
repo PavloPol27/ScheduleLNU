@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<ScheduleLNU.BusinessLogic.DTOs.EventStyleDto>
 <!DOCTYPE html>
-<form method="post" a></form>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <html lang="en">
 <head>
@@ -8,8 +7,8 @@
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <meta charset="utf-8" />
     <!-- Bootstrap Font Icon CSS -->
-    <script src="lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/schedules.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/eventStyle.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -18,53 +17,55 @@
 </head>
 <body>
     <div id="placeholderElement" style="position:absolute"></div>
-    <div class="my-container">
-        <h1 id="main-label">Event Styles</h1>
-        <ul class="items">
-            <li>
-                <form class="button-item"
-                      method="get"
-                      asp-action="EventStylePreview"
-                      asp-controller="EventStyleSettings"
-                      asp-area="settings">
-                    <button class="add-button" type="submit">
+<div class="my-container">
+    <h1 id="main-label">Event Styles</h1>
+    <ul class="items">
+        <li>
+            <form class="button-item"
+                  method="get"
+                  asp-action="EventStylePreview"
+                  asp-controller="EventStyleSettings"
+                  asp-area="settings">
+                <button class="add-button" type="submit">
+                    <span>
                         <span>
-                            <span>
-                                Add Style
-                            </span>
+                            Add Style
                         </span>
-                    </button>
-                </form>
-            </li>
-            @foreach (var item in @Model)
-            {
-                <li>
-                    <div class="item">
-                        <div class="item-title">
-                            @Html.DisplayName(item.Title)
-                        </div>
-                        <div class="item-actions">
-                            <form>
-                                <button id="edit-button"
-                                        class="action-button"
-                                        type="button">
-                                    <i id="edit-icon" class="bi bi-pen"></i>
-                                </button>
-                            </form>
-                            <button type="button" id="delete-button"
-                                    class="action-button">
-                                <i id="trash-icon" class="bi bi-trash"></i>
-                            </button>
-                        </div>
-                        <div class="item-example"
-                             style="background: @item.BackColor;
-                                    color: @item.ForeColor">
-                            Example
-                        </div>
+                    </span>
+                </button>
+            </form>
+        </li>
+        @foreach (var item in @Model)
+        {
+            <li>
+                <div class="item">
+                    <div class="item-title">
+                        @Html.DisplayName(item.Title)
                     </div>
-                </li>
-            }
-        </ul>
-    </div>
+                    <div class="item-actions">
+                        <form>
+                            <button id="edit-button"
+                                    class="action-button"
+                                    type="button">
+                                <i id="edit-icon" class="bi bi-pen"></i>
+                            </button>
+                        </form>
+                        <button type="button" id="delete-button"
+                                class="action-button"
+                                data-toggle="ajax-modal" data-target="deleteModalCenter"
+                                data-url="@Url.Action("DeletePopUpPartial", "EventStyleSettings", item)">
+                            <i id="trash-icon" class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                    <div class="item-example"
+                         style="background: @item.BackColor;
+                                color: @item.ForeColor">
+                        Example
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
 </body>
 </html>

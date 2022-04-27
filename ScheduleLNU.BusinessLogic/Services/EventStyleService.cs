@@ -34,9 +34,10 @@ namespace ScheduleLNU.BusinessLogic.Services
                 });
         }
 
-        public Task<bool> DeleteAsync(int studentId, int scheduleId)
+        public async Task DeleteAsync(int studentId, int eventId)
         {
-            throw new NotImplementedException();
+            var eventStyle = await eventStyleRepository.SelectAsync(s => s.Id == eventId && s.StudentId == studentId);
+            await eventStyleRepository.DeleteAsync(eventStyle);
         }
 
         public Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle)
