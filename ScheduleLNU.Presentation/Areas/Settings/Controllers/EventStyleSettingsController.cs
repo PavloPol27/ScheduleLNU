@@ -39,13 +39,19 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 
         [HttpGet]
         [Route("edit")]
-        public async Task<IActionResult> EventStyleEdit(int styleId)
+        public IActionResult EventStyleEdit(int styleId, int studentId, string foreColor, string backColor, string title)
         {
-            var studentId = 228;
-            var eventStyle = await eventStyleService.GetAsync(studentId, styleId);
+            var eventStyleDto = new EventStyleDto
+            {
+                Id = styleId,
+                StudentId = studentId,
+                ForeColor = foreColor,
+                BackColor = backColor,
+                Title = title
+            };
 
             logger.LogInformation("Student tries to edit event style {styleId}", styleId);
-            return View("EventStyleEdit", eventStyle);
+            return View("EventStyleEdit", eventStyleDto);
         }
 
         [HttpPost]

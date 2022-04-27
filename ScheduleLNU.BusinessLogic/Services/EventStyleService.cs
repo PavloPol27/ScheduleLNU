@@ -56,20 +56,5 @@ namespace ScheduleLNU.BusinessLogic.Services
                     StudentId = studentId
                 });
         }
-
-        public async Task<EventStyleDto> GetAsync(int studentId, int eventStyleId)
-        {
-            var eventStyle = await eventStyleRepository
-                .SelectAsync(x => x.StudentId == studentId && x.Id == eventStyleId);
-            return new EventStyleDto
-            {
-                Id = eventStyleId,
-                Title = eventStyle.Title,
-                BackColor = eventStyle.BackColor,
-                ForeColor = eventStyle.ForeColor,
-                StudentId = studentId
-            };
-        }
-
     }
 }
