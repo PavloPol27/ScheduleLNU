@@ -16,6 +16,11 @@ button:active {
     border: none;
 }
 
+button:focus {
+    outline: none;
+    border: none;
+}
+
 .my-container {
     position: absolute;
     left: 25%;
