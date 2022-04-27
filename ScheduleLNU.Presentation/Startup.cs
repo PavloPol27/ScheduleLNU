@@ -25,7 +25,7 @@ namespace ScheduleLNU.Presentation
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddSettingServices();
-            services.AddMvc();
+            services.AddMvc().AddRazorRuntimeCompilation();
             services.AddHttpClient();
         }
 
@@ -44,14 +44,8 @@ namespace ScheduleLNU.Presentation
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapAreaControllerRoute(
-                    name: "SettingsArea",
-                    areaName: "settings",
-                    pattern: "settings/{controller=Configuration}/{action=Configuration}");
-
                 endpoints.MapControllers();
             });
         }

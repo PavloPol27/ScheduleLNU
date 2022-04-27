@@ -2,7 +2,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
-<form method="post"></form>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <html lang="en">
 <head>
     <title>Schedules</title>
@@ -24,19 +24,16 @@
     <h1 id="main-label">Schedules</h1>
     <ul class="items">
         <li>
-            <form class="button-item"
-                  method="post"
-                  asp-action="Add"
-                  asp-controller="Schedules"
-                  asp-route-studentId="228"
-                  asp-route-scheduleTitle="ScheduleTitle">
-                <button class="add-button" type="submit">
-                    <span>
-                        <span>
-                            Add Schedule
-                        </span>
-                    </span>
-                </button>
+            <form>
+                <button type="button" id="add-button"
+                        class="add-button"
+                        data-toggle="ajax-modal"
+                        data-target="addModalCenter"
+                        data-url="@Url.Action("AddPopup", "Schedules")">
+                            <span>
+                                Add Schedule
+                            </span>
+                    </button>
             </form>
         </li>
         @foreach (var item in @Model)
@@ -48,19 +45,21 @@
                     </div>
                     <div class="item-actions">
                         <form>
-                            <button id="edit-button"
+                            <button type="button" id="edit-button"
                                     class="action-button"
-                                    type="button"
-                                    onclick="makeScheduleTitleEditable(this)">
+                                    data-toggle="ajax-modal" data-target="editModalCenter"
+                                    data-url="@Url.Action("EditPopup", "Schedules", item)">
                                 <i id="edit-icon" class="bi bi-pen"></i>
                             </button>
-                        </form>
+                        
+
                         <button type="button" id="delete-button"
                                 class="action-button"
                                 data-toggle="ajax-modal" data-target="deleteModalCenter"
                                 data-url="@Url.Action("DeletePopup", "Schedules", item)">
                             <i id="trash-icon" class="bi bi-trash"></i>
                         </button>
+                           </form>
                     </div>
                 </div>
             </li>

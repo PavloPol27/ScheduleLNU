@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
@@ -10,9 +11,12 @@ namespace ScheduleLNU.Presentation.Controllers
     public class SchedulesController : Controller
     {
         private readonly IScheduleService scheduleService;
+        private readonly ILogger<SchedulesController> logger;
 
-        public SchedulesController(IScheduleService scheduleService)
+        public SchedulesController(ILogger<SchedulesController> logger,
+            IScheduleService scheduleService)
         {
+            this.logger = logger;
             this.scheduleService = scheduleService;
         }
 
@@ -41,28 +45,44 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> Add(int studentId, string scheduleTitle)
+        public async Task<IActionResult> Add(string scheduleTitle)
         {
+            var studentId = 228;
             bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
+            logger.LogInformation("Student added schedule {sheduleTitle} to the list of schedules",
+                scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
-                return RedirectToAction("View", new { studentId });
+                return RedirectToAction("View", new { studentId = studentId });
             }
 
             return new StatusCodeResult(500);
         }
 
-        [Route("edit")]
-        public async Task<IActionResult> Edit(int studentId, int scheduleId, string title)
+        [HttpGet]
+        [Route("add")]
+        public IActionResult AddPopup()
         {
-            bool editResult = await scheduleService.EditAsync(studentId, scheduleId, title);
+            logger.LogInformation("Student opened add schedule popup");
+            return PartialView("_AddPopUpPartial", new ScheduleDto());
+        }
 
-            if (editResult && ModelState.IsValid)
+        [Route("edit")]
+        public async Task<IActionResult> Edit(int scheduleId, string title)
             {
-                return RedirectToAction("View", new { studentId });
+            var studentId = 228;
+            await scheduleService.EditAsync(studentId, scheduleId, title);
+            logger.LogInformation("Student changed schedule {scheduleId} title to {sheduleTitle}",
+                scheduleId, title);
+            return StatusCode(200);
             }
 
-            return new StatusCodeResult(500);
+        [HttpGet]
+        [Route("edit")]
+        public IActionResult EditPopup(ScheduleDto scheduleDto)
+        {
+            logger.LogInformation("Student opened edit schedule popup");
+            return PartialView("_EditPopUpPartial", scheduleDto);
         }
     }
 }
