@@ -1,4 +1,6 @@
-﻿namespace ScheduleLNU.BusinessLogic.DTOs
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace ScheduleLNU.BusinessLogic.DTOs
 {
     public class EventStyleDto
     {

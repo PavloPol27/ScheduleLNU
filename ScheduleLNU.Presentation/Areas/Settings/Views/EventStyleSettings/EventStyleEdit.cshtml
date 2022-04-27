@@ -4,7 +4,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <html lang="en">
 <head>
-    <title>Add Styles</title>
+    <title>Edit Style</title>
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <meta charset="utf-8" />
     <!-- Bootstrap Font Icon CSS -->
@@ -20,7 +20,7 @@
 <body>
     <div id="placeholderElement" style="position:absolute"></div>
     <div class="my-container">
-        <h1 id="main-label">Add Style</h1>
+        <h1 id="main-label">Edit Style</h1>
         <form method="post" class="style-form">
             <label for="title">Title</label>
             <input type="text" name="Title" value="@Model.Title"><br />
@@ -28,14 +28,16 @@
             <input type="color" name="ForeColor" value="@Model.ForeColor"><br />
             <label for="backColor">BackColor</label>
             <input type="color" name="BackColor" value="@Model.BackColor"><br />
-            <button asp-action="AddStyle"
+            <button asp-action="EditStyle"
                     asp-area="settings"
                     asp-controller="EventStyleSettings"
+                    asp-route-studentId="@Model.StudentId"
+                    asp-route-id="@Model.Id"
                     type="submit"
                     class="styles-confirm-button">
                 <span>
                     <span>
-                        Add
+                        Save changes
                     </span>
                 </span>
             </button>

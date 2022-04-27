@@ -93,7 +93,7 @@ h1 {
         animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
     }
 
-.add-new-button {
+.styles-confirm-button {
     font-weight: 600;
     padding: 1rem 1.5rem;
     overflow: hidden;
@@ -102,22 +102,22 @@ h1 {
     background-color: #fff;
     width: 200px;
 }
-    .add-new-button:hover {
+    .styles-confirm-button:hover {
         border: 1px solid #000;
         color: #fff;
         background-color: #2bf011;
     }
 
-    .add-new-button span {
+    .styles-confirm-button span {
         display: block;
         position: relative;
     }
 
-    .add-new-button > span {
+    .styles-confirm-button > span {
         overflow: hidden;
     }
 
-    .add-new-button:hover > span > span {
+    .styles-confirm-button:hover > span > span {
         animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
     }
 
@@ -201,7 +201,7 @@ h1 {
 .modal-open {
     overflow: inherit;
 }
-.add-style-form{
+.style-form{
     width: 250px;
     margin-left: 100px;
     margin-right: auto;

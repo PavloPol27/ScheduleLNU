@@ -40,9 +40,18 @@ namespace ScheduleLNU.BusinessLogic.Services
             await eventStyleRepository.DeleteAsync(eventStyle);
         }
 
-        public Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle)
+        public async Task<bool> EditAsync(EventStyleDto eventStyle)
         {
-            throw new NotImplementedException();
+            await eventStyleRepository.UpdateAsync(
+                new EventStyle
+                {
+                    Id = eventStyle.Id,
+                    Title = eventStyle.Title,
+                    ForeColor = eventStyle.ForeColor,
+                    BackColor = eventStyle.BackColor,
+                    StudentId = eventStyle.StudentId
+                });
+            return true;
         }
 
         public async Task<IEnumerable<EventStyleDto>> GetAllAsync(int studentId)
