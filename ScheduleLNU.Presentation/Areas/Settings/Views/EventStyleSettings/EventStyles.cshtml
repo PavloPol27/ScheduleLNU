@@ -18,62 +18,62 @@
 </head>
 <body>
     <div id="placeholderElement" style="position:absolute"></div>
-<div class="my-container">
-    <h1 id="main-label">Event Styles</h1>
-    <ul class="items">
-        <li>
-            <form class="button-item"
-                  method="get"
-                  asp-action="EventStylePreview"
-                  asp-controller="EventStyleSettings"
-                  asp-area="settings">
-                <button class="add-button" type="submit">
-                    <span>
-                        <span>
-                            Add Style
-                        </span>
-                    </span>
-                </button>
-            </form>
-        </li>
-        @foreach (var item in @Model)
-        {
+    <div class="my-container">
+        <h1 id="main-label">Event Styles</h1>
+        <ul class="items">
             <li>
-                <div class="item">
-                    <div class="item-title">
-                        @Html.DisplayName(item.Title)
+                <form class="button-item"
+                      method="get"
+                      asp-action="EventStylePreview"
+                      asp-controller="EventStyleSettings"
+                      asp-area="settings">
+                    <button class="add-button" type="submit">
+                        <span>
+                            <span>
+                                Add Style
+                            </span>
+                        </span>
+                    </button>
+                </form>
+            </li>
+            @foreach (var item in @Model)
+            {
+                <li>
+                    <div class="item">
+                        <div class="item-title">
+                            @Html.DisplayName(item.Title)
+                        </div>
+                        <div class="item-actions">
+                            <form asp-action="EventStyleEdit"
+                                   asp-area="settings"
+                                   asp-controller="EventStyleSettings"
+                                   asp-route-styleId="@item.Id"
+                                   asp-route-studentId="@item.StudentId"
+                                   asp-route-foreColor="@item.ForeColor"
+                                   asp-route-backColor="@item.BackColor"
+                                   asp-route-title="@item.Title">
+                                <button id="edit-button"
+                                        class="action-button"
+                                        type="submit">
+                                    <i id="edit-icon" class="bi bi-pen"></i>
+                                </button>
+                            </form>
+                            <button type="button" id="delete-button"
+                                    class="action-button"
+                                    data-toggle="ajax-modal" data-target="deleteModalCenter"
+                                    data-url="@Url.Action("DeletePopUpPartial", "EventStyleSettings", item)">
+                                <i id="trash-icon" class="bi bi-trash"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="item-actions">
-                        <form class="button-item">
-                            <a id="edit-button"
-                               class="action-button"
-                               asp-action="EventStyleEdit"
-                               asp-area="settings"
-                               asp-controller="EventStyleSettings"
-                               asp-route-styleId="@item.Id"
-                               asp-route-studentId="@item.StudentId"
-                               asp-route-foreColor="@item.ForeColor"
-                               asp-route-backColor="@item.BackColor"
-                               asp-route-title="@item.Title">
-                                <i id="edit-icon" class="bi bi-pen"></i>
-                            </a>
-                        </form>
-                        <button type="button" id="delete-button"
-                                class="action-button"
-                                data-toggle="ajax-modal" data-target="deleteModalCenter"
-                                data-url="@Url.Action("DeletePopUpPartial", "EventStyleSettings", item)">
-                            <i id="trash-icon" class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                    <div class="item-example"
+                    <div class="item item-example"
                          style="background: @item.BackColor;
                                 color: @item.ForeColor">
                         Example
                     </div>
-                </div>
-            </li>
-        }
-    </ul>
-</div>
+                </li>
+            }
+        </ul>
+    </div>
 </body>
 </html>

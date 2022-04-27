@@ -16,11 +16,6 @@ button:active {
     border: none;
 }
 
-button:focus {
-    outline: none;
-    border: none;
-}
-
 .my-container {
     position: absolute;
     left: 25%;
@@ -59,67 +54,62 @@ h1 {
     align-self: center;
 }
 
-.button-item {
-    height: 50px;
-    margin: 5px 0 35px 0;
-    padding: 0;
-}
-
 
 .add-button {
     font-weight: 600;
     padding: 1rem 1.5rem;
+    margin-bottom: 30px;
     overflow: hidden;
     border: 2px solid #0073cf;
     color: #000;
     background-color: #fff;
 }
-    .add-button:hover {
-        border: 1px solid #000;
-        color: #fff;
-        background-color: #0073cf;
-    }
+.add-button:hover {
+    border: 2px solid #000;
+    color: #fff;
+    background-color: #0073cf;
+}
 
-    .add-button span {
-        display: block;
-        position: relative;
-    }
+.add-button span {
+    display: block;
+    position: relative;
+}
 
-    .add-button > span {
-        overflow: hidden;
-    }
+.add-button > span {
+    overflow: hidden;
+}
 
-    .add-button:hover > span > span {
-        animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
-    }
+.add-button:hover > span > span {
+    animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
+}
 
 .styles-confirm-button {
     font-weight: 600;
     padding: 1rem 1.5rem;
     overflow: hidden;
-    border: 2px solid #2bf011;
+    border: 2px solid #198754;
     color: #000;
     background-color: #fff;
     width: 200px;
 }
-    .styles-confirm-button:hover {
-        border: 1px solid #000;
-        color: #fff;
-        background-color: #2bf011;
-    }
+.styles-confirm-button:hover {
+    border: 1px solid #000;
+    color: #fff;
+    background-color: #198754;
+}
 
-    .styles-confirm-button span {
-        display: block;
-        position: relative;
-    }
+.styles-confirm-button span {
+    display: block;
+    position: relative;
+}
 
-    .styles-confirm-button > span {
-        overflow: hidden;
-    }
+.styles-confirm-button > span {
+    overflow: hidden;
+}
 
-    .styles-confirm-button:hover > span > span {
-        animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
-    }
+.styles-confirm-button:hover > span > span {
+    animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
+}
 
 @keyframes MoveUpInitial {
     to {
@@ -140,7 +130,7 @@ h1 {
 .item {
     height: 50px;
     border: 2px solid #ffffff;
-    margin: 5px 0 25px 0;
+    margin: 5px 0 0 0;
     padding: 0;
     display: flex;
     align-items: center;
@@ -175,10 +165,10 @@ h1 {
     margin-right: 28px;
 }
 
-    #edit-button:hover {
-        background: #198754;
-        color: #fff;
-    }
+#edit-button:hover {
+    background: #198754;
+    color: #fff;
+}
 
 #delete-button {
     border: 1px solid #ff0800;
@@ -191,11 +181,12 @@ h1 {
 }
 
 .item-example {
-    height: 110%;
     width: 40%;
     border: 2px dashed #0073cf;
+    margin: 5px 0 25px 0;
     font-size: 13px;
-    break-after: always;
+    font-weight: 700;
+    align-items: flex-start;
 }
 
 .modal-open {

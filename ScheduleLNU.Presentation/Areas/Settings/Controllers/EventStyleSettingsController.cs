@@ -37,7 +37,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             return View(eventStyles);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("edit")]
         public IActionResult EventStyleEdit(int styleId, int studentId, string foreColor, string backColor, string title)
         {
