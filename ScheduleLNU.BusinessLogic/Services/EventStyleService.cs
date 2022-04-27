@@ -14,14 +14,24 @@ namespace ScheduleLNU.BusinessLogic.Services
     {
         private readonly IRepository<EventStyle> eventStyleRepository;
 
-        public EventStyleService(IRepository<EventStyle> eventStyleRepository)
+        private readonly IRepository<Student> studentRepository;
+
+        public EventStyleService(IRepository<EventStyle> eventStyleRepository, IRepository<Student> studentRepository)
         {
             this.eventStyleRepository = eventStyleRepository;
+            this.studentRepository = studentRepository;
         }
 
-        public Task<bool> AddAsync(int studentId, string scheduleTitle)
+        public async Task AddAsync(EventStyleDto eventStyleDto)
         {
-            throw new NotImplementedException();
+            await eventStyleRepository.InsertAsync(
+                new EventStyle
+                {
+                    Title = eventStyleDto.Title,
+                    ForeColor = eventStyleDto.ForeColor,
+                    BackColor = eventStyleDto.BackColor,
+                    StudentId = eventStyleDto.StudentId
+                });
         }
 
         public Task<bool> DeleteAsync(int studentId, int scheduleId)
