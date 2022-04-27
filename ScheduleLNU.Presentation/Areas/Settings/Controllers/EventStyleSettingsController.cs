@@ -97,5 +97,29 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             logger.LogInformation("Student failed to add new event style");
             return new StatusCodeResult(500);
         }
+
+        [HttpGet]
+        [Route("delete")]
+        public IActionResult DeletePopUpPartial(EventStyleDto eventStyleDto)
+        {
+            return PartialView("_DeletePopUpPartial", eventStyleDto);
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        public async Task<IActionResult> DeleteStyle(int styleId)
+        {
+            logger.LogInformation($"Deleting style {styleId}");
+            int studentId = 228;
+            await eventStyleService.DeleteAsync(studentId, styleId);
+            if (ModelState.IsValid)
+            {
+                logger.LogInformation($"Successfully deleted {styleId}");
+                return new StatusCodeResult(201);
+            }
+
+            logger.LogInformation("Student failed to delete style");
+            return new StatusCodeResult(500);
+        }
     }
 }
