@@ -23,7 +23,11 @@
         <h1 id="main-label">Event Styles</h1>
         <ul class="items">
             <li>
-                <form class="button-item">
+                <form class="button-item"
+                      method="get"
+                      asp-action="EventStylePreview"
+                      asp-controller="EventStyleSettings"
+                      asp-area="settings">
                     <button class="add-button" type="submit">
                         <span>
                             <span>

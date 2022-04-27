@@ -74,7 +74,6 @@ h1 {
     color: #000;
     background-color: #fff;
 }
-
     .add-button:hover {
         border: 1px solid #000;
         color: #fff;
@@ -91,6 +90,34 @@ h1 {
     }
 
     .add-button:hover > span > span {
+        animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
+    }
+
+.add-new-button {
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
+    border: 2px solid #2bf011;
+    color: #000;
+    background-color: #fff;
+    width: 200px;
+}
+    .add-new-button:hover {
+        border: 1px solid #000;
+        color: #fff;
+        background-color: #2bf011;
+    }
+
+    .add-new-button span {
+        display: block;
+        position: relative;
+    }
+
+    .add-new-button > span {
+        overflow: hidden;
+    }
+
+    .add-new-button:hover > span > span {
         animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
     }
 
@@ -173,4 +200,10 @@ h1 {
 
 .modal-open {
     overflow: inherit;
+}
+.add-style-form{
+    width: 250px;
+    margin-left: 100px;
+    margin-right: auto;
+    margin-bottom: auto;
 }
