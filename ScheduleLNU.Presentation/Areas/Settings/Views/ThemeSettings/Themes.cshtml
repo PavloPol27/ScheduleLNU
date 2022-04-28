@@ -13,36 +13,37 @@
 
 <body>
     <div class="my-container">
+        <h1 id="main-label">Themes</h1>
         <ul class="items">
             <li class="navigation">
                 <form class="button-item"
-                  method="get"
-                  asp-action="SettingsMenu"
-                  asp-controller="Configuration"
-                  asp-area="settings"
-                  asp-route-studentId="1">
-                   <button class="add-button" type="submit">
-                    <span>
+                      method="get"
+                      asp-action="SettingsMenu"
+                      asp-controller="Configuration"
+                      asp-area="settings"
+                      asp-route-studentId="1">
+                    <button class="add-button" type="submit">
                         <span>
-                             Back to settings
+                            <span>
+                                Back to settings
+                            </span>
                         </span>
-                    </span>
-                </button>
-            </form>
-            <form class="button-item"
-                  method="get"
-                  asp-action="ThemePreview"
-                  asp-controller="ThemeSettings"
-                  asp-area="settings"
-                  asp-route-studentId="1">
-                   <button class="add-button" type="submit">
-                    <span>
+                    </button>
+                </form>
+                <form class="button-item"
+                      method="get"
+                      asp-action="ThemePreview"
+                      asp-controller="ThemeSettings"
+                      asp-area="settings"
+                      asp-route-studentId="1">
+                    <button class="add-button" type="submit">
                         <span>
-                             Add theme
+                            <span>
+                                Add theme
+                            </span>
                         </span>
-                    </span>
-                </button>
-            </form>
+                    </button>
+                </form>
             </li>
             @foreach (var theme in Model)
             {
@@ -51,31 +52,31 @@
                         <div class="item-title">
                             @Html.DisplayName(theme.Title)
                         </div>
-                    <div class="item-actions">
-                        <form>
-                            <a id="edit-button"
-                               class="action-button"
-                               asp-action="Theme"
-                               asp-controller="ThemeSettings"
-                               asp-area="settings"
-                               asp-route-studentId="1"
-                               asp-route-themeId="@theme.Id">
-                            <i id="edit-icon" class="bi bi-pen"></i>
-                            </a>
-                        </form>
+                        <div class="item-actions">
+                            <form>
+                                <a id="edit-button"
+                                   class="action-button"
+                                   asp-action="Theme"
+                                   asp-controller="ThemeSettings"
+                                   asp-area="settings"
+                                   asp-route-studentId="1"
+                                   asp-route-themeId="@theme.Id">
+                                    <i id="edit-icon" class="bi bi-pen"></i>
+                                </a>
+                            </form>
 
-                         <form method="post">
-                            <a id="delete-button"
-                               class="action-button"
-                               asp-action="DeleteTheme"
-                               asp-controller="ThemeSettings"
-                               asp-area="settings"
-                               asp-route-studentId="1"
-                               asp-route-themeId="@theme.Id">
-                            <i id="edit-icon" class="bi bi-trash"></i>
-                            </a>
-                        </form>
-                    </div>
+                            <form method="post">
+                                <a id="delete-button"
+                                   class="action-button"
+                                   asp-action="DeleteTheme"
+                                   asp-controller="ThemeSettings"
+                                   asp-area="settings"
+                                   asp-route-studentId="1"
+                                   asp-route-themeId="@theme.Id">
+                                    <i id="edit-icon" class="bi bi-trash"></i>
+                                </a>
+                            </form>
+                        </div>
                     </div>
                 </li>
             }

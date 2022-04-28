@@ -54,12 +54,6 @@ h1 {
     align-self: center;
 }
 
-.button-item {
-    height: 50px;
-    margin: 5px 0 35px 0;
-    padding: 0;
-}
-
 
 .add-button {
     font-weight: 600;
@@ -70,7 +64,6 @@ h1 {
     color: #000;
     background-color: #fff;
 }
-
 .add-button:hover {
     border: 2px solid #000;
     color: #fff;
@@ -87,6 +80,34 @@ h1 {
 }
 
 .add-button:hover > span > span {
+    animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
+}
+
+.styles-confirm-button {
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
+    border: 2px solid #198754;
+    color: #000;
+    background-color: #fff;
+    width: 200px;
+}
+.styles-confirm-button:hover {
+    border: 1px solid #000;
+    color: #fff;
+    background-color: #198754;
+}
+
+.styles-confirm-button span {
+    display: block;
+    position: relative;
+}
+
+.styles-confirm-button > span {
+    overflow: hidden;
+}
+
+.styles-confirm-button:hover > span > span {
     animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
 }
 
@@ -109,16 +130,11 @@ h1 {
 .item {
     height: 50px;
     border: 2px solid #ffffff;
-    margin: 5px 0 5px 0;
+    margin: 5px 0 0 0;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.item:hover {
-    border: 2px solid #0047ab;
-    border-radius: 10px;
 }
 
 .item-title {
@@ -147,7 +163,6 @@ h1 {
     border: 1px solid #198754;
     color: #198754;
     margin-right: 28px;
-    margin-left: 10px;
 }
 
 #edit-button:hover {
@@ -165,6 +180,21 @@ h1 {
     color: #fff;
 }
 
+.item-example {
+    width: 40%;
+    border: 2px dashed #0073cf;
+    margin: 5px 0 25px 0;
+    font-size: 13px;
+    font-weight: 700;
+    align-items: flex-start;
+}
+
 .modal-open {
     overflow: inherit;
+}
+.style-form{
+    width: 250px;
+    margin-left: 100px;
+    margin-right: auto;
+    margin-bottom: auto;
 }

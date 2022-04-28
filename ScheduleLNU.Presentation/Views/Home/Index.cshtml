@@ -37,6 +37,14 @@
             <input type="text" id="stIdInput" name="studentId" value="228">
             <button type="submit">Schedules</button>
         </form>
+        <br />
+        <p>Go to settings:</p>
+        <form method="get"
+              asp-action="SettingsMenu"
+              asp-controller="Configuration"
+              asp-area="Settings">
+            <button type="submit">Settings</button>
+        </form>
     </div>
 </body>
 </html>

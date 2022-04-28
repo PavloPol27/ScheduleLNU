@@ -24,7 +24,6 @@ namespace ScheduleLNU.Presentation.Controllers
         public async Task<IActionResult> View(int studentId)
         {
             IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentId);
-
             return View(resList);
         }
 
@@ -69,13 +68,13 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [Route("edit")]
         public async Task<IActionResult> Edit(int scheduleId, string title)
-            {
+        {
             var studentId = 228;
             await scheduleService.EditAsync(studentId, scheduleId, title);
             logger.LogInformation("Student changed schedule {scheduleId} title to {sheduleTitle}",
                 scheduleId, title);
             return StatusCode(200);
-            }
+        }
 
         [HttpGet]
         [Route("edit")]
