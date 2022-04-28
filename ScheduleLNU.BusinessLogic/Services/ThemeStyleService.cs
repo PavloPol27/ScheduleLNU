@@ -22,6 +22,7 @@ namespace ScheduleLNU.BusinessLogic.Services
             themeRepository = injectedThemeRepository;
         }
 
+        // TODO: add unit test to ? operator
         public async Task<IEnumerable<ThemeDTO>> GetAllThemesAsync(int studentId)
         {
             var studentRecord = await studentRepository
@@ -35,6 +36,7 @@ namespace ScheduleLNU.BusinessLogic.Services
                 });
         }
 
+        // Unit test due to if clause
         public async Task<Theme> ViewTheme(int studentId, int themeID)
         {
             var studentRecord = await studentRepository.SelectAsync(s => s.Id == studentId, s => s.Themes);

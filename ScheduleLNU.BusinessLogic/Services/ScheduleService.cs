@@ -28,6 +28,8 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         public async Task<bool> DeleteAsync(int studentId, int scheduleId)
         {
+            // TODO: remove try catch
+            // TODO: add existance schedule check
             try
             {
                 Schedule schedule = (await scheduleRepository.SelectAllAsync((schedule) =>

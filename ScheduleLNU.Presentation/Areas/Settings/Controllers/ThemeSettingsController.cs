@@ -56,6 +56,8 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 
         [HttpPost]
         [Route("[area]/add-theme")]
+
+        // TODO: remove theme as DTO
         public async Task<IActionResult> AddTheme(int studentId, Theme theme)
         {
             logger.LogInformation("Student add new theme {Title} {ForeColor} {BackColor} {Font} {FontSize}",
@@ -70,6 +72,8 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 
         [HttpPost]
         [Route("[area]/edit-theme")]
+
+        // TODO: remove theme as DTO
         public async Task<IActionResult> EditTheme(int studentId, Theme theme)
         {
             logger.LogInformation("Student add new theme {Title} {ForeColor} {BackColor} {Font} {FontSize}",

@@ -11,6 +11,8 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 {
     [Area("settings")]
     [Route("[area]/event-styles")]
+
+    // TODO: move logs to service
     public class EventStyleSettingsController : Controller
     {
         private readonly ILogger<EventStyleSettingsController> logger;
@@ -27,6 +29,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [HttpGet]
         public async Task<IActionResult> EventStyles()
         {
+            // TODO: remove logs of user routing
             logger.LogInformation("Student oppened event styles page");
             const int studentId = 228;
 
@@ -39,6 +42,8 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 
         [HttpPost]
         [Route("edit")]
+
+        // TODO: parameters as EventStyleDTO
         public IActionResult EventStyleEdit(int styleId, int studentId, string foreColor, string backColor, string title)
         {
             var eventStyleDto = new EventStyleDto
@@ -64,6 +69,8 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
                 logger.LogInformation("Student updated event style {eventStyleId}: title - {eventStyleTitle}," +
                     "fore color - {eventStyleForeColor} and back color - {eventStyleBackColor} to the list of event styles",
                     eventStyleDto.Id, eventStyleDto.Title, eventStyleDto.ForeColor, eventStyleDto.BackColor);
+
+                // TODO: to nameof of action
                 return RedirectToAction("EventStyles", new { studentId = eventStyleDto.StudentId });
             }
 
@@ -77,6 +84,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         {
             logger.LogInformation("Student {studentID} creates new event style", studentId);
 
+            // TODO: Remove first parameter
             return View("EventStylePreview", new EventStyleDto());
         }
 
@@ -95,6 +103,8 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             }
 
             logger.LogInformation("Student failed to add new event style");
+
+            // TODO: use propeper status code
             return new StatusCodeResult(500);
         }
 
@@ -115,10 +125,14 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             if (ModelState.IsValid)
             {
                 logger.LogInformation($"Successfully deleted {styleId}");
+
+                // TODO: Use proper status code
                 return new StatusCodeResult(201);
             }
 
             logger.LogInformation("Student failed to delete style");
+
+            // TODO: Use proper status code
             return new StatusCodeResult(500);
         }
     }
