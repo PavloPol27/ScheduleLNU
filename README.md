@@ -4,3 +4,20 @@
 
 
 [Reports](http://agile.tests-ua.com/Projects/368/Sprints)
+
+
+Sprint with auth:
+ 1. Include Identity 
+     * Update database
+     * Replace id with token
+ 2. Login
+     * View
+     * Back-end
+ 3. Register
+     * View
+     * Back-end
+ 4. Restore password
+     * View
+     * Back-end
+ 5. Email sender service
+  
