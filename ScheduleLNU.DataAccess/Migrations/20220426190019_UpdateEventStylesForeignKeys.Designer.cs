@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using ScheduleLNU.DataAccess;
+using ScheduleLNU.DataAccess.Contexts;
 
 namespace ScheduleLNU.DataAccess.Migrations
 {
