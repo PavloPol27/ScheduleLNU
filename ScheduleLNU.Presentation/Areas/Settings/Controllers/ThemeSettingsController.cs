@@ -26,8 +26,12 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         public async Task<IActionResult> Themes()
         {
             logger.LogInformation("Student oppened themes setting page");
+            if (Request.Cookies["studentId"] is null)
+            {
+                return null;
+            }
 
-            var allThemes = await themeService.GetAllThemesAsync(1);
+            var allThemes = await themeService.GetAllThemesAsync(int.Parse(Request.Cookies["studentId"]));
 
             logger.LogInformation("Student viwed all themes {Lenght}", allThemes.Count());
 

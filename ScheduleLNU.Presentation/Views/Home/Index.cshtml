@@ -45,6 +45,14 @@
               asp-area="Settings">
             <button type="submit">Settings</button>
         </form>
+
+         <form method="post"
+              asp-action="Index"
+              asp-controller="Home">
+            <span>Input student id: </span>
+            <input type="number" name="studentId" value="1">
+            <button type="submit">Schedules</button>
+        </form>
     </div>
 </body>
 </html>

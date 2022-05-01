@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
@@ -17,9 +19,22 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [Route("")]
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [Route("")]
+        [HttpPost]
+        public IActionResult Index(int studentId)
+        {
+            var options = new CookieOptions
+            {
+                Expires = DateTime.Now.AddMinutes(30)
+            };
+            Response.Cookies.Append("studentId", studentId.ToString(), options);
+            return Redirect("~/settings/themes");
         }
 
         [Route("Privacy")]
