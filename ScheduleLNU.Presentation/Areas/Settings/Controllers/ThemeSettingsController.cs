@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
@@ -8,6 +9,7 @@ using ScheduleLNU.DataAccess.Entities;
 namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 {
     [Area("settings")]
+    [Authorize]
     public class ThemeSettingsController : Controller
     {
         private readonly ILogger<ThemeSettingsController> logger;
@@ -26,8 +28,15 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         public async Task<IActionResult> Themes()
         {
             logger.LogInformation("Student oppened themes setting page");
+            logger.LogInformation("{IsAuth}", HttpContext.User.Identity.IsAuthenticated);
+            logger.LogInformation("{Name}", HttpContext.User.Identity.Name);
+            var cookie = HttpContext.User.Claims.FirstOrDefault(c => c.Type.Equals("studentId", System.StringComparison.OrdinalIgnoreCase));
+            if (cookie is null)
+            {
+                return StatusCode(401);
+            }
 
-            var allThemes = await themeService.GetAllThemesAsync(1);
+            var allThemes = await themeService.GetAllThemesAsync(int.Parse(cookie.Value));
 
             logger.LogInformation("Student viwed all themes {Lenght}", allThemes.Count());
 

@@ -27,13 +27,13 @@ namespace ScheduleLNU.BusinessLogic.Services
         {
             var studentRecord = await studentRepository
                 .SelectAsync(s => s.Id == studentId, s => s.Themes, s => s.SelectedTheme);
-            return studentRecord.Themes
+            return studentRecord?.Themes
                 .Select(t => new ThemeDTO()
                 {
                     Id = t.Id,
                     Title = t.Title,
                     IsSelected = t.Id == studentRecord.SelectedTheme?.Id
-                });
+                }) ?? Array.Empty<ThemeDTO>();
         }
 
         // Unit test due to if clause

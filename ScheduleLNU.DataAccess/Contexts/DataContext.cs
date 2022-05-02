@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ScheduleLNU.DataAccess.Entities;
 
-namespace ScheduleLNU.DataAccess
+namespace ScheduleLNU.DataAccess.Contexts
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<StudentAspIdentity>
     {
         public DataContext(DbContextOptions options) : base(options)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ScheduleLNU.DataAccess.Entities;
 
@@ -10,11 +11,11 @@ namespace ScheduleLNU.DataAccess.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
-        private readonly DbContext dataBaseContext;
+        private readonly IdentityDbContext<StudentAspIdentity> dataBaseContext;
 
         private readonly DbSet<TEntity> entitiesDataSet;
 
-        public Repository(DbContext context)
+        public Repository(IdentityDbContext<StudentAspIdentity> context)
         {
             dataBaseContext = context;
             entitiesDataSet = context.Set<TEntity>();
