@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
-using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 {
     [Area("settings")]
     [Route("[area]/event-styles")]
-
-    // TODO: move logs to service
+    [Authorize]
     public class EventStyleSettingsController : Controller
     {
         private readonly ILogger<EventStyleSettingsController> logger;

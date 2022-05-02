@@ -13,7 +13,7 @@ namespace ScheduleLNU.BusinessLogic.Extensions
         public static IServiceCollection AddDbConfiguration(this IServiceCollection services, string connectionString)
         {
             return services.AddSchedulesDb(connectionString)
-                           .AddAspNetIdentityDbContext(connectionString);
+                           .AddAspNetIdentityDbContext();
         }
 
         public static IServiceCollection AddSchedulesDb(this IServiceCollection services, string connectionString)
@@ -23,7 +23,7 @@ namespace ScheduleLNU.BusinessLogic.Extensions
                            .AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
 
-        public static IServiceCollection AddAspNetIdentityDbContext(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddAspNetIdentityDbContext(this IServiceCollection services)
         {
             services.AddIdentity<StudentAspIdentity, StudentRoleAspIdentity>(options =>
                            {
@@ -35,6 +35,16 @@ namespace ScheduleLNU.BusinessLogic.Extensions
                                options.Password.RequireLowercase = false;
                            })
                     .AddEntityFrameworkStores<DataContext>();
+            return services;
+        }
+
+        public static IServiceCollection AddCookies(this IServiceCollection services)
+        {
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/authentication/login";
+            });
+
             return services;
         }
     }
