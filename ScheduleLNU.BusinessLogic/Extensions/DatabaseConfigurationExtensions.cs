@@ -43,6 +43,7 @@ namespace ScheduleLNU.BusinessLogic.Extensions
             services.ConfigureApplicationCookie(config =>
             {
                 config.LoginPath = "/authentication/login";
+                config.AccessDeniedPath = "/authentication/login";
             });
 
             return services;
