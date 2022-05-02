@@ -25,7 +25,7 @@ namespace ScheduleLNU.BusinessLogic.Extensions
 
         public static IServiceCollection AddAspNetIdentityDbContext(this IServiceCollection services)
         {
-            services.AddIdentity<StudentAspIdentity, StudentRoleAspIdentity>(options =>
+            services.AddIdentity<StudentAspIdentity, IdentityRole>(options =>
                            {
                                options.SignIn.RequireConfirmedAccount = true;
                                options.SignIn.RequireConfirmedEmail = true;
