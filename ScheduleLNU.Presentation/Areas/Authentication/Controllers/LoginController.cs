@@ -56,8 +56,14 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
             return View(loginDto);
         }
 
+        [HttpGet]
+        [Route("forgot-password")]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
         [HttpPost]
-        [Route("forgot")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
             await authService.SendResetTokenAsync(forgotPasswordDto.Email);
