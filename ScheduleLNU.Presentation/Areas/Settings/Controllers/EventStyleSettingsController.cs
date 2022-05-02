@@ -42,20 +42,9 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 
         [HttpPost]
         [Route("edit")]
-
-        // TODO: parameters as EventStyleDTO
-        public IActionResult EventStyleEdit(int styleId, int studentId, string foreColor, string backColor, string title)
+        public IActionResult EventStyleEdit(EventStyleDto eventStyleDto)
         {
-            var eventStyleDto = new EventStyleDto
-            {
-                Id = styleId,
-                StudentId = studentId,
-                ForeColor = foreColor,
-                BackColor = backColor,
-                Title = title
-            };
-
-            logger.LogInformation("Student tries to edit event style {styleId}", styleId);
+            logger.LogInformation("Student tries to edit event style {styleId}", eventStyleDto.Id);
             return View("EventStyleEdit", eventStyleDto);
         }
 
