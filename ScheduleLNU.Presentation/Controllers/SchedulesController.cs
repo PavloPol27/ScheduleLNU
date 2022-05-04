@@ -31,6 +31,7 @@ namespace ScheduleLNU.Presentation.Controllers
             {
                 return StatusCode(401);
             }
+
             IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentId);
             return View(resList);
         }

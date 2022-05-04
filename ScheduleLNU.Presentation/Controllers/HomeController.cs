@@ -16,17 +16,15 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [Route("")]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            await loginService.SignInAsync(("studentId", "58e16f9d-75be-44bc-9d91-43b0208226cc"));
             return View();
         }
 
         [Route("")]
         [HttpPost]
-        public async Task<IActionResult> Index(int studentId)
+        public IActionResult Index(int studentId)
         {
-            await loginService.SignInAsync(("studentId", studentId.ToString()));
             return Redirect("~/settings/themes");
         }
 

@@ -7,7 +7,6 @@ using ScheduleLNU.BusinessLogic.DTOs;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
-
     [Area("authentication")]
     [Route("[area]/register")]
     public class RegisterController : Controller

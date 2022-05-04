@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ScheduleLNU.BusinessLogic.DTOs;
-using System.Threading.Tasks;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
@@ -27,7 +27,6 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         [Route("")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
-
             if (ModelState.IsValid)
             {
                 var result = await signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, false, false);

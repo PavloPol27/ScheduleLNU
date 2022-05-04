@@ -40,7 +40,6 @@ namespace ScheduleLNU.BusinessLogic.Extensions
 
         public static IServiceCollection AddCookies(this IServiceCollection services)
         {
-
             services.AddScoped<ICookieService, CookieService>()
                 .AddScoped<ILoginService, LoginService>()
                 .ConfigureApplicationCookie(config =>
