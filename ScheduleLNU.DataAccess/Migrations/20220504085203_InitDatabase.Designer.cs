@@ -10,8 +10,8 @@ using ScheduleLNU.DataAccess.Contexts;
 namespace ScheduleLNU.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220504073910_ChangeStudent")]
-    partial class ChangeStudent
+    [Migration("20220504085203_InitDatabase")]
+    partial class InitDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

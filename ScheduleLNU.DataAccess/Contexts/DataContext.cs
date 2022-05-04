@@ -8,7 +8,7 @@ namespace ScheduleLNU.DataAccess.Contexts
     {
         public DataContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
+           Database.EnsureCreated();
         }
 
         public DbSet<Event> Events { get; set; }
