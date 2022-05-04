@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Extensions;
+using ScheduleLNU.BusinessLogic.Services;
+using ScheduleLNU.BusinessLogic.Services.Interfaces;
 using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
@@ -14,11 +16,11 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/login")]
     public class LoginController : Controller
     {
-        private readonly SignInManager<StudentAspIdentity> signInManager;
+        private readonly ILoginService loginManager;
 
-        public LoginController(SignInManager<StudentAspIdentity> signInManager)
+        public LoginController(ILoginService loginManager)
         {
-            this.signInManager = signInManager;
+            this.loginManager = loginManager;
         }
 
         [HttpGet]
@@ -35,12 +37,11 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, false, false);
+                var result = await loginManager.LogInAsync(loginDto);
 
-                if (result.Succeeded)
+                if (result)
                 {
-                    // await HttpContext.SignInAsync((ClaimsIdentity.DefaultNameClaimType, 228));
-                    return RedirectToAction("view", "Schedules");
+                    return RedirectToAction("ViewSchedles", "ThemeSettings");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");

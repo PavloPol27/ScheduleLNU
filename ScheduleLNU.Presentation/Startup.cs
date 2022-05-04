@@ -26,6 +26,7 @@ namespace ScheduleLNU.Presentation
             services.AddDbConfiguration(Configuration["ConnectionString"]);
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<ILoginService, LoginService>();
             services.AddSettingServices();
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddHttpClient();

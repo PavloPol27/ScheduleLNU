@@ -16,11 +16,11 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/register")]
     public class RegisterController : Controller
     {
-        private readonly UserManager<StudentAspIdentity> userManager;
-        private readonly SignInManager<StudentAspIdentity> signInManager;
+        private readonly UserManager<Student> userManager;
+        private readonly SignInManager<Student> signInManager;
 
-        public RegisterController(UserManager<StudentAspIdentity> userManager,
-                                    SignInManager<StudentAspIdentity> signInManager)
+        public RegisterController(UserManager<Student> userManager,
+                                    SignInManager<Student> signInManager)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -39,7 +39,7 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new StudentAspIdentity
+                var user = new Student
                 {
                     UserName = registerDto.Email,
                     Email = registerDto.Email,
@@ -52,7 +52,7 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
                 {
                     // await signInManager.SignInAsync(user, isPersistent: false);
                     // await HttpContext.SignInAsync((ClaimsIdentity.DefaultNameClaimType, user.Id));
-                    return RedirectToAction("view", "Schedules");
+                    return RedirectToAction("Schedles", "ViewSchedles");
                 }
 
                 foreach (var error in result.Errors)
