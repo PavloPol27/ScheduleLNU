@@ -13,5 +13,8 @@ namespace ScheduleLNU.BusinessLogic.DTOs
 
         [Required]
         public string NewPassword { get; set; }
+
+        [Required]
+        public string ConfirmedPassword { get; set; }
     }
 }

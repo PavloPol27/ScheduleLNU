@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Routing;
 using ScheduleLNU.BusinessLogic.DTOs;
@@ -54,12 +56,13 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 
         [HttpGet]
         [Route("forgot-password")]
-        public ActionResult ForgotPassword()
+        public ActionResult ForgotPasswordForm()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("forgot")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
             await authService.SendResetTokenAsync(forgotPasswordDto.Email);
@@ -71,12 +74,20 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
             return new StatusCodeResult(500);
         }
 
+        [HttpGet]
+        [Route("reset-password")]
+        public ActionResult ResetPasswordForm(string email, string token)
+        {
+            var resetPasswordDto = new ResetPasswordDto { Email = email, Token = token };
+            return View(resetPasswordDto);
+        }
+
         [HttpPost]
         [Route("reset")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
         {
-            await authService.ResetPasswordAsync(resetPasswordDto.Email, resetPasswordDto.Token, resetPasswordDto.NewPassword);
-            if (ModelState.IsValid)
+            var result = await authService.ResetPasswordAsync(resetPasswordDto.Email, resetPasswordDto.Token, resetPasswordDto.NewPassword, resetPasswordDto.ConfirmedPassword);
+            if (ModelState.IsValid && result)
             {
                 return RedirectToAction(nameof(Login));
             }

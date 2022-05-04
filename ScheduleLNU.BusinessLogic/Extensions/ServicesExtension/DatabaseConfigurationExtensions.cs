@@ -26,15 +26,16 @@ namespace ScheduleLNU.BusinessLogic.Extensions.ServicesExtension
         public static IServiceCollection AddAspNetIdentityDbContext(this IServiceCollection services)
         {
             services.AddIdentity<Student, IdentityRole>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = true;
-                options.SignIn.RequireConfirmedEmail = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-            })
-                    .AddEntityFrameworkStores<DataContext>();
+                           {
+                               options.SignIn.RequireConfirmedAccount = true;
+                               options.SignIn.RequireConfirmedEmail = true;
+                               options.Password.RequiredLength = 6;
+                               options.Password.RequireNonAlphanumeric = false;
+                               options.Password.RequireUppercase = false;
+                               options.Password.RequireLowercase = false;
+                           })
+                    .AddEntityFrameworkStores<DataContext>()
+                    .AddDefaultTokenProviders();
             return services;
         }
     }
