@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ScheduleLNU.BusinessLogic.Extensions;
+using ScheduleLNU.BusinessLogic.Extensions.ServicesExtension;
 using ScheduleLNU.BusinessLogic.Services;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 using Serilog;

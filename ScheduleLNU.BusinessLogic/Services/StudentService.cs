@@ -1,5 +1,5 @@
 ﻿using ScheduleLNU.BusinessLogic.Services.Interfaces;
-using ScheduleLNU.DataAccess.Contexts;
+using ScheduleLNU.DataAccess;
 
 namespace ScheduleLNU.BusinessLogic.Services
 {

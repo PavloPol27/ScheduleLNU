@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ScheduleLNU.DataAccess.Contexts;
+using ScheduleLNU.DataAccess;
 using ScheduleLNU.DataAccess.Entities;
 using ScheduleLNU.DataAccess.Repository;
 
-namespace ScheduleLNU.BusinessLogic.Extensions
+namespace ScheduleLNU.BusinessLogic.Extensions.ServicesExtension
 {
     public static class DatabaseConfigurationExtensions
     {
@@ -26,14 +26,14 @@ namespace ScheduleLNU.BusinessLogic.Extensions
         public static IServiceCollection AddAspNetIdentityDbContext(this IServiceCollection services)
         {
             services.AddIdentity<Student, IdentityRole>(options =>
-                           {
-                               options.SignIn.RequireConfirmedAccount = true;
-                               options.SignIn.RequireConfirmedEmail = true;
-                               options.Password.RequiredLength = 6;
-                               options.Password.RequireNonAlphanumeric = false;
-                               options.Password.RequireUppercase = false;
-                               options.Password.RequireLowercase = false;
-                           })
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedEmail = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            })
                     .AddEntityFrameworkStores<DataContext>();
             return services;
         }
