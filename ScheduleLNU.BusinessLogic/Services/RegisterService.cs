@@ -7,33 +7,35 @@ using ScheduleLNU.DataAccess.Repository;
 
 namespace ScheduleLNU.BusinessLogic.Services
 {
-    public class LoginService : ILoginService
+    public class RegisterService : IRegisterService
     {
         private readonly ICookieService cookieService;
-        private readonly IRepository<Student> studentRepository;
         private readonly UserManager<Student> userManager;
 
-        public LoginService(ICookieService injectedCookieService,
-                                IRepository<Student> injectedStudentRepository,
+        public RegisterService(ICookieService injectedCookieService,
                                 UserManager<Student> injectedUserManager)
         {
             cookieService = injectedCookieService;
-            studentRepository = injectedStudentRepository;
             userManager = injectedUserManager;
         }
 
-        public async Task<bool> LogInAsync(LoginDto loginDto)
+        public async Task<IdentityResult> RegisterAsync(RegisterDto registerDto)
         {
-            var student = await studentRepository.SelectAsync(x => x.Email == loginDto.Email);
-            var result = await userManager.CheckPasswordAsync(student, loginDto.Password);
+            var student = new Student
+            {
+                UserName = registerDto.Email,
+                Email = registerDto.Email,
+                NormalizedUserName = $"{registerDto.FirstName} {registerDto.LastName}"
+            };
 
-            if (result)
+            var result = await userManager.CreateAsync(student, registerDto.Password);
+
+            if (result.Succeeded)
             {
                 await cookieService.SetCookies(("studentId", student.Id));
-                return true;
             }
 
-            return false;
+            return result;
         }
     }
 }

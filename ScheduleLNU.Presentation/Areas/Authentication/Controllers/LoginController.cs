@@ -1,14 +1,8 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
 using ScheduleLNU.BusinessLogic.DTOs;
-using ScheduleLNU.BusinessLogic.Extensions;
-using ScheduleLNU.BusinessLogic.Services;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
-using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
@@ -34,14 +28,14 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         [Route("")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
-
             if (ModelState.IsValid)
             {
                 var result = await loginManager.LogInAsync(loginDto);
 
                 if (result)
                 {
-                    return RedirectToAction("ViewSchedles", "ThemeSettings");
+                    // TODO: redirect to home page
+                    return Redirect("~/settings");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
