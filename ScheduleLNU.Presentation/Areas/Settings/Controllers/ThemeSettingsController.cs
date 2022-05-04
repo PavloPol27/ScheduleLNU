@@ -15,8 +15,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
     {
         private readonly IThemeStyleService themeService;
 
-        public ThemeSettingsController(ILogger<ThemeSettingsController> injectedLogger,
-            IThemeStyleService injectedThemeService)
+        public ThemeSettingsController(IThemeStyleService injectedThemeService)
         {
             themeService = injectedThemeService;
         }
