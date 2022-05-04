@@ -37,16 +37,5 @@ namespace ScheduleLNU.BusinessLogic.Extensions
                     .AddEntityFrameworkStores<DataContext>();
             return services;
         }
-
-        public static IServiceCollection AddCookies(this IServiceCollection services)
-        {
-            services.ConfigureApplicationCookie(config =>
-            {
-                config.LoginPath = "/authentication/login";
-                config.AccessDeniedPath = "/authentication/login";
-            });
-
-            return services;
-        }
     }
 }

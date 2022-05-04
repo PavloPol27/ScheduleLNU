@@ -4,10 +4,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using ScheduleLNU.BusinessLogic.Services;
+using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.BusinessLogic.Extensions
 {
-    public static class CoockieIdentityExtensions
+    public static class RegistrationExtension
     {
         public static async Task SignInAsync(this HttpContext context, ClaimsIdentity identities)
         {
@@ -33,6 +36,20 @@ namespace ScheduleLNU.BusinessLogic.Extensions
             studentId = studentEmailAdressClaim?.Value;
 
             return studentEmailAdressClaim is not null;
+        }
+
+        public static IServiceCollection AddCookies(this IServiceCollection services)
+        {
+
+            services.AddScoped<ICookieService, CookieService>()
+                .AddScoped<ILoginService, LoginService>()
+                .ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/authentication/login";
+                config.AccessDeniedPath = "/authentication/login";
+            });
+
+            return services;
         }
     }
 }
