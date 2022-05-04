@@ -9,7 +9,6 @@ namespace ScheduleLNU.BusinessLogic.DTOs
     public class LoginDto
     {
         // For the sake of view, change it to your preferences.
-
         public string Email { get; set; }
 
         public string Password { get; set; }

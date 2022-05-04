@@ -20,4 +20,14 @@ Sprint with auth:
      * View
      * Back-end
  5. Email sender service
-  
+
+To add cookies use in controll *HttpContext* propertie and use extension method SignInAsync(). It takes list of tupples of objects. 
+```c#
+ await HttpContext.SignInAsync((nameof(studentId), studentId));
+```
+
+Also you can add more claims for example:
+```c#
+ await HttpContext.SignInAsync((nameof(studentId), studentId), 
+                              (ClaimsIdentity.DefaultNameClaimType, "name"));
+```

@@ -1,15 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace ScheduleLNU.DataAccess.Entities
 {
-    public class Student : BaseEntity
+    public class Student : IdentityUser
     {
-        public string EmailAddress { get; set; }
-
-        public string PhoneNumber { get; set; }
-
-        public string Password { get; set; }
-
         public bool IsNotifiable { get; set; }
 
         public Theme SelectedTheme { get; set; }
