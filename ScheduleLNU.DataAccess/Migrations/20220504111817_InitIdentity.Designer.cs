@@ -10,7 +10,7 @@ using ScheduleLNU.DataAccess.Contexts;
 namespace ScheduleLNU.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220501090401_InitIdentity")]
+    [Migration("20220504111817_InitIdentity")]
     partial class InitIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -202,8 +202,8 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("ForeColor")
                         .HasColumnType("text");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("integer");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
@@ -242,8 +242,8 @@ namespace ScheduleLNU.DataAccess.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("integer");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
@@ -256,35 +256,6 @@ namespace ScheduleLNU.DataAccess.Migrations
                 });
 
             modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.Student", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("EmailAddress")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsNotifiable")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("SelectedThemeId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SelectedThemeId");
-
-                    b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("ScheduleLNU.DataAccess.Entities.StudentAspIdentity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -301,6 +272,9 @@ namespace ScheduleLNU.DataAccess.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsNotifiable")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")
@@ -329,6 +303,9 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
+                    b.Property<int?>("SelectedThemeId")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
@@ -344,6 +321,8 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("SelectedThemeId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -367,8 +346,8 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("ForeColor")
                         .HasColumnType("text");
 
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("integer");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -393,7 +372,7 @@ namespace ScheduleLNU.DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ScheduleLNU.DataAccess.Entities.StudentAspIdentity", null)
+                    b.HasOne("ScheduleLNU.DataAccess.Entities.Student", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -402,7 +381,7 @@ namespace ScheduleLNU.DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ScheduleLNU.DataAccess.Entities.StudentAspIdentity", null)
+                    b.HasOne("ScheduleLNU.DataAccess.Entities.Student", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -417,7 +396,7 @@ namespace ScheduleLNU.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ScheduleLNU.DataAccess.Entities.StudentAspIdentity", null)
+                    b.HasOne("ScheduleLNU.DataAccess.Entities.Student", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -426,7 +405,7 @@ namespace ScheduleLNU.DataAccess.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ScheduleLNU.DataAccess.Entities.StudentAspIdentity", null)
+                    b.HasOne("ScheduleLNU.DataAccess.Entities.Student", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -450,9 +429,7 @@ namespace ScheduleLNU.DataAccess.Migrations
                 {
                     b.HasOne("ScheduleLNU.DataAccess.Entities.Student", "Student")
                         .WithMany("EventStyles")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Student");
                 });
@@ -468,9 +445,7 @@ namespace ScheduleLNU.DataAccess.Migrations
                 {
                     b.HasOne("ScheduleLNU.DataAccess.Entities.Student", "Student")
                         .WithMany("Schedules")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Student");
                 });

@@ -6,6 +6,6 @@
 
         public string Title { get; set; }
 
-        public int StudentId { get; set; }
+        public string StudentId { get; set; }
     }
 }

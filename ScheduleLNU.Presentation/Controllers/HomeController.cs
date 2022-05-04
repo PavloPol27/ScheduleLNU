@@ -1,15 +1,17 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ScheduleLNU.BusinessLogic.Extensions;
+using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.Presentation.Controllers
 {
     [Route("")]
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly ILoginService loginService;
+
+        public HomeController(ILoginService injectedLoginService)
         {
+            loginService = injectedLoginService;
         }
 
         [Route("")]
@@ -21,9 +23,8 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [Route("")]
         [HttpPost]
-        public async Task<IActionResult> Index(int studentId)
+        public IActionResult Index(int studentId)
         {
-            await HttpContext.SignInAsync((nameof(studentId), studentId));
             return Redirect("~/settings/themes");
         }
 

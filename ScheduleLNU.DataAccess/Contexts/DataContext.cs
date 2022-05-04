@@ -4,11 +4,11 @@ using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.DataAccess.Contexts
 {
-    public class DataContext : IdentityDbContext<StudentAspIdentity>
+    public class DataContext : IdentityDbContext<Student>
     {
         public DataContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
+           Database.EnsureCreated();
         }
 
         public DbSet<Event> Events { get; set; }

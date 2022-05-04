@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
+using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.Presentation.Controllers
@@ -23,16 +24,28 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> View(int studentId)
+        public async Task<IActionResult> ViewSchedles()
         {
+            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
+            if (isCookieFound == false)
+            {
+                return StatusCode(401);
+            }
+
             IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentId);
             return View(resList);
         }
 
         [HttpPost]
         [Route("delete")]
-        public async Task<IActionResult> Delete(int studentId, int scheduleId)
+        public async Task<IActionResult> Delete(int scheduleId)
         {
+            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
+            if (isCookieFound == false)
+            {
+                return StatusCode(401);
+            }
+
             bool deleteResult = await scheduleService.DeleteAsync(studentId, scheduleId);
             return deleteResult ? StatusCode(204) : StatusCode(400);
         }
@@ -48,10 +61,13 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("add")]
         public async Task<IActionResult> Add(string scheduleTitle)
         {
-            var studentId = 228;
+            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
+            if (isCookieFound == false)
+            {
+                return StatusCode(401);
+            }
+
             bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
-            logger.LogInformation("Student added schedule {sheduleTitle} to the list of schedules",
-                scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
                 return RedirectToAction("View", new { studentId = studentId });
@@ -64,17 +80,19 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("add")]
         public IActionResult AddPopup()
         {
-            logger.LogInformation("Student opened add schedule popup");
             return PartialView("_AddPopUpPartial", new ScheduleDto());
         }
 
         [Route("edit")]
         public async Task<IActionResult> Edit(int scheduleId, string title)
         {
-            var studentId = 228;
+            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
+            if (isCookieFound == false)
+            {
+                return StatusCode(401);
+            }
+
             await scheduleService.EditAsync(studentId, scheduleId, title);
-            logger.LogInformation("Student changed schedule {scheduleId} title to {sheduleTitle}",
-                scheduleId, title);
             return StatusCode(200);
         }
 
@@ -82,7 +100,6 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("edit")]
         public IActionResult EditPopup(ScheduleDto scheduleDto)
         {
-            logger.LogInformation("Student opened edit schedule popup");
             return PartialView("_EditPopUpPartial", scheduleDto);
         }
     }
