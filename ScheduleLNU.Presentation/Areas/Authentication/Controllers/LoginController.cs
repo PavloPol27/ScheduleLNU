@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using ScheduleLNU.BusinessLogic.DTOs;
+using System.Threading.Tasks;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
@@ -7,6 +9,13 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/login")]
     public class LoginController : Controller
     {
+        private readonly SignInManager<IdentityUser> signInManager;
+
+        public LoginController(SignInManager<IdentityUser> signInManager)
+        {
+            this.signInManager = signInManager;
+        }
+
         [HttpGet]
         [Route("")]
         public IActionResult Login()
@@ -16,9 +25,22 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 
         [HttpPost]
         [Route("")]
-        public IActionResult Login(LoginDto loginDto)
+        public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            return View();
+
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, false, false);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("view", "Schedules");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+            }
+
+            return View(loginDto);
         }
     }
 }

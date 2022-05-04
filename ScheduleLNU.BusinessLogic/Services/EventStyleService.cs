@@ -60,7 +60,8 @@ namespace ScheduleLNU.BusinessLogic.Services
                     BackColor = x.BackColor,
                     ForeColor = x.ForeColor,
                     StudentId = studentId
-                });
+                })
+                .OrderBy(x => x.Id);
         }
     }
 }
