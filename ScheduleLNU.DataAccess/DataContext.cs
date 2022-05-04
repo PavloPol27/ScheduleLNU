@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ScheduleLNU.DataAccess.Entities;
 
-namespace ScheduleLNU.DataAccess.Contexts
+namespace ScheduleLNU.DataAccess
 {
     public class DataContext : IdentityDbContext<Student>
     {

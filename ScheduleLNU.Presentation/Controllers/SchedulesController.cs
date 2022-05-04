@@ -26,8 +26,8 @@ namespace ScheduleLNU.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewSchedles()
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }
@@ -40,8 +40,8 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("delete")]
         public async Task<IActionResult> Delete(int scheduleId)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }
@@ -61,8 +61,8 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("add")]
         public async Task<IActionResult> Add(string scheduleTitle)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }
@@ -86,8 +86,8 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("edit")]
         public async Task<IActionResult> Edit(int scheduleId, string title)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }
