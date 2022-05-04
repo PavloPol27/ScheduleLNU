@@ -12,10 +12,10 @@ namespace ScheduleLNU.BusinessLogic.Services
 {
     public class AuthService : IAuthService
     {
-        private UserManager<StudentAspIdentity> userManager;
+        private UserManager<Student> userManager;
         private IEmailSender emailSender;
 
-        public AuthService(UserManager<StudentAspIdentity> userManager, IEmailSender emailSender)
+        public AuthService(UserManager<Student> userManager, IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.emailSender = emailSender;
@@ -31,16 +31,21 @@ namespace ScheduleLNU.BusinessLogic.Services
 
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
             var message = new Message(new string[] { email }, "LNU Schedule, Reset Password",
-                "https://localhost:44384/recoveryPassword?email=" + email + "?token=" + resetToken);
+                "https://localhost:44384/authentication/login/reset-password/?email=" + email + "?token=" + resetToken);
             await emailSender.SendEmailAsync(message);
         }
 
-        public async Task ResetPasswordAsync(string email, string token, string newPassword)
+        public async Task ResetPasswordAsync(string email, string token, string newPassword, string confirmedPassword)
         {
             var user = await userManager.FindByEmailAsync(email);
             if (user == null)
             {
                 throw new NullReferenceException($"User is not found");
+            }
+
+            if (newPassword != confirmedPassword)
+            {
+                throw new ArgumentException($"New password should be equal to confirmed!");
             }
 
             await userManager.ResetPasswordAsync(user, token, newPassword);

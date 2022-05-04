@@ -10,6 +10,6 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
     {
         Task SendResetTokenAsync(string email);
 
-        Task ResetPasswordAsync(string email, string token, string newPassword);
+        Task ResetPasswordAsync(string email, string token, string newPassword, string confirmedPassword);
     }
 }

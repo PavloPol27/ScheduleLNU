@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
+using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
@@ -12,21 +12,13 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/login")]
     public class LoginController : Controller
     {
-        private readonly ILogger<LoginController> logger;
-
         private readonly IAuthService authService;
 
-        public LoginController(ILogger<LoginController> logger,
-            IAuthService authService)
+        private readonly SignInManager<Student> signInManager;
+
+        public LoginController(IAuthService authService, SignInManager<Student> signInManager)
         {
-            this.logger = logger;
             this.authService = authService;
-        }
-
-        private readonly SignInManager<IdentityUser> signInManager;
-
-        public LoginController(SignInManager<IdentityUser> signInManager)
-        {
             this.signInManager = signInManager;
         }
 
@@ -58,12 +50,13 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 
         [HttpGet]
         [Route("forgot-password")]
-        public ActionResult ForgotPassword()
+        public ActionResult ForgotPasswordForm()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("forgot")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
             await authService.SendResetTokenAsync(forgotPasswordDto.Email);
@@ -75,11 +68,22 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
             return new StatusCodeResult(500);
         }
 
+        [HttpGet]
+        [Route("reset-password")]
+        public ActionResult ResetPasswordForm(string email)
+        {
+            Debug.WriteLine(email);
+            email = email.Replace("token=", "");
+            string[] parameters = email.Split('?');
+            var resetPasswordDto = new ResetPasswordDto { Email = parameters[0], Token = parameters[1] };
+            return View(resetPasswordDto);
+        }
+
         [HttpPost]
         [Route("reset")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
         {
-            await authService.ResetPasswordAsync(resetPasswordDto.Email, resetPasswordDto.Token, resetPasswordDto.NewPassword);
+            await authService.ResetPasswordAsync(resetPasswordDto.Email, resetPasswordDto.Token, resetPasswordDto.NewPassword, resetPasswordDto.ConfirmedPassword);
             if (ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Login));

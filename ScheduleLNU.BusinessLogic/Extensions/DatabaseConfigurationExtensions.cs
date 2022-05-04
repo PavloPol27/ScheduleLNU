@@ -34,7 +34,8 @@ namespace ScheduleLNU.BusinessLogic.Extensions
                                options.Password.RequireUppercase = false;
                                options.Password.RequireLowercase = false;
                            })
-                    .AddEntityFrameworkStores<DataContext>();
+                    .AddEntityFrameworkStores<DataContext>()
+                    .AddDefaultTokenProviders();
             return services;
         }
     }
