@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
@@ -13,14 +13,13 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/login")]
     public class LoginController : Controller
     {
+        private readonly ILoginService loginManager;
         private readonly IAuthService authService;
 
-        private readonly SignInManager<Student> signInManager;
-
-        public LoginController(IAuthService authService, SignInManager<Student> signInManager)
+        public LoginController(IAuthService authService, ILoginService loginManager)
         {
+            this.loginManager = loginManager;
             this.authService = authService;
-            this.signInManager = signInManager;
         }
 
         [HttpGet]
@@ -36,11 +35,12 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, false, false);
+                var result = await loginManager.LogInAsync(loginDto);
 
-                if (result.Succeeded)
+                if (result)
                 {
-                    return RedirectToAction("view", "Schedules");
+                    // TODO: redirect to home page
+                    return Redirect("~/settings");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
@@ -71,12 +71,9 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 
         [HttpGet]
         [Route("reset-password")]
-        public ActionResult ResetPasswordForm(string email)
+        public ActionResult ResetPasswordForm(string email, string token)
         {
-            Debug.WriteLine(email);
-            email = email.Replace("token=", "");
-            string[] parameters = email.Split('?');
-            var resetPasswordDto = new ResetPasswordDto { Email = parameters[0], Token = parameters[1] };
+            var resetPasswordDto = new ResetPasswordDto { Email = email, Token = token };
             return View(resetPasswordDto);
         }
 
@@ -84,8 +81,8 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         [Route("reset")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
         {
-            await authService.ResetPasswordAsync(resetPasswordDto.Email, resetPasswordDto.Token, resetPasswordDto.NewPassword, resetPasswordDto.ConfirmedPassword);
-            if (ModelState.IsValid)
+            var result = await authService.ResetPasswordAsync(resetPasswordDto.Email, resetPasswordDto.Token, resetPasswordDto.NewPassword, resetPasswordDto.ConfirmedPassword);
+            if (ModelState.IsValid && result)
             {
                 return RedirectToAction(nameof(Login));
             }

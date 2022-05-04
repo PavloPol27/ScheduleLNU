@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ScheduleLNU.BusinessLogic.DTOs;
-using ScheduleLNU.BusinessLogic.Extensions;
+using ScheduleLNU.BusinessLogic.DTOs.Mappers;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 using ScheduleLNU.DataAccess.Entities;
 
@@ -23,13 +23,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [Route("[area]/themes")]
         public async Task<IActionResult> Themes()
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
-            {
-                return StatusCode(401);
-            }
-
-            var allThemes = await themeService.GetAllThemesAsync(studentId);
+            var allThemes = await themeService.GetAllThemesAsync();
             return View(allThemes);
         }
 
@@ -37,13 +31,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [Route("[area]/theme")]
         public async Task<IActionResult> Theme(int themeId)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
-            {
-                return StatusCode(401);
-            }
-
-            var theme = await themeService.ViewTheme(studentId, themeId);
+            var theme = await themeService.ViewTheme(themeId);
             return View(theme);
         }
 
@@ -56,15 +44,9 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 
         [HttpPost]
         [Route("[area]/add-theme")]
-        public async Task<IActionResult> AddTheme(ThemeDTO theme)
+        public async Task<IActionResult> AddTheme(ThemeDto theme)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
-            {
-                return StatusCode(401);
-            }
-
-            await themeService.Insert(studentId, theme);
+            await themeService.Insert(theme.ToTheme());
             return Redirect("~/settings/themes");
         }
 

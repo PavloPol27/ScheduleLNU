@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ScheduleLNU.DataAccess.Contexts;
+using ScheduleLNU.DataAccess;
 using ScheduleLNU.DataAccess.Entities;
 using ScheduleLNU.DataAccess.Repository;
 
-namespace ScheduleLNU.BusinessLogic.Extensions
+namespace ScheduleLNU.BusinessLogic.Extensions.ServicesExtension
 {
     public static class DatabaseConfigurationExtensions
     {

@@ -15,37 +15,36 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         private readonly IRepository<Theme> themeRepository;
 
+        private readonly ICookieService cookieService;
+
         public ThemeStyleService(IRepository<Student> injectedStudentRepository,
-            IRepository<Theme> injectedThemeRepository)
+            IRepository<Theme> injectedThemeRepository,
+            ICookieService injectedCookieService)
         {
             studentRepository = injectedStudentRepository;
             themeRepository = injectedThemeRepository;
+            cookieService = injectedCookieService;
         }
 
-        // TODO: add unit test to ? operator
-        public async Task<IEnumerable<ThemeDTO>> GetAllThemesAsync(string studentId)
+        public async Task<IEnumerable<ThemeDto>> GetAllThemesAsync()
         {
+            var studentId = cookieService.GetStudentId();
             var studentRecord = await studentRepository
                 .SelectAsync(s => s.Id == studentId, s => s.Themes, s => s.SelectedTheme);
             return studentRecord?.Themes
-                .Select(t => new ThemeDTO()
+                .Select(t => new ThemeDto()
                 {
                     Id = t.Id,
                     Title = t.Title,
                     IsSelected = t.Id == studentRecord.SelectedTheme?.Id
-                }) ?? Array.Empty<ThemeDTO>();
+                }) ?? Array.Empty<ThemeDto>();
         }
 
-        // Unit test due to if clause
-        public async Task<Theme> ViewTheme(string studentId, int themeID)
+        public async Task<Theme> ViewTheme(int themeID)
         {
+            var studentId = cookieService.GetStudentId();
             var studentRecord = await studentRepository.SelectAsync(s => s.Id.Equals(studentId), s => s.Themes);
             var theme = studentRecord.Themes.FirstOrDefault(t => t.Id == themeID);
-
-            if (theme is null)
-            {
-                throw new NullReferenceException($"Theme {themeID} is not fount");
-            }
 
             return theme;
         }
@@ -55,8 +54,9 @@ namespace ScheduleLNU.BusinessLogic.Services
             await themeRepository.UpdateAsync(theme);
         }
 
-        public async Task Insert(string studentId, Theme theme)
+        public async Task Insert(Theme theme)
         {
+            var studentId = cookieService.GetStudentId();
             var studentRecord = await studentRepository.SelectAsync(s => s.Id.Equals(studentId), s => s.Themes);
             studentRecord.Themes.Add(theme);
             await studentRepository.UpdateAsync(studentRecord);

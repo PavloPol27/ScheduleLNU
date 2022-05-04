@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
 using ScheduleLNU.BusinessLogic.DTOs;
+using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
@@ -11,14 +10,11 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/register")]
     public class RegisterController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly IRegisterService registerManager;
 
-        public RegisterController(UserManager<IdentityUser> userManager,
-                                    SignInManager<IdentityUser> signInManager)
+        public RegisterController(IRegisterService registerManager)
         {
-            this.signInManager = signInManager;
-            this.userManager = userManager;
+            this.registerManager = registerManager;
         }
 
         [HttpGet]
@@ -34,27 +30,18 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
-                {
-                    UserName = $"{registerDto.FirstName} {registerDto.LastName}",
-                    Email = registerDto.Email,
-                };
-
-                var result = await userManager.CreateAsync(user, registerDto.Password);
+                var result = await registerManager.RegisterAsync(registerDto);
 
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: false);
-
-                    return RedirectToAction("view", "Schedules");
+                    // TODO: redirect to home page
+                    return Redirect("~/settings");
                 }
 
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
 
             return View(registerDto);

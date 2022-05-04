@@ -3,8 +3,8 @@ using ScheduleLNU.BusinessLogic.DTOs;
 
 namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
-    public interface ILoginService
+    public interface IRegisterService
     {
-        Task<bool> LogInAsync(LoginDto loginDto);
+        Task<Microsoft.AspNetCore.Identity.IdentityResult> RegisterAsync(RegisterDto registerDto);
     }
 }

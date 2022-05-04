@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
@@ -14,20 +13,17 @@ namespace ScheduleLNU.Presentation.Controllers
     public class SchedulesController : Controller
     {
         private readonly IScheduleService scheduleService;
-        private readonly ILogger<SchedulesController> logger;
 
-        public SchedulesController(ILogger<SchedulesController> logger,
-            IScheduleService scheduleService)
+        public SchedulesController(IScheduleService scheduleService)
         {
-            this.logger = logger;
             this.scheduleService = scheduleService;
         }
 
         [HttpGet]
         public async Task<IActionResult> ViewSchedles()
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }
@@ -40,8 +36,8 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("delete")]
         public async Task<IActionResult> Delete(int scheduleId)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }
@@ -61,8 +57,8 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("add")]
         public async Task<IActionResult> Add(string scheduleTitle)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }
@@ -70,7 +66,7 @@ namespace ScheduleLNU.Presentation.Controllers
             bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
-                return RedirectToAction("View", new { studentId = studentId });
+                return RedirectToAction("View", new { studentId });
             }
 
             return new StatusCodeResult(500);
@@ -86,8 +82,8 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("edit")]
         public async Task<IActionResult> Edit(int scheduleId, string title)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }

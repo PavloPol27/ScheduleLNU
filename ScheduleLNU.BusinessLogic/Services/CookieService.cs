@@ -20,6 +20,11 @@ namespace ScheduleLNU.BusinessLogic.Services
             return httpContextAccessor.HttpContext.GetClaim(key);
         }
 
+        public string GetStudentId()
+        {
+            return httpContextAccessor.HttpContext.GetStudentId();
+        }
+
         public async Task SetCookies(params (object, object)[] claimsCookie)
         {
             await httpContextAccessor.HttpContext.SignInAsync(claimsCookie);

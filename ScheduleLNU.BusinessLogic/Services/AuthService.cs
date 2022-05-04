@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Identity;
 using ScheduleLNU.BusinessLogic.Services.EmailService;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
@@ -31,11 +32,11 @@ namespace ScheduleLNU.BusinessLogic.Services
 
             var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
             var message = new Message(new string[] { email }, "LNU Schedule, Reset Password",
-                "https://localhost:44384/authentication/login/reset-password/?email=" + email + "?token=" + resetToken);
+                "https://localhost:44384/authentication/login/reset-password/?email=" + email + "&token=" + HttpUtility.UrlEncode(resetToken));
             await emailSender.SendEmailAsync(message);
         }
 
-        public async Task ResetPasswordAsync(string email, string token, string newPassword, string confirmedPassword)
+        public async Task<bool> ResetPasswordAsync(string email, string token, string newPassword, string confirmedPassword)
         {
             var user = await userManager.FindByEmailAsync(email);
             if (user == null)
@@ -48,7 +49,14 @@ namespace ScheduleLNU.BusinessLogic.Services
                 throw new ArgumentException($"New password should be equal to confirmed!");
             }
 
-            await userManager.ResetPasswordAsync(user, token, newPassword);
+            var result = await userManager.ResetPasswordAsync(user, token, newPassword);
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+
+            return true;
+
         }
     }
 }
