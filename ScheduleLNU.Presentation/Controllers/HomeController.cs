@@ -14,8 +14,9 @@ namespace ScheduleLNU.Presentation.Controllers
 
         [Route("")]
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            await HttpContext.SignInAsync(("studentId", "58e16f9d-75be-44bc-9d91-43b0208226cc"));
             return View();
         }
 

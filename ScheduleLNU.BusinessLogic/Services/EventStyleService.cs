@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 using ScheduleLNU.DataAccess.Entities;
@@ -14,12 +12,9 @@ namespace ScheduleLNU.BusinessLogic.Services
     {
         private readonly IRepository<EventStyle> eventStyleRepository;
 
-        private readonly IRepository<Student> studentRepository;
-
         public EventStyleService(IRepository<EventStyle> eventStyleRepository, IRepository<Student> studentRepository)
         {
             this.eventStyleRepository = eventStyleRepository;
-            this.studentRepository = studentRepository;
         }
 
         public async Task AddAsync(EventStyleDto eventStyleDto)
@@ -34,7 +29,7 @@ namespace ScheduleLNU.BusinessLogic.Services
                 });
         }
 
-        public async Task DeleteAsync(int studentId, int eventId)
+        public async Task DeleteAsync(string studentId, int eventId)
         {
             var eventStyle = await eventStyleRepository.SelectAsync(s => s.Id == eventId && s.StudentId == studentId);
             await eventStyleRepository.DeleteAsync(eventStyle);
@@ -54,7 +49,7 @@ namespace ScheduleLNU.BusinessLogic.Services
             return true;
         }
 
-        public async Task<IEnumerable<EventStyleDto>> GetAllAsync(int studentId)
+        public async Task<IEnumerable<EventStyleDto>> GetAllAsync(string studentId)
         {
             return (await eventStyleRepository
                 .SelectAllAsync(x => x.StudentId == studentId))

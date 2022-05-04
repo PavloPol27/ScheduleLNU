@@ -26,7 +26,7 @@ namespace ScheduleLNU.BusinessLogic.Services
         public async Task<IEnumerable<ThemeDTO>> GetAllThemesAsync(string studentId)
         {
             var studentRecord = await studentRepository
-                .SelectAsync(s => s.Id.Equals(studentId), s => s.Themes, s => s.SelectedTheme);
+                .SelectAsync(s => s.Id == studentId, s => s.Themes, s => s.SelectedTheme);
             return studentRecord?.Themes
                 .Select(t => new ThemeDTO()
                 {

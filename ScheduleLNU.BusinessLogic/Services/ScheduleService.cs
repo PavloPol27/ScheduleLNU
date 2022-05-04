@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ScheduleLNU.BusinessLogic.DTOs;
@@ -18,20 +17,20 @@ namespace ScheduleLNU.BusinessLogic.Services
             this.scheduleRepository = scheduleRepository;
         }
 
-        public async Task<IEnumerable<ScheduleDto>> GetAllAsync(int studentId)
+        public async Task<IEnumerable<ScheduleDto>> GetAllAsync(string studentId)
         {
             return (await scheduleRepository
-                .SelectAllAsync(x => x.Student.Id.Equals(studentId)))
+                .SelectAllAsync(x => x.Student.Id == studentId))
                 .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId })
                 .OrderBy(x => x.Id);
         }
 
-        public async Task<bool> DeleteAsync(int studentId, int scheduleId)
+        public async Task<bool> DeleteAsync(string studentId, int scheduleId)
         {
             try
             {
                 Schedule schedule = (await scheduleRepository.SelectAllAsync((schedule) =>
-                    schedule.Id == scheduleId && schedule.Student.Id.Equals(studentId),
+                    schedule.Id == scheduleId && schedule.Student.Id == studentId,
                     (entity) => entity.Student)).FirstOrDefault();
                 await scheduleRepository.DeleteAsync(schedule);
                 return true;
@@ -42,7 +41,7 @@ namespace ScheduleLNU.BusinessLogic.Services
             }
         }
 
-        public async Task<bool> AddAsync(int studentId, string scheduleTitle)
+        public async Task<bool> AddAsync(string studentId, string scheduleTitle)
         {
             try
             {
@@ -55,7 +54,7 @@ namespace ScheduleLNU.BusinessLogic.Services
             }
         }
 
-        public async Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle)
+        public async Task<bool> EditAsync(string studentId, int scheduleId, string scheduleTitle)
         {
             await scheduleRepository.UpdateAsync(
                 new Schedule { Id = scheduleId, Title = scheduleTitle, StudentId = studentId });
