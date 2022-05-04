@@ -20,8 +20,7 @@
                       method="get"
                       asp-action="SettingsMenu"
                       asp-controller="Configuration"
-                      asp-area="settings"
-                      asp-route-studentId="1">
+                      asp-area="settings">
                     <button class="add-button" type="submit">
                         <span>
                             <span>
@@ -34,8 +33,7 @@
                       method="get"
                       asp-action="ThemePreview"
                       asp-controller="ThemeSettings"
-                      asp-area="settings"
-                      asp-route-studentId="1">
+                      asp-area="settings">
                     <button class="add-button" type="submit">
                         <span>
                             <span>
@@ -59,7 +57,6 @@
                                    asp-action="Theme"
                                    asp-controller="ThemeSettings"
                                    asp-area="settings"
-                                   asp-route-studentId="1"
                                    asp-route-themeId="@theme.Id">
                                     <i id="edit-icon" class="bi bi-pen"></i>
                                 </a>
@@ -71,7 +68,6 @@
                                    asp-action="DeleteTheme"
                                    asp-controller="ThemeSettings"
                                    asp-area="settings"
-                                   asp-route-studentId="1"
                                    asp-route-themeId="@theme.Id">
                                     <i id="edit-icon" class="bi bi-trash"></i>
                                 </a>

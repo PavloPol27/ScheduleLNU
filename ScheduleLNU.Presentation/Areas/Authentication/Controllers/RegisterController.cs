@@ -8,7 +8,6 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/register")]
     public class RegisterController : Controller
     {
-
         [HttpGet]
         [Route("")]
         public IActionResult Register()

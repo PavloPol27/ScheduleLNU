@@ -29,7 +29,7 @@ namespace ScheduleLNU.BusinessLogic.Extensions
                  .Equals(keyValue, System.StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public static bool TryGetStudentEmailAddress(this HttpContext context, out string studentId)
+        public static bool TryGetStudentId(this HttpContext context, out string studentId)
         {
             var studentEmailAdressClaim = context.GetClaim("studentEmailAddress");
             studentId = studentEmailAdressClaim?.Value;

@@ -9,7 +9,7 @@ using ScheduleLNU.DataAccess.Repository;
 
 namespace ScheduleLNU.BusinessLogic.Services
 {
-    public class ScheduleService : IScheduleService // to base generic CRUD class (?)
+    public class ScheduleService : IScheduleService
     {
         private readonly IRepository<Schedule> scheduleRepository;
 
@@ -21,19 +21,17 @@ namespace ScheduleLNU.BusinessLogic.Services
         public async Task<IEnumerable<ScheduleDto>> GetAllAsync(int studentId)
         {
             return (await scheduleRepository
-                .SelectAllAsync(x => x.Student.Id == studentId))
+                .SelectAllAsync(x => x.Student.Id.Equals(studentId)))
                 .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId })
                 .OrderBy(x => x.Id);
         }
 
         public async Task<bool> DeleteAsync(int studentId, int scheduleId)
         {
-            // TODO: remove try catch
-            // TODO: add existance schedule check
             try
             {
                 Schedule schedule = (await scheduleRepository.SelectAllAsync((schedule) =>
-                    schedule.Id == scheduleId && schedule.Student.Id == studentId,
+                    schedule.Id == scheduleId && schedule.Student.Id.Equals(studentId),
                     (entity) => entity.Student)).FirstOrDefault();
                 await scheduleRepository.DeleteAsync(schedule);
                 return true;

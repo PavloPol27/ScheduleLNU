@@ -23,10 +23,10 @@ namespace ScheduleLNU.BusinessLogic.Services
         }
 
         // TODO: add unit test to ? operator
-        public async Task<IEnumerable<ThemeDTO>> GetAllThemesAsync(int studentId)
+        public async Task<IEnumerable<ThemeDTO>> GetAllThemesAsync(string studentId)
         {
             var studentRecord = await studentRepository
-                .SelectAsync(s => s.Id == studentId, s => s.Themes, s => s.SelectedTheme);
+                .SelectAsync(s => s.Id.Equals(studentId), s => s.Themes, s => s.SelectedTheme);
             return studentRecord?.Themes
                 .Select(t => new ThemeDTO()
                 {
@@ -37,9 +37,9 @@ namespace ScheduleLNU.BusinessLogic.Services
         }
 
         // Unit test due to if clause
-        public async Task<Theme> ViewTheme(int studentId, int themeID)
+        public async Task<Theme> ViewTheme(string studentId, int themeID)
         {
-            var studentRecord = await studentRepository.SelectAsync(s => s.Id == studentId, s => s.Themes);
+            var studentRecord = await studentRepository.SelectAsync(s => s.Id.Equals(studentId), s => s.Themes);
             var theme = studentRecord.Themes.FirstOrDefault(t => t.Id == themeID);
 
             if (theme is null)
@@ -50,14 +50,14 @@ namespace ScheduleLNU.BusinessLogic.Services
             return theme;
         }
 
-        public async Task Edit(int studentId, Theme theme)
+        public async Task Edit(Theme theme)
         {
             await themeRepository.UpdateAsync(theme);
         }
 
-        public async Task Insert(int studentId, Theme theme)
+        public async Task Insert(string studentId, Theme theme)
         {
-            var studentRecord = await studentRepository.SelectAsync(s => s.Id == studentId, s => s.Themes);
+            var studentRecord = await studentRepository.SelectAsync(s => s.Id.Equals(studentId), s => s.Themes);
             studentRecord.Themes.Add(theme);
             await studentRepository.UpdateAsync(studentRecord);
         }

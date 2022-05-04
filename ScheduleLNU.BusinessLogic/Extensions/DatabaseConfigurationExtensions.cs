@@ -18,14 +18,14 @@ namespace ScheduleLNU.BusinessLogic.Extensions
 
         public static IServiceCollection AddSchedulesDb(this IServiceCollection services, string connectionString)
         {
-            return services.AddScoped<IdentityDbContext<StudentAspIdentity>, DataContext>()
+            return services.AddScoped<IdentityDbContext<Student>, DataContext>()
                            .AddDbContext<DataContext>(opt => opt.UseNpgsql(connectionString))
                            .AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
 
         public static IServiceCollection AddAspNetIdentityDbContext(this IServiceCollection services)
         {
-            services.AddIdentity<StudentAspIdentity, IdentityRole>(options =>
+            services.AddIdentity<Student, IdentityRole>(options =>
                            {
                                options.SignIn.RequireConfirmedAccount = true;
                                options.SignIn.RequireConfirmedEmail = true;

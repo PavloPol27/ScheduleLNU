@@ -6,7 +6,7 @@ using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.DataAccess.Repository
 {
-    public interface IRepository<TEntity> where TEntity : BaseEntity
+    public interface IRepository<TEntity> where TEntity : class
     {
         Task InsertAsync(TEntity entity);
 
