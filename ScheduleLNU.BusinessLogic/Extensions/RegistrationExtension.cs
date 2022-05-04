@@ -30,12 +30,10 @@ namespace ScheduleLNU.BusinessLogic.Extensions
             return context.User.Claims.FirstOrDefault(c => c.Type == keyValue);
         }
 
-        public static bool TryGetStudentId(this HttpContext context, out string studentId)
+        public static string GetStudentId(this HttpContext context)
         {
             var studentEmailAdressClaim = context.GetClaim("studentId");
-            studentId = studentEmailAdressClaim?.Value;
-
-            return studentEmailAdressClaim is not null;
+            return studentEmailAdressClaim?.Value;
         }
 
         public static IServiceCollection AddCookies(this IServiceCollection services)

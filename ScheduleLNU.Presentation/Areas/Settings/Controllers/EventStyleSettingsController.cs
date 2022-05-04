@@ -29,8 +29,8 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [HttpGet]
         public async Task<IActionResult> EventStyles()
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }
@@ -72,7 +72,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [Route("add-style")]
         public async Task<IActionResult> AddStyle(EventStyleDto eventStyleDto)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
+            var isCookieFound = HttpContext.GetStudentId(out var studentId);
             if (isCookieFound == false)
             {
                 return StatusCode(401);
@@ -99,8 +99,8 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [Route("delete")]
         public async Task<IActionResult> DeleteStyle(int styleId)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
-            if (isCookieFound == false)
+            var studentId = HttpContext.GetStudentId();
+            if (studentId is null)
             {
                 return StatusCode(401);
             }

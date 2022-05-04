@@ -23,7 +23,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [Route("[area]/themes")]
         public async Task<IActionResult> Themes()
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
+            var isCookieFound = HttpContext.GetStudentId(out var studentId);
             if (isCookieFound == false)
             {
                 return StatusCode(401);
@@ -37,7 +37,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [Route("[area]/theme")]
         public async Task<IActionResult> Theme(int themeId)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
+            var isCookieFound = HttpContext.GetStudentId(out var studentId);
             if (isCookieFound == false)
             {
                 return StatusCode(401);
@@ -58,7 +58,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [Route("[area]/add-theme")]
         public async Task<IActionResult> AddTheme(ThemeDTO theme)
         {
-            var isCookieFound = HttpContext.TryGetStudentId(out var studentId);
+            var isCookieFound = HttpContext.GetStudentId(out var studentId);
             if (isCookieFound == false)
             {
                 return StatusCode(401);
