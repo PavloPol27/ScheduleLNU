@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -21,6 +21,7 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
             this.userManager = userManager;
         }
 
+
         [HttpGet]
         [Route("")]
         public IActionResult Register()
@@ -30,6 +31,7 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 
         [HttpPost]
         [Route("")]
+
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             if (ModelState.IsValid)
