@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using ScheduleLNU.BusinessLogic.DTOs;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
+using ScheduleLNU.BusinessLogic.DTOs;
+using ScheduleLNU.BusinessLogic.Extensions;
+using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
@@ -9,9 +14,9 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/login")]
     public class LoginController : Controller
     {
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<StudentAspIdentity> signInManager;
 
-        public LoginController(SignInManager<IdentityUser> signInManager)
+        public LoginController(SignInManager<StudentAspIdentity> signInManager)
         {
             this.signInManager = signInManager;
         }
@@ -34,6 +39,7 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 
                 if (result.Succeeded)
                 {
+                    // await HttpContext.SignInAsync((ClaimsIdentity.DefaultNameClaimType, 228));
                     return RedirectToAction("view", "Schedules");
                 }
 

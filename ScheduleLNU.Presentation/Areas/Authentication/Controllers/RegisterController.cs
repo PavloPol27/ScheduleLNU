@@ -1,9 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using ScheduleLNU.BusinessLogic.DTOs;
+using ScheduleLNU.BusinessLogic.Extensions;
+using ScheduleLNU.BusinessLogic.Services.Interfaces;
+using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
@@ -12,11 +16,11 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/register")]
     public class RegisterController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<StudentAspIdentity> userManager;
+        private readonly SignInManager<StudentAspIdentity> signInManager;
 
-        public RegisterController(UserManager<IdentityUser> userManager,
-                                    SignInManager<IdentityUser> signInManager)
+        public RegisterController(UserManager<StudentAspIdentity> userManager,
+                                    SignInManager<StudentAspIdentity> signInManager)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -35,18 +39,19 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new StudentAspIdentity
                 {
-                    UserName = $"{registerDto.FirstName} {registerDto.LastName}",
+                    UserName = registerDto.Email,
                     Email = registerDto.Email,
+                    // NormalizedUserName = $"{registerDto.FirstName} {registerDto.LastName}"
                 };
 
                 var result = await userManager.CreateAsync(user, registerDto.Password);
 
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: false);
-
+                    // await signInManager.SignInAsync(user, isPersistent: false);
+                    // await HttpContext.SignInAsync((ClaimsIdentity.DefaultNameClaimType, user.Id));
                     return RedirectToAction("view", "Schedules");
                 }
 
@@ -54,8 +59,6 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
 
             return View(registerDto);
