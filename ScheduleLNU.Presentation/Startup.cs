@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ScheduleLNU.BusinessLogic.Extensions;
+using ScheduleLNU.BusinessLogic.Extensions.ServicesExtension;
 using ScheduleLNU.BusinessLogic.Services;
 using ScheduleLNU.BusinessLogic.Services.EmailService;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
@@ -25,6 +28,9 @@ namespace ScheduleLNU.Presentation
             services.AddDbConfiguration(Configuration["ConnectionString"]);
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<ICookieService, CookieService>();
             services.AddSettingServices();
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddHttpClient();
@@ -33,6 +39,9 @@ namespace ScheduleLNU.Presentation
                 .Get<EmailConfig>();
             services.AddSingleton(emailConfig);
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddCookies();
+            services.Configure<PasswordHasherOptions>(options =>
+                        options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -9,13 +9,13 @@ using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.DataAccess.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private readonly IdentityDbContext<StudentAspIdentity> dataBaseContext;
+        private readonly IdentityDbContext<Student> dataBaseContext;
 
         private readonly DbSet<TEntity> entitiesDataSet;
 
-        public Repository(IdentityDbContext<StudentAspIdentity> context)
+        public Repository(IdentityDbContext<Student> context)
         {
             dataBaseContext = context;
             entitiesDataSet = context.Set<TEntity>();

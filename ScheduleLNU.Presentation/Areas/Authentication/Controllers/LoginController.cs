@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Routing;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
@@ -13,12 +14,15 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         private readonly ILogger<LoginController> logger;
 
         private readonly IAuthService authService;
+        private readonly ILoginService loginService;
 
         public LoginController(ILogger<LoginController> logger,
-            IAuthService authService)
+            IAuthService authService,
+            ILoginService loginService)
         {
             this.logger = logger;
             this.authService = authService;
+            this.loginService = loginService;
         }
 
         [HttpGet]
@@ -30,9 +34,22 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 
         [HttpPost]
         [Route("")]
-        public IActionResult Login(LoginDto loginDto)
+        public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var result = await loginService.LogInAsync(loginDto);
+
+                if (result)
+                {
+                    // TODO: redirect to home page
+                    return Redirect("~/settings");
+                }
+
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+            }
+
+            return View(loginDto);
         }
 
         [HttpGet]

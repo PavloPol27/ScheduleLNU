@@ -2,9 +2,9 @@
 using ScheduleLNU.BusinessLogic.Services;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
-namespace ScheduleLNU.BusinessLogic.Extensions
+namespace ScheduleLNU.BusinessLogic.Extensions.ServicesExtension
 {
-    public static class ServiceConfigurationExtension
+    public static class SettingsConfigurationExtensions
     {
         public static IServiceCollection AddSettingServices(this IServiceCollection services)
         {

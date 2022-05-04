@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ScheduleLNU.DataAccess.Entities;
 
-namespace ScheduleLNU.DataAccess.Contexts
+namespace ScheduleLNU.DataAccess
 {
-    public class DataContext : IdentityDbContext<StudentAspIdentity>
+    public class DataContext : IdentityDbContext<Student>
     {
         public DataContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
+           Database.EnsureCreated();
         }
 
         public DbSet<Event> Events { get; set; }

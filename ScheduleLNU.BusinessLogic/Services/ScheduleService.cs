@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ScheduleLNU.BusinessLogic.DTOs;
@@ -9,7 +8,7 @@ using ScheduleLNU.DataAccess.Repository;
 
 namespace ScheduleLNU.BusinessLogic.Services
 {
-    public class ScheduleService : IScheduleService // to base generic CRUD class (?)
+    public class ScheduleService : IScheduleService
     {
         private readonly IRepository<Schedule> scheduleRepository;
 
@@ -18,7 +17,7 @@ namespace ScheduleLNU.BusinessLogic.Services
             this.scheduleRepository = scheduleRepository;
         }
 
-        public async Task<IEnumerable<ScheduleDto>> GetAllAsync(int studentId)
+        public async Task<IEnumerable<ScheduleDto>> GetAllAsync(string studentId)
         {
             return (await scheduleRepository
                 .SelectAllAsync(x => x.Student.Id == studentId))
@@ -26,10 +25,8 @@ namespace ScheduleLNU.BusinessLogic.Services
                 .OrderBy(x => x.Id);
         }
 
-        public async Task<bool> DeleteAsync(int studentId, int scheduleId)
+        public async Task<bool> DeleteAsync(string studentId, int scheduleId)
         {
-            // TODO: remove try catch
-            // TODO: add existance schedule check
             try
             {
                 Schedule schedule = (await scheduleRepository.SelectAllAsync((schedule) =>
@@ -44,7 +41,7 @@ namespace ScheduleLNU.BusinessLogic.Services
             }
         }
 
-        public async Task<bool> AddAsync(int studentId, string scheduleTitle)
+        public async Task<bool> AddAsync(string studentId, string scheduleTitle)
         {
             try
             {
@@ -57,7 +54,7 @@ namespace ScheduleLNU.BusinessLogic.Services
             }
         }
 
-        public async Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle)
+        public async Task<bool> EditAsync(string studentId, int scheduleId, string scheduleTitle)
         {
             await scheduleRepository.UpdateAsync(
                 new Schedule { Id = scheduleId, Title = scheduleTitle, StudentId = studentId });

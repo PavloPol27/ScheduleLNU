@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace ScheduleLNU.Presentation.Controllers
 {
     [Area("settings")]
+    [Authorize]
     public class ConfigurationController : Controller
     {
         private readonly ILogger<ConfigurationController> logger;
