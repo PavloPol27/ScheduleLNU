@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ScheduleLNU.BusinessLogic.DTOs;
+using ScheduleLNU.BusinessLogic.DTOs.Mappers;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 using ScheduleLNU.DataAccess.Entities;
 
@@ -43,9 +44,9 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
 
         [HttpPost]
         [Route("[area]/add-theme")]
-        public async Task<IActionResult> AddTheme(ThemeDTO theme)
+        public async Task<IActionResult> AddTheme(ThemeDto theme)
         {
-            await themeService.Insert(theme);
+            await themeService.Insert(theme.ToTheme());
             return Redirect("~/settings/themes");
         }
 

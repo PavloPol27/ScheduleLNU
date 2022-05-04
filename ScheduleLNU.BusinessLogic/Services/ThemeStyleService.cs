@@ -26,18 +26,18 @@ namespace ScheduleLNU.BusinessLogic.Services
             cookieService = injectedCookieService;
         }
 
-        public async Task<IEnumerable<ThemeDTO>> GetAllThemesAsync()
+        public async Task<IEnumerable<ThemeDto>> GetAllThemesAsync()
         {
             var studentId = cookieService.GetStudentId();
             var studentRecord = await studentRepository
                 .SelectAsync(s => s.Id == studentId, s => s.Themes, s => s.SelectedTheme);
             return studentRecord?.Themes
-                .Select(t => new ThemeDTO()
+                .Select(t => new ThemeDto()
                 {
                     Id = t.Id,
                     Title = t.Title,
                     IsSelected = t.Id == studentRecord.SelectedTheme?.Id
-                }) ?? Array.Empty<ThemeDTO>();
+                }) ?? Array.Empty<ThemeDto>();
         }
 
         public async Task<Theme> ViewTheme(int themeID)

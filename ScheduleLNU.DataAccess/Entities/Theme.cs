@@ -6,14 +6,14 @@ namespace ScheduleLNU.DataAccess.Entities
     {
         [Required]
         [MaxLength(255)]
-        public string Title { get; set; } = "New theme";
+        public string Title { get; set; }
 
-        public string ForeColor { get; set; } = $"#000000";
+        public string ForeColor { get; set; }
 
-        public string BackColor { get; set; } = $"#FFFFFF";
+        public string BackColor { get; set; }
 
-        public string Font { get; set; } = "Arial";
+        public string Font { get; set; }
 
-        public int FontSize { get; set; } = 16;
+        public int FontSize { get; set; }
     }
 }

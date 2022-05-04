@@ -7,7 +7,7 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
     public interface IThemeStyleService
     {
-        public Task<IEnumerable<ThemeDTO>> GetAllThemesAsync();
+        public Task<IEnumerable<ThemeDto>> GetAllThemesAsync();
 
         Task Insert(Theme theme);
 

@@ -1,33 +1,19 @@
-﻿using ScheduleLNU.DataAccess.Entities;
-
-namespace ScheduleLNU.BusinessLogic.DTOs
+﻿namespace ScheduleLNU.BusinessLogic.DTOs
 {
-    public class ThemeDTO
+    public class ThemeDto
     {
         public int Id { get; set; }
 
-        public string Title { get; set; } = "New theme";
+        public string Title { get; set; }
 
-        public string ForeColor { get; set; } = $"#000000";
+        public string ForeColor { get; set; }
 
-        public string BackColor { get; set; } = $"#FFFFFF";
+        public string BackColor { get; set; }
 
-        public string Font { get; set; } = "Arial";
+        public string Font { get; set; }
 
-        public int FontSize { get; set; } = 16;
+        public int FontSize { get; set; }
 
-        public bool IsSelected { get; set; } = false;
-
-        public static implicit operator Theme(ThemeDTO themeDTO)
-        {
-            return new Theme()
-            {
-                Id = themeDTO.Id,
-                Title = themeDTO.Title,
-                ForeColor = themeDTO.ForeColor,
-                Font = themeDTO.Font,
-                FontSize = themeDTO.FontSize
-            };
-        }
+        public bool IsSelected { get; set; }
     }
 }
