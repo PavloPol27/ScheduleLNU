@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ScheduleLNU.BusinessLogic.DTOs;
+using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
@@ -9,9 +10,9 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/login")]
     public class LoginController : Controller
     {
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<Student> signInManager;
 
-        public LoginController(SignInManager<IdentityUser> signInManager)
+        public LoginController(SignInManager<Student> signInManager)
         {
             this.signInManager = signInManager;
         }

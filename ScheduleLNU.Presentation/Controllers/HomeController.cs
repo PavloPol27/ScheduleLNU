@@ -18,6 +18,7 @@ namespace ScheduleLNU.Presentation.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            loginService.SignInAsync(("studentId", "c010d4ba-8ba3-47f7-bc41-a2481201c63c"));
             return View();
         }
 

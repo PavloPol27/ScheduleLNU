@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
 using ScheduleLNU.BusinessLogic.DTOs;
+using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
 {
@@ -11,11 +11,11 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/register")]
     public class RegisterController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<Student> userManager;
+        private readonly SignInManager<Student> signInManager;
 
-        public RegisterController(UserManager<IdentityUser> userManager,
-                                    SignInManager<IdentityUser> signInManager)
+        public RegisterController(UserManager<Student> userManager,
+                                    SignInManager<Student> signInManager)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -34,7 +34,7 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new Student
                 {
                     UserName = $"{registerDto.FirstName} {registerDto.LastName}",
                     Email = registerDto.Email,
