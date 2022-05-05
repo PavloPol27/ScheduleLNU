@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Extensions.ServicesExtension;
 using ScheduleLNU.BusinessLogic.Services;
+using ScheduleLNU.BusinessLogic.Services.EmailService;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 using Serilog;
 
@@ -33,6 +34,11 @@ namespace ScheduleLNU.Presentation
             services.AddSettingServices();
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddHttpClient();
+            var emailConfig = Configuration
+                .GetSection("EmailConfig")
+                .Get<EmailConfig>();
+            services.AddSingleton(emailConfig);
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddCookies();
             services.Configure<PasswordHasherOptions>(options =>
                         options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);

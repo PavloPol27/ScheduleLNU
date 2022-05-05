@@ -8,7 +8,9 @@ namespace ScheduleLNU.BusinessLogic.Extensions.ServicesExtension
     {
         public static IServiceCollection AddCookies(this IServiceCollection services)
         {
-            services.ConfigureApplicationCookie(config =>
+            services.AddScoped<ICookieService, CookieService>()
+                .AddScoped<ILoginService, LoginService>()
+                .ConfigureApplicationCookie(config =>
                 {
                     config.LoginPath = "/authentication/login";
                     config.AccessDeniedPath = "/authentication/login";

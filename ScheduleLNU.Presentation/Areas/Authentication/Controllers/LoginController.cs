@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
@@ -10,11 +11,18 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/login")]
     public class LoginController : Controller
     {
-        private readonly ILoginService loginManager;
+        private readonly ILogger<LoginController> logger;
 
-        public LoginController(ILoginService loginManager)
+        private readonly IAuthService authService;
+        private readonly ILoginService loginService;
+
+        public LoginController(ILogger<LoginController> logger,
+            IAuthService authService,
+            ILoginService loginService)
         {
-            this.loginManager = loginManager;
+            this.logger = logger;
+            this.authService = authService;
+            this.loginService = loginService;
         }
 
         [HttpGet]
@@ -30,7 +38,7 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await loginManager.LogInAsync(loginDto);
+                var result = await loginService.LogInAsync(loginDto);
 
                 if (result)
                 {
@@ -42,6 +50,47 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
             }
 
             return View(loginDto);
+        }
+
+        [HttpGet]
+        [Route("forgot-password")]
+        public ActionResult ForgotPasswordForm()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("forgot")]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
+        {
+            await authService.SendResetTokenAsync(forgotPasswordDto.Email);
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+            return new StatusCodeResult(500);
+        }
+
+        [HttpGet]
+        [Route("reset-password")]
+        public ActionResult ResetPasswordForm(string email, string token)
+        {
+            var resetPasswordDto = new ResetPasswordDto { Email = email, Token = token };
+            return View(resetPasswordDto);
+        }
+
+        [HttpPost]
+        [Route("reset")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            var result = await authService.ResetPasswordAsync(resetPasswordDto.Email, resetPasswordDto.Token, resetPasswordDto.NewPassword, resetPasswordDto.ConfirmedPassword);
+            if (ModelState.IsValid && result)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+            return new StatusCodeResult(500);
         }
     }
 }

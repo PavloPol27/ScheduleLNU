@@ -105,4 +105,8 @@ input::placeholder {
     align-self: flex-start;
     width: 100%;
 }
+
+#email-info{
+    font-size: 20px;
+}
      

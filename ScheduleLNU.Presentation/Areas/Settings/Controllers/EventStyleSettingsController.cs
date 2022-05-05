@@ -35,7 +35,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
                 return StatusCode(401);
             }
 
-            IEnumerable<EventStyleDto> eventStyles = await eventStyleService.GetAllAsync(studentId);
+            IEnumerable<EventStyleDto> eventStyles = await eventStyleService.GetAllAsync();
             return View(eventStyles);
         }
 
@@ -55,7 +55,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             if (ModelState.IsValid)
             {
                 // TODO: to nameof of action
-                return RedirectToAction("EventStyles", new { studentId = eventStyleDto.StudentId });
+                return RedirectToAction("EventStyles");
             }
 
             return new StatusCodeResult(500);
@@ -72,16 +72,10 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [Route("add-style")]
         public async Task<IActionResult> AddStyle(EventStyleDto eventStyleDto)
         {
-            var studentId = HttpContext.GetStudentId();
-            if (studentId is null)
-            {
-                return StatusCode(401);
-            }
-
             await eventStyleService.AddAsync(eventStyleDto);
             if (ModelState.IsValid)
             {
-                return RedirectToAction("EventStyles", new { studentId = eventStyleDto.StudentId });
+                return RedirectToAction("EventStyles");
             }
 
             // TODO: use propeper status code
@@ -99,13 +93,7 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
         [Route("delete")]
         public async Task<IActionResult> DeleteStyle(int styleId)
         {
-            var studentId = HttpContext.GetStudentId();
-            if (studentId is null)
-            {
-                return StatusCode(401);
-            }
-
-            await eventStyleService.DeleteAsync(studentId, styleId);
+            await eventStyleService.DeleteAsync(styleId);
             if (ModelState.IsValid)
             {
                 // TODO: Use proper status code

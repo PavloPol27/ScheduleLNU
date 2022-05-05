@@ -7,9 +7,9 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
     public interface IEventStyleService
     {
-        Task<IEnumerable<EventStyleDto>> GetAllAsync(string studentId);
+        Task<IEnumerable<EventStyleDto>> GetAllAsync();
 
-        Task DeleteAsync(string studentId, int scheduleId);
+        Task DeleteAsync(int scheduleId);
 
         Task AddAsync(EventStyleDto eventStyleDto);
 

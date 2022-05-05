@@ -22,13 +22,7 @@ namespace ScheduleLNU.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewSchedles()
         {
-            var studentId = HttpContext.GetStudentId();
-            if (studentId is null)
-            {
-                return StatusCode(401);
-            }
-
-            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentId);
+            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync();
             return View(resList);
         }
 
@@ -36,13 +30,7 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("delete")]
         public async Task<IActionResult> Delete(int scheduleId)
         {
-            var studentId = HttpContext.GetStudentId();
-            if (studentId is null)
-            {
-                return StatusCode(401);
-            }
-
-            bool deleteResult = await scheduleService.DeleteAsync(studentId, scheduleId);
+            bool deleteResult = await scheduleService.DeleteAsync(scheduleId);
             return deleteResult ? StatusCode(204) : StatusCode(400);
         }
 
@@ -57,16 +45,10 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("add")]
         public async Task<IActionResult> Add(string scheduleTitle)
         {
-            var studentId = HttpContext.GetStudentId();
-            if (studentId is null)
-            {
-                return StatusCode(401);
-            }
-
-            bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
+            bool addResult = await scheduleService.AddAsync(scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
-                return RedirectToAction("View", new { studentId });
+                return StatusCode(200);
             }
 
             return new StatusCodeResult(500);
@@ -82,13 +64,7 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("edit")]
         public async Task<IActionResult> Edit(int scheduleId, string title)
         {
-            var studentId = HttpContext.GetStudentId();
-            if (studentId is null)
-            {
-                return StatusCode(401);
-            }
-
-            await scheduleService.EditAsync(studentId, scheduleId, title);
+            await scheduleService.EditAsync(scheduleId, title);
             return StatusCode(200);
         }
 
