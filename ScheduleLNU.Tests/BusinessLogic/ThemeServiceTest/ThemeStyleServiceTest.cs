@@ -29,8 +29,7 @@ namespace ScheduleLNU.Tests.BusinessLogic.ThemeServiceTest
             var selectedThemes = await themeService.GetAllThemesAsync();
 
             Assert.All(selectedThemes.Zip(actualResult),
-                zipped => Assert.Equal(0, 
-                dtoComarer.Compare(zipped.First, zipped.Second)));
+                zipped => Assert.True(dtoComarer.Equal(zipped.First, zipped.Second)));
         }
 
         [Fact]
@@ -47,8 +46,7 @@ namespace ScheduleLNU.Tests.BusinessLogic.ThemeServiceTest
             var selectedThemes = await themeService.GetAllThemesAsync();
 
             Assert.All(selectedThemes.Zip(actualResult),
-                zipped => Assert.Equal(0, 
-                dtoComarer.Compare(zipped.First, zipped.Second)));
+                zipped => Assert.True(dtoComarer.Equal(zipped.First, zipped.Second)));
         }
     }
 }
