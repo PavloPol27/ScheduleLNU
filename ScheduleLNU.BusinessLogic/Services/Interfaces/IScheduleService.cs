@@ -7,12 +7,12 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
     public interface IScheduleService
     {
-       Task<IEnumerable<ScheduleDto>> GetAllAsync(string studentId);
+       Task<IEnumerable<ScheduleDto>> GetAllAsync();
 
-       Task<bool> DeleteAsync(string studentId, int scheduleId);
+       Task<bool> DeleteAsync(int scheduleId);
 
-       Task<bool> AddAsync(string studentId, string scheduleTitle);
+       Task<bool> AddAsync(string scheduleTitle);
 
-       Task<bool> EditAsync(string studentId, int scheduleId, string scheduleTitle);
+       Task<bool> EditAsync(int scheduleId, string scheduleTitle);
     }
 }

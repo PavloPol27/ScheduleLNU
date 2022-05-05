@@ -12,9 +12,14 @@ namespace ScheduleLNU.BusinessLogic.Services
     {
         private readonly IRepository<EventStyle> eventStyleRepository;
 
-        public EventStyleService(IRepository<EventStyle> eventStyleRepository, IRepository<Student> studentRepository)
+        private readonly ICookieService cookieService;
+
+        public EventStyleService(
+            IRepository<EventStyle> eventStyleRepository,
+            ICookieService cookieService)
         {
             this.eventStyleRepository = eventStyleRepository;
+            this.cookieService = cookieService;
         }
 
         public async Task AddAsync(EventStyleDto eventStyleDto)
@@ -25,13 +30,15 @@ namespace ScheduleLNU.BusinessLogic.Services
                     Title = eventStyleDto.Title,
                     ForeColor = eventStyleDto.ForeColor,
                     BackColor = eventStyleDto.BackColor,
-                    StudentId = eventStyleDto.StudentId
+                    StudentId = cookieService.GetStudentId()
                 });
         }
 
-        public async Task DeleteAsync(string studentId, int eventId)
+        public async Task DeleteAsync(int eventId)
         {
-            var eventStyle = await eventStyleRepository.SelectAsync(s => s.Id == eventId && s.StudentId == studentId);
+            var eventStyle = await eventStyleRepository.SelectAsync(
+                s => s.Id == eventId &&
+                s.StudentId == cookieService.GetStudentId());
             await eventStyleRepository.DeleteAsync(eventStyle);
         }
 
@@ -44,22 +51,21 @@ namespace ScheduleLNU.BusinessLogic.Services
                     Title = eventStyle.Title,
                     ForeColor = eventStyle.ForeColor,
                     BackColor = eventStyle.BackColor,
-                    StudentId = eventStyle.StudentId
+                    StudentId = cookieService.GetStudentId()
                 });
             return true;
         }
 
-        public async Task<IEnumerable<EventStyleDto>> GetAllAsync(string studentId)
+        public async Task<IEnumerable<EventStyleDto>> GetAllAsync()
         {
             return (await eventStyleRepository
-                .SelectAllAsync(x => x.StudentId == studentId))
+                .SelectAllAsync(x => x.StudentId == cookieService.GetStudentId()))
                 .Select(x => new EventStyleDto
                 {
                     Id = x.Id,
                     Title = x.Title,
                     BackColor = x.BackColor,
-                    ForeColor = x.ForeColor,
-                    StudentId = studentId
+                    ForeColor = x.ForeColor
                 })
                 .OrderBy(x => x.Id);
         }

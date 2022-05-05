@@ -56,7 +56,6 @@ namespace ScheduleLNU.BusinessLogic.Services
             }
 
             return true;
-
         }
     }
 }

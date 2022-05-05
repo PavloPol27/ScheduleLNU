@@ -7,14 +7,6 @@ namespace ScheduleLNU.BusinessLogic.Services.EmailService
 {
     public class Message
     {
-        public List<MailboxAddress> To { get; set; }
-
-        public List<MailboxAddress> From { get; set; }
-
-        public string Subject { get; set; }
-
-        public string Body { get; set; }
-
         public Message(IEnumerable<string> to, string subject, string body)
         {
             To = new List<MailboxAddress>();
@@ -30,5 +22,13 @@ namespace ScheduleLNU.BusinessLogic.Services.EmailService
             Subject = subject;
             Body = content;
         }
+
+        public List<MailboxAddress> To { get; set; }
+
+        public List<MailboxAddress> From { get; set; }
+
+        public string Subject { get; set; }
+
+        public string Body { get; set; }
     }
 }
