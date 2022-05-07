@@ -15,49 +15,49 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         private readonly IRepository<Theme> themeRepository;
 
+        private readonly ICookieService cookieService;
+
         public ThemeStyleService(IRepository<Student> injectedStudentRepository,
-            IRepository<Theme> injectedThemeRepository)
+            IRepository<Theme> injectedThemeRepository,
+            ICookieService injectedCookieService)
         {
             studentRepository = injectedStudentRepository;
             themeRepository = injectedThemeRepository;
+            cookieService = injectedCookieService;
         }
 
-        // TODO: add unit test to ? operator
-        public async Task<IEnumerable<ThemeDTO>> GetAllThemesAsync(int studentId)
+        public async Task<IEnumerable<ThemeDto>> GetAllThemesAsync()
         {
+            var studentId = cookieService.GetStudentId();
             var studentRecord = await studentRepository
                 .SelectAsync(s => s.Id == studentId, s => s.Themes, s => s.SelectedTheme);
-            return studentRecord.Themes
-                .Select(t => new ThemeDTO()
+            return studentRecord?.Themes
+                .Select(t => new ThemeDto()
                 {
                     Id = t.Id,
                     Title = t.Title,
                     IsSelected = t.Id == studentRecord.SelectedTheme?.Id
-                });
+                }) ?? Array.Empty<ThemeDto>();
         }
 
-        // Unit test due to if clause
-        public async Task<Theme> ViewTheme(int studentId, int themeID)
+        public async Task<Theme> ViewTheme(int themeID)
         {
-            var studentRecord = await studentRepository.SelectAsync(s => s.Id == studentId, s => s.Themes);
+            var studentId = cookieService.GetStudentId();
+            var studentRecord = await studentRepository.SelectAsync(s => s.Id.Equals(studentId), s => s.Themes);
             var theme = studentRecord.Themes.FirstOrDefault(t => t.Id == themeID);
-
-            if (theme is null)
-            {
-                throw new NullReferenceException($"Theme {themeID} is not fount");
-            }
 
             return theme;
         }
 
-        public async Task Edit(int studentId, Theme theme)
+        public async Task Edit(Theme theme)
         {
             await themeRepository.UpdateAsync(theme);
         }
 
-        public async Task Insert(int studentId, Theme theme)
+        public async Task Insert(Theme theme)
         {
-            var studentRecord = await studentRepository.SelectAsync(s => s.Id == studentId, s => s.Themes);
+            var studentId = cookieService.GetStudentId();
+            var studentRecord = await studentRepository.SelectAsync(s => s.Id.Equals(studentId), s => s.Themes);
             studentRecord.Themes.Add(theme);
             await studentRepository.UpdateAsync(studentRecord);
         }

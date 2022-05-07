@@ -1,37 +1,36 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
+using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.Presentation.Controllers
 {
     [Route("schedules")]
+    [Authorize]
     public class SchedulesController : Controller
     {
         private readonly IScheduleService scheduleService;
-        private readonly ILogger<SchedulesController> logger;
 
-        public SchedulesController(ILogger<SchedulesController> logger,
-            IScheduleService scheduleService)
+        public SchedulesController(IScheduleService scheduleService)
         {
-            this.logger = logger;
             this.scheduleService = scheduleService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> View(int studentId)
+        public async Task<IActionResult> ViewSchedles()
         {
-            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync(studentId);
+            IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync();
             return View(resList);
         }
 
         [HttpPost]
         [Route("delete")]
-        public async Task<IActionResult> Delete(int studentId, int scheduleId)
+        public async Task<IActionResult> Delete(int scheduleId)
         {
-            bool deleteResult = await scheduleService.DeleteAsync(studentId, scheduleId);
+            bool deleteResult = await scheduleService.DeleteAsync(scheduleId);
             return deleteResult ? StatusCode(204) : StatusCode(400);
         }
 
@@ -46,13 +45,10 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("add")]
         public async Task<IActionResult> Add(string scheduleTitle)
         {
-            var studentId = 228;
-            bool addResult = await scheduleService.AddAsync(studentId, scheduleTitle);
-            logger.LogInformation("Student added schedule {sheduleTitle} to the list of schedules",
-                scheduleTitle);
+            bool addResult = await scheduleService.AddAsync(scheduleTitle);
             if (ModelState.IsValid && addResult)
             {
-                return RedirectToAction("View", new { studentId = studentId });
+                return StatusCode(200);
             }
 
             return new StatusCodeResult(500);
@@ -62,17 +58,13 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("add")]
         public IActionResult AddPopup()
         {
-            logger.LogInformation("Student opened add schedule popup");
             return PartialView("_AddPopUpPartial", new ScheduleDto());
         }
 
         [Route("edit")]
         public async Task<IActionResult> Edit(int scheduleId, string title)
         {
-            var studentId = 228;
-            await scheduleService.EditAsync(studentId, scheduleId, title);
-            logger.LogInformation("Student changed schedule {scheduleId} title to {sheduleTitle}",
-                scheduleId, title);
+            await scheduleService.EditAsync(scheduleId, title);
             return StatusCode(200);
         }
 
@@ -80,7 +72,6 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("edit")]
         public IActionResult EditPopup(ScheduleDto scheduleDto)
         {
-            logger.LogInformation("Student opened edit schedule popup");
             return PartialView("_EditPopUpPartial", scheduleDto);
         }
     }

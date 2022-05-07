@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace ScheduleLNU.BusinessLogic.DTOs
+﻿namespace ScheduleLNU.BusinessLogic.DTOs
 {
     public class EventStyleDto
     {
@@ -11,7 +9,5 @@ namespace ScheduleLNU.BusinessLogic.DTOs
         public string ForeColor { get; set; }
 
         public string BackColor { get; set; }
-
-        public int StudentId { get; set; }
     }
 }

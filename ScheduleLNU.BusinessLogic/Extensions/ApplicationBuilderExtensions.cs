@@ -6,7 +6,7 @@ using Serilog;
 
 namespace ScheduleLNU.BusinessLogic.Extensions
 {
-    public static class ApplicationBuilderExtension
+    public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder appBuilder, ILogger logger)
         {

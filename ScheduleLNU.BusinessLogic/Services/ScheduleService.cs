@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ScheduleLNU.BusinessLogic.DTOs;
@@ -9,31 +8,32 @@ using ScheduleLNU.DataAccess.Repository;
 
 namespace ScheduleLNU.BusinessLogic.Services
 {
-    public class ScheduleService : IScheduleService // to base generic CRUD class (?)
+    public class ScheduleService : IScheduleService
     {
         private readonly IRepository<Schedule> scheduleRepository;
 
-        public ScheduleService(IRepository<Schedule> scheduleRepository)
+        private readonly ICookieService cookieService;
+
+        public ScheduleService(IRepository<Schedule> scheduleRepository, ICookieService cookieService)
         {
             this.scheduleRepository = scheduleRepository;
+            this.cookieService = cookieService;
         }
 
-        public async Task<IEnumerable<ScheduleDto>> GetAllAsync(int studentId)
+        public async Task<IEnumerable<ScheduleDto>> GetAllAsync()
         {
             return (await scheduleRepository
-                .SelectAllAsync(x => x.Student.Id == studentId))
-                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title, StudentId = studentId })
+                .SelectAllAsync(x => x.Student.Id == cookieService.GetStudentId()))
+                .Select(x => new ScheduleDto { Id = x.Id, Title = x.Title })
                 .OrderBy(x => x.Id);
         }
 
-        public async Task<bool> DeleteAsync(int studentId, int scheduleId)
+        public async Task<bool> DeleteAsync(int scheduleId)
         {
-            // TODO: remove try catch
-            // TODO: add existance schedule check
             try
             {
                 Schedule schedule = (await scheduleRepository.SelectAllAsync((schedule) =>
-                    schedule.Id == scheduleId && schedule.Student.Id == studentId,
+                    schedule.Id == scheduleId && schedule.Student.Id == cookieService.GetStudentId(),
                     (entity) => entity.Student)).FirstOrDefault();
                 await scheduleRepository.DeleteAsync(schedule);
                 return true;
@@ -44,11 +44,11 @@ namespace ScheduleLNU.BusinessLogic.Services
             }
         }
 
-        public async Task<bool> AddAsync(int studentId, string scheduleTitle)
+        public async Task<bool> AddAsync(string scheduleTitle)
         {
             try
             {
-                await scheduleRepository.InsertAsync(new Schedule { Title = scheduleTitle, StudentId = studentId });
+                await scheduleRepository.InsertAsync(new Schedule { Title = scheduleTitle, StudentId = cookieService.GetStudentId() });
                 return true;
             }
             catch
@@ -57,10 +57,10 @@ namespace ScheduleLNU.BusinessLogic.Services
             }
         }
 
-        public async Task<bool> EditAsync(int studentId, int scheduleId, string scheduleTitle)
+        public async Task<bool> EditAsync(int scheduleId, string scheduleTitle)
         {
             await scheduleRepository.UpdateAsync(
-                new Schedule { Id = scheduleId, Title = scheduleTitle, StudentId = studentId });
+                new Schedule { Id = scheduleId, Title = scheduleTitle, StudentId = cookieService.GetStudentId() });
             return true;
         }
     }
