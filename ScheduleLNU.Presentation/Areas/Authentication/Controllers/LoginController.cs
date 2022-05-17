@@ -11,17 +11,10 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
     [Route("[area]/login")]
     public class LoginController : Controller
     {
-        private readonly ILogger<LoginController> logger;
-
-        private readonly IAuthService authService;
         private readonly ILoginService loginService;
 
-        public LoginController(ILogger<LoginController> logger,
-            IAuthService authService,
-            ILoginService loginService)
+        public LoginController(ILoginService loginService)
         {
-            this.logger = logger;
-            this.authService = authService;
             this.loginService = loginService;
         }
 
@@ -38,59 +31,17 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await loginService.LogInAsync(loginDto);
+                var loginSuccessful = await loginService.LogInAsync(loginDto);
 
-                if (result)
+                if (loginSuccessful)
                 {
-                    // TODO: redirect to home page
-                    return Redirect("~/settings");
+                    return Redirect("~/");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
 
             return View(loginDto);
-        }
-
-        [HttpGet]
-        [Route("forgot-password")]
-        public ActionResult ForgotPasswordForm()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [Route("forgot")]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
-        {
-            await authService.SendResetTokenAsync(forgotPasswordDto.Email);
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction(nameof(Login));
-            }
-
-            return new StatusCodeResult(500);
-        }
-
-        [HttpGet]
-        [Route("reset-password")]
-        public ActionResult ResetPasswordForm(string email, string token)
-        {
-            var resetPasswordDto = new ResetPasswordDto { Email = email, Token = token };
-            return View(resetPasswordDto);
-        }
-
-        [HttpPost]
-        [Route("reset")]
-        public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
-        {
-            var result = await authService.ResetPasswordAsync(resetPasswordDto.Email, resetPasswordDto.Token, resetPasswordDto.NewPassword, resetPasswordDto.ConfirmedPassword);
-            if (ModelState.IsValid && result)
-            {
-                return RedirectToAction(nameof(Login));
-            }
-
-            return new StatusCodeResult(500);
         }
     }
 }

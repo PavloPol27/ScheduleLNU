@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 using ScheduleLNU.DataAccess.Entities;
-using ScheduleLNU.DataAccess.Repository;
 
 namespace ScheduleLNU.BusinessLogic.Services
 {
@@ -12,30 +11,31 @@ namespace ScheduleLNU.BusinessLogic.Services
         private readonly ICookieService cookieService;
         private readonly UserManager<Student> userManager;
 
-        public RegisterService(ICookieService injectedCookieService,
-                                UserManager<Student> injectedUserManager)
+        public RegisterService(
+            ICookieService cookieService,
+            UserManager<Student> userManager)
         {
-            cookieService = injectedCookieService;
-            userManager = injectedUserManager;
+            this.cookieService = cookieService;
+            this.userManager = userManager;
         }
 
         public async Task<IdentityResult> RegisterAsync(RegisterDto registerDto)
         {
-            var student = new Student
+            var user = new Student
             {
                 UserName = registerDto.Email,
                 Email = registerDto.Email,
                 NormalizedUserName = $"{registerDto.FirstName} {registerDto.LastName}"
             };
 
-            var result = await userManager.CreateAsync(student, registerDto.Password);
+            var registerResult = await userManager.CreateAsync(user, registerDto.Password);
 
-            if (result.Succeeded)
+            if (registerResult.Succeeded)
             {
-                await cookieService.SetCookies(("studentId", student.Id));
+                await cookieService.SetCookies(("studentId", user.Id));
             }
 
-            return result;
+            return registerResult;
         }
     }
 }

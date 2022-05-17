@@ -28,40 +28,25 @@ namespace ScheduleLNU.BusinessLogic.Services
                 .OrderBy(x => x.Id);
         }
 
-        public async Task<bool> DeleteAsync(int scheduleId)
+        public async Task DeleteAsync(int scheduleId)
         {
-            try
-            {
-                Schedule schedule = (await scheduleRepository.SelectAllAsync((schedule) =>
-                    schedule.Id == scheduleId && schedule.Student.Id == cookieService.GetStudentId(),
+            Schedule schedule = (
+                await scheduleRepository.SelectAllAsync(
+                    (schedule) => schedule.Id == scheduleId && schedule.Student.Id == cookieService.GetStudentId(),
                     (entity) => entity.Student)).FirstOrDefault();
-                await scheduleRepository.DeleteAsync(schedule);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            await scheduleRepository.DeleteAsync(schedule);
         }
 
-        public async Task<bool> AddAsync(string scheduleTitle)
+        public async Task AddAsync(string scheduleTitle)
         {
-            try
-            {
-                await scheduleRepository.InsertAsync(new Schedule { Title = scheduleTitle, StudentId = cookieService.GetStudentId() });
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            await scheduleRepository.InsertAsync(
+                new Schedule { Title = scheduleTitle, StudentId = cookieService.GetStudentId() });
         }
 
-        public async Task<bool> EditAsync(int scheduleId, string scheduleTitle)
+        public async Task EditAsync(int scheduleId, string scheduleTitle)
         {
             await scheduleRepository.UpdateAsync(
                 new Schedule { Id = scheduleId, Title = scheduleTitle, StudentId = cookieService.GetStudentId() });
-            return true;
         }
     }
 }

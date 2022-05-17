@@ -30,17 +30,16 @@ namespace ScheduleLNU.Presentation.Areas.Authentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await registerManager.RegisterAsync(registerDto);
+                var registerResult = await registerManager.RegisterAsync(registerDto);
 
-                if (result.Succeeded)
+                if (registerResult.Succeeded)
                 {
-                    // TODO: redirect to home page
-                    return Redirect("~/settings");
+                    return Redirect("~/");
                 }
 
-                foreach (var error in result.Errors)
+                foreach (var error in registerResult.Errors)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 

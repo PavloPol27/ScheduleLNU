@@ -21,16 +21,16 @@ button:active {
     left: 25%;
     width: 50%;
     min-height: 100%;
-    box-shadow: .5rem .5rem 1rem rgba(0, 0, 0, 0.6);
+    box-shadow: 0.0rem -0.5rem 2rem rgba(0, 0, 0, 0.6);
     background: #ffffff;
     margin: 0;
+    top: 0;
     color: #000000;
     font-family: input-mono-narrow, monospace;
     font-size: 1.5vw;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
 }
 
 h1 {
@@ -86,7 +86,7 @@ h1 {
     overflow: hidden;
 }
 
-.add-button:hover > span > span {
+.add-button:hover > span {
     animation: MoveUpInitial 0.2s forwards, MoveUpEnd 0.2s forwards 0.2s;
 }
 
@@ -143,17 +143,26 @@ h1 {
     padding: 0;
 }
 
-#edit-button {
+.edit-button {
     border: 1px solid #198754;
     color: #198754;
     margin-right: 28px;
     margin-left: 10px;
 }
 
-#edit-button:hover {
-    background: #198754;
-    color: #fff;
-}
+.edit-button:hover {
+        background: #198754;
+        color: #fff;
+    }
+
+.edit-button > a {
+        color: #198754;
+    }
+
+.edit-button:hover > a {
+        background: #198754;
+        color: #fff;
+    }
 
 #delete-button {
     border: 1px solid #ff0800;

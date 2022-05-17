@@ -39,7 +39,8 @@ namespace ScheduleLNU.DataAccess.Repository
             await dataBaseContext.SaveChangesAsync();
         }
 
-        public async Task<TEntity> SelectAsync(Expression<Func<TEntity, bool>> selector,
+        public virtual async Task<TEntity> SelectAsync(
+            Expression<Func<TEntity, bool>> selector,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return await GetValueWithInclude(includeProperties).FirstOrDefaultAsync(selector);
@@ -57,8 +58,9 @@ namespace ScheduleLNU.DataAccess.Repository
         {
             IQueryable<TEntity> querriedEntities = entitiesDataSet.AsNoTracking();
 
-            return includeProperties.Aggregate(querriedEntities, (current, includeProperty)
-                => current.Include(includeProperty));
+            return includeProperties.Aggregate(
+                querriedEntities,
+                (current, includeProperty) => current.Include(includeProperty));
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MimeKit;
 
@@ -24,22 +21,20 @@ namespace ScheduleLNU.BusinessLogic.Services.EmailService
 
         private async Task SendAsync(MimeMessage mailMessage)
         {
-            using (var client = new SmtpClient())
-            {
-                await client.ConnectAsync(emailConfig.SmtpServer, emailConfig.Port, true);
-                client.AuthenticationMechanisms.Remove("XOAUTH2");
-                await client.AuthenticateAsync(emailConfig.UserName, emailConfig.Password);
-                await client.SendAsync(mailMessage);
-                await client.DisconnectAsync(true);
-                client.Dispose();
-            }
+            var client = new SmtpClient();
+            await client.ConnectAsync(emailConfig.SmtpServer, emailConfig.Port, true);
+            client.AuthenticationMechanisms.Remove("XOAUTH2");
+            await client.AuthenticateAsync(emailConfig.UserName, emailConfig.Password);
+            await client.SendAsync(mailMessage);
+            await client.DisconnectAsync(true);
+            client.Dispose();
         }
 
         private MimeMessage CreateEmailMessage(Message message)
         {
             var emailMessage = new MimeMessage();
 
-            if (message.To == null)
+            if (message.To is null)
             {
                 emailMessage.To.Add(new MailboxAddress(emailConfig.To.Split('@')[0], emailConfig.To));
                 emailMessage.From.AddRange(message.From);

@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
@@ -10,9 +11,9 @@ namespace ScheduleLNU.BusinessLogic.Services
     {
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public CookieService(IHttpContextAccessor injectedContextAccessor)
+        public CookieService(IHttpContextAccessor contextAccessor)
         {
-            httpContextAccessor = injectedContextAccessor;
+            httpContextAccessor = contextAccessor;
         }
 
         public Claim GetClaim(string key)
@@ -23,6 +24,11 @@ namespace ScheduleLNU.BusinessLogic.Services
         public string GetStudentId()
         {
             return httpContextAccessor.HttpContext.GetStudentId();
+        }
+
+        public async Task LogOut()
+        {
+            await httpContextAccessor.HttpContext.SignOutAsync("Identity.Application");
         }
 
         public async Task SetCookies(params (object, object)[] claimsCookie)

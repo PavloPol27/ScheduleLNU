@@ -17,13 +17,14 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         private readonly ICookieService cookieService;
 
-        public ThemeStyleService(IRepository<Student> injectedStudentRepository,
-            IRepository<Theme> injectedThemeRepository,
-            ICookieService injectedCookieService)
+        public ThemeStyleService(
+            IRepository<Student> studentRepository,
+            IRepository<Theme> themeRepository,
+            ICookieService cookieService)
         {
-            studentRepository = injectedStudentRepository;
-            themeRepository = injectedThemeRepository;
-            cookieService = injectedCookieService;
+            this.studentRepository = studentRepository;
+            this.themeRepository = themeRepository;
+            this.cookieService = cookieService;
         }
 
         public async Task<IEnumerable<ThemeDto>> GetAllThemesAsync()

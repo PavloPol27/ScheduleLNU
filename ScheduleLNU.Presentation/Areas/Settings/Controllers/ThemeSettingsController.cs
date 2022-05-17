@@ -14,9 +14,9 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
     {
         private readonly IThemeStyleService themeService;
 
-        public ThemeSettingsController(IThemeStyleService injectedThemeService)
+        public ThemeSettingsController(IThemeStyleService themeService)
         {
-            themeService = injectedThemeService;
+            this.themeService = themeService;
         }
 
         [HttpGet]

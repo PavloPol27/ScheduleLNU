@@ -13,27 +13,27 @@ namespace ScheduleLNU.BusinessLogic.Services
         private readonly IRepository<Student> studentRepository;
         private readonly UserManager<Student> userManager;
 
-        public LoginService(ICookieService injectedCookieService,
-                                IRepository<Student> injectedStudentRepository,
-                                UserManager<Student> injectedUserManager)
+        public LoginService(
+            ICookieService cookieService,
+            IRepository<Student> studentRepository,
+            UserManager<Student> userManager)
         {
-            cookieService = injectedCookieService;
-            studentRepository = injectedStudentRepository;
-            userManager = injectedUserManager;
+            this.cookieService = cookieService;
+            this.studentRepository = studentRepository;
+            this.userManager = userManager;
         }
 
         public async Task<bool> LogInAsync(LoginDto loginDto)
         {
-            var student = await studentRepository.SelectAsync(x => x.Email == loginDto.Email);
-            var result = await userManager.CheckPasswordAsync(student, loginDto.Password);
+            var user = await studentRepository.SelectAsync(x => x.Email == loginDto.Email);
+            var loginSuccessful = await userManager.CheckPasswordAsync(user, loginDto.Password);
 
-            if (result)
+            if (loginSuccessful)
             {
-                await cookieService.SetCookies(("studentId", student.Id));
-                return true;
+                await cookieService.SetCookies(("studentId", user.Id));
             }
 
-            return false;
+            return loginSuccessful;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 using ScheduleLNU.BusinessLogic.Services;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
@@ -14,6 +15,7 @@ namespace ScheduleLNU.BusinessLogic.Extensions.ServicesExtension
                 {
                     config.LoginPath = "/authentication/login";
                     config.AccessDeniedPath = "/authentication/login";
+                    config.ExpireTimeSpan = new TimeSpan(2, 0, 0);
                 });
 
             return services;

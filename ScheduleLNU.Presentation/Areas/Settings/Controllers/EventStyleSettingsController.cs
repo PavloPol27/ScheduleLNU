@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
@@ -15,14 +13,11 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
     [Authorize]
     public class EventStyleSettingsController : Controller
     {
-        private readonly ILogger<EventStyleSettingsController> logger;
-
         private readonly IEventStyleService eventStyleService;
 
-        public EventStyleSettingsController(ILogger<EventStyleSettingsController> logger,
+        public EventStyleSettingsController(
             IEventStyleService eventStyleService)
         {
-            this.logger = logger;
             this.eventStyleService = eventStyleService;
         }
 
@@ -54,11 +49,10 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             await eventStyleService.EditAsync(eventStyleDto);
             if (ModelState.IsValid)
             {
-                // TODO: to nameof of action
-                return RedirectToAction("EventStyles");
+                return RedirectToAction(nameof(EventStyles));
             }
 
-            return new StatusCodeResult(500);
+            return new StatusCodeResult(400);
         }
 
         [HttpGet]
@@ -75,11 +69,10 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             await eventStyleService.AddAsync(eventStyleDto);
             if (ModelState.IsValid)
             {
-                return RedirectToAction("EventStyles");
+                return RedirectToAction(nameof(EventStyles));
             }
 
-            // TODO: use propeper status code
-            return new StatusCodeResult(500);
+            return new StatusCodeResult(400);
         }
 
         [HttpGet]
@@ -96,12 +89,10 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             await eventStyleService.DeleteAsync(styleId);
             if (ModelState.IsValid)
             {
-                // TODO: Use proper status code
-                return new StatusCodeResult(201);
+                return new StatusCodeResult(204);
             }
 
-            // TODO: Use proper status code
-            return new StatusCodeResult(500);
+            return new StatusCodeResult(400);
         }
     }
 }

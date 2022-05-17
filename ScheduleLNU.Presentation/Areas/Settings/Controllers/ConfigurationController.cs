@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace ScheduleLNU.Presentation.Controllers
 {
@@ -8,18 +7,14 @@ namespace ScheduleLNU.Presentation.Controllers
     [Authorize]
     public class ConfigurationController : Controller
     {
-        private readonly ILogger<ConfigurationController> logger;
-
-        public ConfigurationController(ILogger<ConfigurationController> injectedLogger)
+        public ConfigurationController()
         {
-            logger = injectedLogger;
         }
 
         [HttpGet]
         [Route("[area]")]
         public IActionResult SettingsMenu()
         {
-            logger.LogInformation("Student oppened settings page");
             return View();
         }
     }

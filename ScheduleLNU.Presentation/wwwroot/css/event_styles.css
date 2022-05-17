@@ -1,9 +1,18 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great|Zilla+Slab:300,400');
 
+
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
 body {
     background: #73C2FB;
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
 }
 
 a {
@@ -21,7 +30,7 @@ button:active {
     left: 25%;
     width: 50%;
     min-height: 100%;
-    box-shadow: .5rem .5rem 1rem rgba(0, 0, 0, 0.6);
+    box-shadow: 0.0rem -0.5rem 2rem rgba(0, 0, 0, 0.6);
     background: #ffffff;
     margin: 0;
     color: #000000;
@@ -30,7 +39,6 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
 }
 
 h1 {

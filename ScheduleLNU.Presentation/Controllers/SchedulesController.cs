@@ -3,12 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ScheduleLNU.BusinessLogic.DTOs;
-using ScheduleLNU.BusinessLogic.Extensions;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.Presentation.Controllers
 {
-    [Route("schedules")]
+    [Route("")]
     [Authorize]
     public class SchedulesController : Controller
     {
@@ -20,7 +19,7 @@ namespace ScheduleLNU.Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ViewSchedles()
+        public async Task<IActionResult> ViewSchedules()
         {
             IEnumerable<ScheduleDto> resList = await scheduleService.GetAllAsync();
             return View(resList);
@@ -30,8 +29,13 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("delete")]
         public async Task<IActionResult> Delete(int scheduleId)
         {
-            bool deleteResult = await scheduleService.DeleteAsync(scheduleId);
-            return deleteResult ? StatusCode(204) : StatusCode(400);
+            await scheduleService.DeleteAsync(scheduleId);
+            if (ModelState.IsValid)
+            {
+                return StatusCode(204);
+            }
+
+            return StatusCode(400);
         }
 
         [HttpGet]
@@ -45,13 +49,13 @@ namespace ScheduleLNU.Presentation.Controllers
         [Route("add")]
         public async Task<IActionResult> Add(string scheduleTitle)
         {
-            bool addResult = await scheduleService.AddAsync(scheduleTitle);
-            if (ModelState.IsValid && addResult)
+            await scheduleService.AddAsync(scheduleTitle);
+            if (ModelState.IsValid)
             {
-                return StatusCode(200);
+                return StatusCode(201);
             }
 
-            return new StatusCodeResult(500);
+            return StatusCode(400);
         }
 
         [HttpGet]
@@ -65,7 +69,12 @@ namespace ScheduleLNU.Presentation.Controllers
         public async Task<IActionResult> Edit(int scheduleId, string title)
         {
             await scheduleService.EditAsync(scheduleId, title);
-            return StatusCode(200);
+            if (ModelState.IsValid)
+            {
+                return StatusCode(205);
+            }
+
+            return StatusCode(400);
         }
 
         [HttpGet]

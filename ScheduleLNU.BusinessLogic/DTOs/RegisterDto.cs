@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ScheduleLNU.BusinessLogic.DTOs
+﻿namespace ScheduleLNU.BusinessLogic.DTOs
 {
     public class RegisterDto
     {
-        // For the sake of view, change it to your preferences.
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

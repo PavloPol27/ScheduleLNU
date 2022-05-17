@@ -9,6 +9,8 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 
         public Task SetCookies(params (object, object)[] claimsCookie);
 
+        public Task LogOut();
+
         public string GetStudentId();
     }
 }

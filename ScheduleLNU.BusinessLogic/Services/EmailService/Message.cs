@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 using MimeKit;
 
 namespace ScheduleLNU.BusinessLogic.Services.EmailService
@@ -17,8 +16,10 @@ namespace ScheduleLNU.BusinessLogic.Services.EmailService
 
         public Message(string from, string subject, string content)
         {
-            From = new List<MailboxAddress>();
-            From.Add(new MailboxAddress(from.Split("@")[0], from));
+            From = new List<MailboxAddress>
+            {
+                new MailboxAddress(from.Split("@")[0], from)
+            };
             Subject = subject;
             Body = content;
         }

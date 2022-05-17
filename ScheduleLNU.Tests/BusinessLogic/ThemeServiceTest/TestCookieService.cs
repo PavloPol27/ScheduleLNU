@@ -1,12 +1,18 @@
-﻿using ScheduleLNU.BusinessLogic.Services.Interfaces;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
+using ScheduleLNU.BusinessLogic.Services.Interfaces;
 
 namespace ScheduleLNU.Tests.BusinessLogic.ThemeServiceTest
 {
     internal class TestCookieService : ICookieService
     {
         private readonly string _cookieId;
+
+        public TestCookieService(string cokkieId)
+        {
+            _cookieId = cokkieId;
+        }
+
         public Claim GetClaim(string key)
         {
             throw new System.NotImplementedException();
@@ -22,9 +28,9 @@ namespace ScheduleLNU.Tests.BusinessLogic.ThemeServiceTest
             throw new System.NotImplementedException();
         }
 
-        public TestCookieService(string cokkieId)
+        public Task LogOut()
         {
-            _cookieId = cokkieId;
+            throw new System.NotImplementedException();
         }
     }
 }

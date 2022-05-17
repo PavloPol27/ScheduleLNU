@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ScheduleLNU.BusinessLogic.DTOs;
-using ScheduleLNU.DataAccess.Entities;
 
 namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
@@ -9,10 +8,10 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
     {
        Task<IEnumerable<ScheduleDto>> GetAllAsync();
 
-       Task<bool> DeleteAsync(int scheduleId);
+       Task DeleteAsync(int scheduleId);
 
-       Task<bool> AddAsync(string scheduleTitle);
+       Task AddAsync(string scheduleTitle);
 
-       Task<bool> EditAsync(int scheduleId, string scheduleTitle);
+       Task EditAsync(int scheduleId, string scheduleTitle);
     }
 }

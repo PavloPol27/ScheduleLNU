@@ -11,7 +11,6 @@ namespace ScheduleLNU.DataAccess.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
-#pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.10")
@@ -480,7 +479,6 @@ namespace ScheduleLNU.DataAccess.Migrations
 
                     b.Navigation("Themes");
                 });
-#pragma warning restore 612, 618
         }
     }
 }

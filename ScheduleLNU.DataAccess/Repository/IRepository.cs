@@ -14,8 +14,9 @@ namespace ScheduleLNU.DataAccess.Repository
 
         Task DeleteAsync(TEntity entity);
 
-        Task<TEntity> SelectAsync(Expression<Func<TEntity, bool>> selector,
-             params Expression<Func<TEntity, object>>[] includeProperties);
+        Task<TEntity> SelectAsync(
+            Expression<Func<TEntity, bool>> selector,
+            params Expression<Func<TEntity, object>>[] includeProperties);
 
         Task<IEnumerable<TEntity>> SelectAllAsync(
             Expression<Func<TEntity, bool>> selector,

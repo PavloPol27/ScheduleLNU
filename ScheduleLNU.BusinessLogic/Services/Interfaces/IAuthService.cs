@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using ScheduleLNU.BusinessLogic.DTOs;
 
 namespace ScheduleLNU.BusinessLogic.Services.Interfaces
 {
@@ -10,6 +8,6 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
     {
         Task SendResetTokenAsync(string email);
 
-        Task<bool> ResetPasswordAsync(string email, string token, string newPassword, string confirmedPassword);
+        Task<IdentityResult> ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
     }
 }
