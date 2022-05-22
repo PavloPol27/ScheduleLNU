@@ -12,7 +12,7 @@
 
         public string Font { get; set; }
 
-        public int FontSize { get; set; }
+        public string FontSize { get; set; }
 
         public bool IsSelected { get; set; }
     }

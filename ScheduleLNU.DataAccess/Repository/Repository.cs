@@ -53,6 +53,12 @@ namespace ScheduleLNU.DataAccess.Repository
             return await GetValueWithInclude(includeProperties).Where(selector).ToListAsync();
         }
 
+        public async Task SetNullAsync(TEntity entity, string propertyName)
+        {
+            dataBaseContext.Attach(entity).Reference(propertyName).CurrentValue = null;
+            await dataBaseContext.SaveChangesAsync();
+        }
+
         private IQueryable<TEntity> GetValueWithInclude(
             params Expression<Func<TEntity, object>>[] includeProperties)
         {

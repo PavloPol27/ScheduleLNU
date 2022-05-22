@@ -2,7 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using ScheduleLNU.DataAccess;
 
 namespace ScheduleLNU.DataAccess.Migrations
 {
@@ -11,6 +13,7 @@ namespace ScheduleLNU.DataAccess.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
+#pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.10")
@@ -269,9 +272,6 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsNotifiable")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
@@ -335,8 +335,8 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("Font")
                         .HasColumnType("text");
 
-                    b.Property<int>("FontSize")
-                        .HasColumnType("integer");
+                    b.Property<string>("FontSize")
+                        .HasColumnType("text");
 
                     b.Property<string>("ForeColor")
                         .HasColumnType("text");
@@ -479,6 +479,7 @@ namespace ScheduleLNU.DataAccess.Migrations
 
                     b.Navigation("Themes");
                 });
+#pragma warning restore 612, 618
         }
     }
 }

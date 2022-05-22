@@ -21,5 +21,7 @@ namespace ScheduleLNU.DataAccess.Repository
         Task<IEnumerable<TEntity>> SelectAllAsync(
             Expression<Func<TEntity, bool>> selector,
             params Expression<Func<TEntity, object>>[] includeProperties);
+
+        Task SetNullAsync(TEntity entity, string propertyName);
     }
 }

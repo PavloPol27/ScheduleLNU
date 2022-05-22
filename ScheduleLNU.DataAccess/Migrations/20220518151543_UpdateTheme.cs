@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ScheduleLNU.DataAccess.Migrations
 {
-    public partial class InitDatabase : Migration
+    public partial class UpdateTheme : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -195,7 +195,7 @@ namespace ScheduleLNU.DataAccess.Migrations
                     ForeColor = table.Column<string>(type: "text", nullable: true),
                     BackColor = table.Column<string>(type: "text", nullable: true),
                     Font = table.Column<string>(type: "text", nullable: true),
-                    FontSize = table.Column<int>(type: "integer", nullable: false),
+                    FontSize = table.Column<string>(type: "text", nullable: true),
                     StudentId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -208,7 +208,6 @@ namespace ScheduleLNU.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    IsNotifiable = table.Column<bool>(type: "boolean", nullable: false),
                     SelectedThemeId = table.Column<int>(type: "integer", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),

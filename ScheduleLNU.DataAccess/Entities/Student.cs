@@ -5,8 +5,6 @@ namespace ScheduleLNU.DataAccess.Entities
 {
     public class Student : IdentityUser
     {
-        public bool IsNotifiable { get; set; }
-
         public Theme SelectedTheme { get; set; }
 
         public List<Theme> Themes { get; set; }

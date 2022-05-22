@@ -3,13 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using ScheduleLNU.DataAccess;
 
 namespace ScheduleLNU.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220504085203_InitDatabase")]
-    partial class InitDatabase
+    [Migration("20220518151543_UpdateTheme")]
+    partial class UpdateTheme
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -272,9 +274,6 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsNotifiable")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
@@ -338,8 +337,8 @@ namespace ScheduleLNU.DataAccess.Migrations
                     b.Property<string>("Font")
                         .HasColumnType("text");
 
-                    b.Property<int>("FontSize")
-                        .HasColumnType("integer");
+                    b.Property<string>("FontSize")
+                        .HasColumnType("text");
 
                     b.Property<string>("ForeColor")
                         .HasColumnType("text");

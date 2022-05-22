@@ -14,6 +14,6 @@ namespace ScheduleLNU.DataAccess.Entities
 
         public string Font { get; set; }
 
-        public int FontSize { get; set; }
+        public string FontSize { get; set; }
     }
 }

@@ -57,5 +57,35 @@ namespace ScheduleLNU.Presentation.Areas.Settings.Controllers
             await themeService.Edit(theme);
             return Redirect("~/settings/themes");
         }
+
+        [HttpGet]
+        [Route("[area]/delete-theme")]
+        public IActionResult DeletePopup(ThemeDto scheduleDto)
+        {
+            return PartialView("_DeletePopUpPartial", scheduleDto);
+        }
+
+        [HttpPost]
+        [Route("[area]/delete-theme")]
+        public async Task<IActionResult> DeleteTheme(ThemeDto themeDto)
+        {
+            await themeService.DeleteAsync(themeDto.ToTheme());
+            return RedirectToAction(nameof(Themes));
+        }
+
+        [Route("[area]/select-theme")]
+        public async Task<IActionResult> SelectTheme(ThemeDto themeDto)
+        {
+            if (themeDto.IsSelected)
+            {
+                await themeService.DeselectAsync();
+            }
+            else
+            {
+                await themeService.SelectTheme(themeDto.ToTheme());
+            }
+
+            return RedirectToAction(nameof(Themes));
+        }
     }
 }

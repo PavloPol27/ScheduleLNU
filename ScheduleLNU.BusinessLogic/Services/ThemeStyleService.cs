@@ -62,5 +62,38 @@ namespace ScheduleLNU.BusinessLogic.Services
             studentRecord.Themes.Add(theme);
             await studentRepository.UpdateAsync(studentRecord);
         }
+
+        public async Task DeleteAsync(Theme theme)
+        {
+            await themeRepository.DeleteAsync(theme);
+        }
+
+        public async Task SelectTheme(Theme theme)
+        {
+            var studentId = cookieService.GetStudentId();
+            var studentRecord = await studentRepository.SelectAsync(s => s.Id.Equals(studentId), s => s.SelectedTheme);
+            studentRecord.SelectedTheme = theme;
+
+            await studentRepository.UpdateAsync(studentRecord);
+        }
+
+        public async Task DeselectAsync()
+        {
+            var studentId = cookieService.GetStudentId();
+            var studentRecord = await studentRepository.SelectAsync(s => s.Id.Equals(studentId), s => s.SelectedTheme);
+
+            await studentRepository.SetNullAsync(studentRecord, nameof(studentRecord.SelectedTheme));
+        }
+
+        public async Task<Theme> GetSelectedTheme()
+        {
+            return (await studentRepository.SelectAsync(x => x.Id == cookieService.GetStudentId(), s => s.SelectedTheme)).SelectedTheme ?? new ()
+            {
+                FontSize = "1.5vw",
+                Font = "input-mono-narrow, monospace",
+                BackColor = "#73C2FB",
+                ForeColor = "#000"
+            };
+        }
     }
 }

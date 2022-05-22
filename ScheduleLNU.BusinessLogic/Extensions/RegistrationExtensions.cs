@@ -2,21 +2,15 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 
 namespace ScheduleLNU.BusinessLogic.Extensions
 {
     public static class RegistrationExtensions
     {
-        public static async Task SignInAsync(this HttpContext context, ClaimsIdentity identities)
-        {
-            await context.SignInAsync("Identity.Application", new ClaimsPrincipal(identities));
-        }
-
         public static async Task SignInAsync(this HttpContext context, params (object key, object value)[] claimsCookies)
         {
-            var claimsIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsIdentity = new ClaimsIdentity("Identity.Application");
             claimsIdentity.AddClaims(claimsCookies.Select(cookie => new Claim(cookie.key.ToString(), cookie.value.ToString())));
 
             await context.SignInAsync("Identity.Application", new ClaimsPrincipal(claimsIdentity));

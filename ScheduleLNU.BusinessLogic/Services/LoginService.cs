@@ -25,7 +25,7 @@ namespace ScheduleLNU.BusinessLogic.Services
 
         public async Task<bool> LogInAsync(LoginDto loginDto)
         {
-            var user = await studentRepository.SelectAsync(x => x.Email == loginDto.Email);
+            var user = await studentRepository.SelectAsync(x => x.Email == loginDto.Email, s => s.SelectedTheme);
             var loginSuccessful = await userManager.CheckPasswordAsync(user, loginDto.Password);
 
             if (loginSuccessful)
