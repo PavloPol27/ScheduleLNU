@@ -32,7 +32,7 @@ namespace ScheduleLNU.BusinessLogic.Services
             var message = new Message(
                 new string[] { email },
                 "LNU Schedule, Reset Password",
-                "https://localhost:44384/authentication/reset-password/?email=" + email + "&token=" + HttpUtility.UrlEncode(resetToken));
+                "https://schedule-lnu-rg.azurewebsites.net/authentication/reset-password/?email=" + email + "&token=" + HttpUtility.UrlEncode(resetToken));
             await emailSender.SendEmailAsync(message);
         }
 
