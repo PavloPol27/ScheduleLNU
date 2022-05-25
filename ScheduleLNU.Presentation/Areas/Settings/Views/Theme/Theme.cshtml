@@ -1,4 +1,5 @@
-﻿@model ScheduleLNU.DataAccess.Entities.Theme;
+﻿@using ScheduleLNU.BusinessLogic.Extensions
+@model ScheduleLNU.BusinessLogic.DTOs.ThemeDto;
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
@@ -19,12 +20,27 @@
     <link type="text/css" rel="stylesheet" href="~/css/schedules/view.css" />
 </head>
 
+<style>
+    body
+    {
+        background-color: @Context.BackColor();
+    }
+
+    label
+    {
+        color: @Context.ForeColor();
+        font-family: @Context.FontFamily();
+        font-size: @Context.FontSize();
+    }
+</style>
+
 <body>
     <div class="my-container">
         @await Html.PartialAsync("~/Views/Shared/_Header.cshtml")
         <h1 id="main-label">@Model.Title</h1>
         <div class="d-flex w-100 justify-content-center border-info">
             <form method="post">
+                <input name="IsSelected" value="@Model.IsSelected.ToString()" type="hidden">
                 <input name="Id" value="@Model.Id" type="hidden"/>
                 <label for="title">Title</label>
                 <input type="text" name="Title" value="@Model.Title"><br /> 
@@ -35,10 +51,11 @@
                 <label for="font">Font</label>
                 <input type="text" name="Font" value="@Model.Font"><br />
                 <label for="font">Font size</label>
-                <input type="number" name="FontSize" value="@Model.FontSize"><br />
-                <button class="btn btn-info" asp-action="EditTheme" 
+                <input type="text" name="FontSize" value="@Model.FontSize"><br />
+                <button class="btn btn-info" 
+                        asp-action="Edit" 
                         asp-area="settings" 
-                        asp-controller="ThemeSettings"  
+                        asp-controller="Theme"  
                         type="submit">Save</button>
             </form>
         </div>

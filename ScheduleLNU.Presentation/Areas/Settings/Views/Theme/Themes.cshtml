@@ -1,13 +1,15 @@
-﻿@inject ScheduleLNU.BusinessLogic.Services.Interfaces.IThemeStyleService themeService
-@model IEnumerable<ScheduleLNU.BusinessLogic.DTOs.ThemeDto>
+﻿@using ScheduleLNU.BusinessLogic.Constants
+@using ScheduleLNU.BusinessLogic.Extensions
+@model IEnumerable<ScheduleLNU.BusinessLogic.DTOs.ThemeDto>;
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 
 @{
     ViewData["Title"] = "Themes";
-    var selectedTheme = await themeService.GetSelectedTheme();
+    var isCentered = @Model.Any() == false ? "center" : "left";
 }
+
 <html>
 <head>
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
@@ -24,17 +26,36 @@
     <link type="text/css" rel="stylesheet" href="~/css/theme.css" />
 </head>
 
-<body style="background-color: @selectedTheme.BackColor;">
+<style>
+    body
+    {
+      background-color: @Context.BackColor();
+    }
+
+    .item-title 
+    {
+        font-size: @Context.FontSize(); 
+        font-family: @Context.FontFamily();
+        color: @Context.ForeColor();
+    }
+
+    .add-button
+    {
+        color: @Context.ForeColor();
+    }
+</style>
+
+<body class="generated-body-style">
     <div id="placeholderElement" style="position:absolute"></div>
     <div class="my-container">
-        @Html.Partial("~/Views/Shared/_Header.cshtml")
+        @await Html.PartialAsync("~/Views/Shared/_Header.cshtml")
         <h1 id="main-label">Themes</h1>
         <ul class="items">
-            <li>
+            <li style="text-align:@isCentered;">
                 <form
                       method="get"
                       asp-action="ThemePreview"
-                      asp-controller="ThemeSettings"
+                      asp-controller="Theme"
                       asp-area="settings">
                     <button class="add-button" type="submit">
                         <span>
@@ -51,35 +72,32 @@
                 var iconClass = theme.IsSelected ? "bi bi-check2-circle" : "bi bi-circle";
                 <li>
                     <div class="item">
-                        <div class="item-title" style="font-size: @selectedTheme.FontSize; 
-                                                       font-family: @selectedTheme.Font;
-                                                       color: @selectedTheme.ForeColor">
+                        <div class="item-title">
                             @Html.DisplayName(theme.Title)
                         </div>
-                    <div class="item-actions">
+                        <div class="item-actions">
                             <button
                                 type="button"
                                 class="select-button action-button @isSelectedClass"
-                                data-url="@Url.Action("SelectTheme", "ThemeSettings", theme)">
+                                data-url="@Url.Action(theme.IsSelected ? "Deselect" : "Select", "Theme", theme)">
                                 <i id="select-icon" class="@iconClass"></i>
                             </button>
                             <button
                                 type="button"
                                 class="edit-button action-button"
-                                data-url="@Url.Action("Theme", "ThemeSettings", new { themeId = @theme.Id })">
+                                data-url="@Url.Action("Theme", "Theme", theme)">
                                 <i id="edit-icon" class="bi bi-pen"></i>
                             </button>
-                        @{
-                           if (theme.IsSelected == false){
-                                 <button id="delete-button"
+                            @if (theme.IsSelected == false)
+                            {
+                                <button id="delete-button"
                                     type="button"
                                     class="action-button"
                                     data-toggle="ajax-modal" data-target="deleteModalCenter"
-                                    data-url="@Url.Action("DeletePopup", "ThemeSettings", theme)">
-                                <i id="trash-icon" class="bi bi-trash"></i>
-                            </button>
+                                    data-url="@Url.Action("DeletePopup", "Theme", theme)">
+                                    <i id="trash-icon" class="bi bi-trash"></i>
+                                </button>
                            }
-                        }
                         </div>
                     </div>
                 </li>

@@ -8,7 +8,7 @@ namespace ScheduleLNU.BusinessLogic.Extensions.ServicesExtension
     {
         public static IServiceCollection AddSettingServices(this IServiceCollection services)
         {
-            return services.AddScoped<IThemeStyleService, ThemeStyleService>()
+            return services.AddScoped<IThemeService, ThemeService>()
                            .AddScoped<IEventStyleService, EventStyleService>()
                            .AddScoped<IAuthService, AuthService>();
         }

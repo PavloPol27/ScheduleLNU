@@ -35,5 +35,15 @@ namespace ScheduleLNU.BusinessLogic.Services
         {
             await httpContextAccessor.HttpContext.SignInAsync(claimsCookie);
         }
+
+        public void SetSessionData(params (object, object)[] data)
+        {
+            httpContextAccessor.HttpContext.SetSessionData(data);
+        }
+
+        public string GetSessionData(string key)
+        {
+            return httpContextAccessor.HttpContext.GetSessionData(key);
+        }
     }
 }

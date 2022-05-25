@@ -1,4 +1,6 @@
-﻿@model ScheduleLNU.DataAccess.Entities.Theme;
+﻿@using ScheduleLNU.BusinessLogic.Constants
+@using ScheduleLNU.BusinessLogic.Extensions
+@model ScheduleLNU.DataAccess.Entities.Theme;
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
@@ -16,6 +18,20 @@
     <link type="text/css" rel="stylesheet" href="~/css/schedules/view.css" />
 </head>
 
+<style>
+    body
+    {
+        background-color: @Context.BackColor();
+    }
+
+    label
+    {
+        color: @Context.ForeColor();
+        font-family: @Context.FontFamily();
+        font-size: @Context.FontSize();
+    }
+</style>
+
 <body>
     <div class="my-container">
         @await Html.PartialAsync("~/Views/Shared/_Header.cshtml")
@@ -31,11 +47,12 @@
                 <label for="font">Font</label>
                 <input type="text" name="Font" value="@Model.Font"><br />
                 <label for="font">Font size</label>
-                <input type="number" name="FontSize" value="@Model.FontSize"><br />
-                <button class="btn btn-info" asp-action="AddTheme" 
+                <input type="text" name="FontSize" value="@Model.FontSize"><br />
+                <button class="btn btn-info" 
+                        asp-action="Add" 
                         asp-area="settings" 
-                        asp-controller="ThemeSettings"  
-                        type="submit">Save</button>
+                        asp-controller="Theme"  
+                        type="submit">Add</button>
             </form>
         </div>
     </div>

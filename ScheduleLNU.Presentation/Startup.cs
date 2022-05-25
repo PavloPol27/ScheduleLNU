@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -30,6 +31,8 @@ namespace ScheduleLNU.Presentation
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<ICookieService, CookieService>();
+            services.AddScoped<IEventService, EventService>();
+            services.AddScoped(typeof(ILoggingService<>), typeof(LogginService<>));
             services.AddSettingServices();
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddHttpClient();
@@ -41,6 +44,10 @@ namespace ScheduleLNU.Presentation
             services.AddCookies();
             services.Configure<PasswordHasherOptions>(options =>
                         options.CompatibilityMode = PasswordHasherCompatibilityMode.IdentityV2);
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(120);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +60,8 @@ namespace ScheduleLNU.Presentation
             app.UseExceptionHandling(Log.Logger);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

@@ -1,7 +1,13 @@
-﻿@model IEnumerable<ScheduleLNU.BusinessLogic.DTOs.ScheduleDto>
+﻿@using Microsoft.AspNetCore.Http
+@using ScheduleLNU.BusinessLogic.Constants
+@using ScheduleLNU.BusinessLogic.Extensions
+@model IEnumerable<ScheduleLNU.BusinessLogic.DTOs.ScheduleDto>
 
 <!DOCTYPE html>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var isCentered = @Model.Any() == false ? "center" : "left";
+}
 <html lang="en">
 <head>
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
@@ -18,13 +24,37 @@
     <link type="text/css" rel="stylesheet" href="~/css/schedules/view.css" />
 </head>
 
+<style>
+    body
+    {
+      background-color: @Context.BackColor();
+    }
+
+    .item-title 
+    {
+        font-size: @Context.FontSize(); 
+        font-family: @Context.FontFamily();
+        color: @Context.ForeColor();
+    }
+
+    .add-button
+    {
+        color: @Context.ForeColor();
+    }
+
+    .items
+    {
+        justify-content:center;
+    }
+</style>
+
 <body>
 <div id="placeholderElement" style="position:absolute"></div>
 <div class="my-container">
     @await Html.PartialAsync("~/Views/Shared/_Header.cshtml")
     <h1 id="main-label">Schedules</h1>
     <ul class="items">
-        <li>
+        <li style="text-align: @isCentered">
             <form>
                 <button type="button" id="add-button"
                         class="add-button"
@@ -46,13 +76,20 @@
                     </div>
                     <div class="item-actions">
                         <form>
+                            <button type="submit" 
+                                    class="go-to-schedule-button action-button"
+                                    asp-action="Events"
+                                    asp-controller="Event"
+                                    asp-route-scheduleId="@item.Id">
+                                <i id="go-to-icon" class="bi bi-arrow-right-circle"></i>
+                            </button>
+
                             <button type="button"
                                     class="edit-button action-button"
                                     data-toggle="ajax-modal" data-target="editModalCenter"
                                     data-url="@Url.Action("EditPopup", "Schedules", item)">
                                 <i id="edit-icon" class="bi bi-pen"></i>
                             </button>
-
 
                             <button type="button" id="delete-button"
                                     class="action-button"

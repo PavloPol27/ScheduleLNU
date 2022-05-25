@@ -12,5 +12,9 @@ namespace ScheduleLNU.BusinessLogic.Services.Interfaces
         public Task LogOut();
 
         public string GetStudentId();
+
+        public void SetSessionData(params (object, object)[] data);
+
+        public string GetSessionData(string key);
     }
 }
