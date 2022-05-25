@@ -1,4 +1,5 @@
-﻿@model ScheduleLNU.BusinessLogic.DTOs.EventStyleDto
+﻿@using ScheduleLNU.BusinessLogic.Extensions
+@model ScheduleLNU.BusinessLogic.DTOs.EventStyleDto
 <!DOCTYPE html>
 <form method="post" a></form>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -18,6 +19,20 @@
     <link type="text/css" rel="stylesheet" href="~/css/base.css" />
     <link type="text/css" rel="stylesheet" href="~/css/event_styles.css" />
 </head>
+<style>
+    body
+    {
+        background-color: @Context.BackColor();
+    }
+
+    label
+    {
+        color: @Context.ForeColor();
+        font-family: @Context.FontFamily();
+        font-size: @Context.FontSize();
+    }
+</style>
+
 <body>
     <div id="placeholderElement" style="position:absolute"></div>
     <div class="my-container">

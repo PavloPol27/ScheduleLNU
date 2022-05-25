@@ -177,3 +177,15 @@ h1 {
 .modal-open {
     overflow: inherit;
 }
+
+.go-to-schedule-button {
+    color: mediumpurple;
+    border: 1px solid mediumpurple;
+    margin-right: 20px;
+    margin-left: 28px;
+}
+
+.go-to-schedule-button:hover {
+    background-color: mediumpurple;
+    color:white;
+}

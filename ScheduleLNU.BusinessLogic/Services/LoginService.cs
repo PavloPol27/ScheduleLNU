@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using ScheduleLNU.BusinessLogic.Constants;
 using ScheduleLNU.BusinessLogic.DTOs;
 using ScheduleLNU.BusinessLogic.Services.Interfaces;
 using ScheduleLNU.DataAccess.Entities;
@@ -31,6 +32,22 @@ namespace ScheduleLNU.BusinessLogic.Services
             if (loginSuccessful)
             {
                 await cookieService.SetCookies(("studentId", user.Id));
+                if (user.SelectedTheme is null)
+                {
+                    cookieService.SetSessionData(
+                        (ThemeConstants.FontSizeKey, ThemeConstants.DefaultTheme.FontSize),
+                        (ThemeConstants.FontFamilyKey, ThemeConstants.DefaultTheme.Font),
+                        (ThemeConstants.BackColorKey, ThemeConstants.DefaultTheme.BackColor),
+                        (ThemeConstants.ForeColorKey, ThemeConstants.DefaultTheme.ForeColor));
+                }
+                else
+                {
+                    cookieService.SetSessionData(
+                      (ThemeConstants.FontSizeKey, user.SelectedTheme.FontSize),
+                      (ThemeConstants.FontFamilyKey, user.SelectedTheme.Font),
+                      (ThemeConstants.BackColorKey, user.SelectedTheme.BackColor),
+                      (ThemeConstants.ForeColorKey, user.SelectedTheme.ForeColor));
+                }
             }
 
             return loginSuccessful;
